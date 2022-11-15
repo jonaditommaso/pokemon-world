@@ -1,0 +1,40 @@
+.pokemonFile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.pokemonFile__info {
+    text-align: center;
+}
+
+.pokemonFile__title {
+    display: flex;
+    justify-content: center;
+}
+
+.searchPokemon__card {
+    width: 18rem;
+}
+
+@media (max-width: 415px) {
+    .searchPokemon__card {
+        width: 18rem;
+        height: 23.5rem;
+    }
+
+    .searchPokemon__img {
+        width: 10rem;
+        height: 10rem;
+        margin-left: 63px;
+        margin-top: 10px;
+    }
+
+    .pokemonFile__title {
+        font-size: medium;
+    }
+
+    .searchPokemon__pokemon {
+        margin: auto;
+    }
+}
