@@ -48,9 +48,9 @@ const SideDropdown = ({user}: any) => {
             if(go === 'search') {
                 router.push('/search');
             }
-    //         else if(go === 'all') {
-    //             history.push('/all');
-    //         }
+            else if(go === 'all') {
+                router.push('/pokemons');
+            }
     //         else if(go === 'ranking') {
     //             history.push('/ranking');
     //         }
@@ -66,9 +66,9 @@ const SideDropdown = ({user}: any) => {
             <DropdownButton title="POKEDEX " className="sideDropdown__item">
                 <Dropdown.Item onClick={() => warning('search')}>Search Pokemon</Dropdown.Item>
                 <Dropdown.Divider />
-                {/* <Dropdown.Item onClick={() => warning('all')}>See all Pokemons</Dropdown.Item>
+                <Dropdown.Item onClick={() => warning('all')}>See all Pokemons</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item onClick={() => warning('ranking')}>Ranking Pokemons</Dropdown.Item> */}
+                {/* <Dropdown.Item onClick={() => warning('ranking')}>Ranking Pokemons</Dropdown.Item> */}
             </DropdownButton>
         </div>
     );

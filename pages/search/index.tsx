@@ -18,30 +18,9 @@ import Image from 'next/image';
 // import CardPokemonFile from '../../utils/CardPokemonFile';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png'
 import PokemonService from '../../helpers/PokemonHelper';
+import { PokemonData } from '../../interfaces/PokemonData';
 
 const MySwal = withReactContent(Swal);
-
-interface NameUrlStructure {
-    name: string,
-    url: string,
-}
-interface TypeObject {
-    slot: number,
-    type: NameUrlStructure,
-}
-interface PokemonData {
-    id: number,
-    sprites: {
-        other: {
-            'official-artwork': {
-                front_default: string
-            }
-        }
-    },
-    types: [TypeObject],
-    name: string,
-    species: NameUrlStructure
-}
 
 const SearchPokemon = ({ thereIsUser }: any) => {
 

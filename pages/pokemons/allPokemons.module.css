@@ -1,0 +1,53 @@
+.showAllPokemons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgba(234, 237, 237, 0.5);
+    margin: auto 5px ;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.showAllPokemons__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+}
+
+.showAllPokemons__buttons > button {
+    margin: 5px;
+    height: fit-content;
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+}
+
+.loading  {
+    display: inline;
+    height: 65px;
+    width: 70px;
+    justify-content: center;
+    margin: auto;
+    margin-top: 15%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .loading {
+      animation: pokeball infinite 2s linear;
+    }
+}
+
+@keyframes pokeball {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}
