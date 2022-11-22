@@ -6,6 +6,7 @@ import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import styles from './card.module.css';
 import { colorsByType } from '../../../utils/colorsByType';
 import VolumeFill from '../../../utils/svg/VolumeFill';
+import Review from '../../../utils/Review';
 // import VolumeFill from './svg/VolumeFill';
 
 //pokemonData.sprites?.other['official-artwork']?.front_default
@@ -19,11 +20,12 @@ interface PokemonData {
     evolve?: string,
     hasEvolution?: string,
     viewEvolution?: any,
+    review?: number,
 }
 
 const CardPokemonFile = ({
     pokemonImage,
-    // review,
+    review,
     hasEvolution,
     viewEvolution,
     pokemonName,
@@ -44,14 +46,14 @@ const CardPokemonFile = ({
             <Card className={styles.searchPokemon__card}>
                 <div className={styles.searchPokemon__pokemon}>
 
-                    {/* {review >=0
+                    {review && review >=0
                     ?   <ListGroup className="list-group-flush pokemonFile__info">
                             <ListGroupItem>
                                 <Review review={review} readOnly/>
                             </ListGroupItem>
                         </ListGroup>
                     : null
-                    } */}
+                    }
 
                     <Card.Img
                         className={styles.searchPokemon__img}

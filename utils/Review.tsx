@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Star from './svg/Star';
+import styles from '../styles/review.module.css'
+import { useActions } from '../hooks/useActions';
+import { addPokeToRanking, changeReview } from '../redux/action-creators';
 // import { addPokeToRanking, changeReview } from '../redux/actions';
-import '../styles/review.css';
-import Star from './svg/Star'
+// import '../styles/review.css';
+// import Star from './svg/Star'
 
-const Review = ({ review, pokemon, addPokeToRanking, getReview, ranking, checkRank, changeReview, readOnly }: any) => {
+const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: any) => {
 
+    const { addPokeToRanking, changeReview } = useActions()
     useEffect(() => {
     }, [ranking])
 
@@ -29,7 +34,7 @@ const Review = ({ review, pokemon, addPokeToRanking, getReview, ranking, checkRa
         {review === 0 && <i style={{display: 'inline-flex'}}>Without review</i>}
         <div>
             {Array(5).fill().map((_, i) => (
-                <div key={i} className="review" onClick={() => giveDataPokemonClicked(i)} id={!readOnly ? 'change' : ''}>
+                <div key={i} className={styles.review} onClick={() => giveDataPokemonClicked(i)} id={styles[`${!readOnly ? 'change' : ''}`]}>
                     {i < review
                     ? <Star fill="#FFD19A" />
                     : <Star fill="#E9DBCB" />
@@ -46,4 +51,4 @@ const mapStateToProps = (state: any) => {
     return { ranking: state.ranking.pokemonRanked }
 }
 
-export default connect(mapStateToProps, )(Review); //{ addPokeToRanking, changeReview }
+export default connect(mapStateToProps, { addPokeToRanking, changeReview })(Review);

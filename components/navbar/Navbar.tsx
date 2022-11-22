@@ -32,11 +32,11 @@ const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false
 
 
     useEffect(() => {
-        // if(thereIsUser && !showSideDropDown) {
-            //     setTimeout(() => {
-                //         setShowSideDropDown(true);
-                //     }, 1000);
-                // }
+        if(thereIsUser && !showSideDropDown) {
+                setTimeout(() => {
+                        setShowSideDropDown(true);
+                    }, 1000);
+                }
 
                 // if(music.other === true) {
                     //     audio.pause();
@@ -46,12 +46,11 @@ const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false
             audio.play();
         }
 
-    }, [ showSideDropDown, music]);
+    }, [showSideDropDown, music, thereIsUser]);
 
     const showMenu = () => {
         return (
-            // thereIsUser && showSideDropDown &&
-            <SideDropdown />
+            thereIsUser && showSideDropDown && <SideDropdown />
         )
     }
 

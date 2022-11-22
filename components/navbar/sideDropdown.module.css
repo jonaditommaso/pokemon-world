@@ -1,0 +1,38 @@
+.sideDropdown {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sideDropdown__userName {
+    background-color: #007bff;
+    color: white;
+    padding: 6px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.sideDropdown__userName > img {
+    margin: 2px;
+}
+
+.sideDropdown__item {
+    display: inline-flex;
+}
+
+@media (max-width: 374px) {
+    .sideDropdown__userName {
+        padding: 2.5px;
+        margin-right: 2px;
+        margin-top: 5px;
+    }
+
+    .sideDropdown {
+        height: 30px;
+        align-items: center;
+        margin: auto;
+    }
+
+    .sideDropdown > :last-child {
+        margin-top: 5px;
+    }
+}

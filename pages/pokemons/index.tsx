@@ -10,14 +10,16 @@ import styles from './allPokemons.module.css'
 import Image from 'next/image';
 import pokeball from '../../public/assets/img/pokeball.png'
 import FilterButton from '../../components/pokemon/FilterPokemonButton';
+import Alert from '../../utils/Alert';
 // import Alert from '../log/Alert';
 interface AllPokemonsView {
-    thereIsUser: string
+    thereIsUser: string,
+    ranking: any
 }
 
 const ShowAllPokemons = ({
     thereIsUser,
-    // ranking
+    ranking
 }: AllPokemonsView) => {
 
     const [loading, setLoading] = useState(true);
@@ -27,8 +29,6 @@ const ShowAllPokemons = ({
     const [optionSelected, setOptionSelected] = useState(false);
     const [showAllPokemons, setShowAllPokemons] = useState(false);
     const router = useRouter()
-
-    console.log('el usuario', thereIsUser)
 
     useEffect(() => {
         const getAllPokemons = async () => {
@@ -120,9 +120,9 @@ const ShowAllPokemons = ({
     return (
 
         <>
-            {/* {!thereIsUser
-                ? <Alert />
-                : ( */}
+            {!thereIsUser
+                ? <Alert text='asas' />
+                : (
                     <div>
                         { loading
                             ? <div className={styles.loading} style={{display: 'flex', justifyContent: 'center'}}>
@@ -143,8 +143,8 @@ const ShowAllPokemons = ({
                             )
                         }
                     </div>
-                {/* )
-            } */}
+                )
+            }
         </>
     );
 }
@@ -152,7 +152,7 @@ const ShowAllPokemons = ({
 const mapStateToProps = (state: any) => {
     return {
         thereIsUser: state.login.user,
-        // ranking: state.ranking
+        ranking: state.ranking
     }
 }
 

@@ -8,6 +8,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 // import { noBattle, musicBattlePause } from '../../redux/actions';
 //{user, battle, noBattle, musicBattlePause}
+import styles from './sideDropdown.module.css'
+
 const SideDropdown = ({user}: any) => {
     const router = useRouter()
 
@@ -51,24 +53,24 @@ const SideDropdown = ({user}: any) => {
             else if(go === 'all') {
                 router.push('/pokemons');
             }
-    //         else if(go === 'ranking') {
-    //             history.push('/ranking');
-    //         }
+            else if(go === 'ranking') {
+                router.push('/ranking');
+            }
     //     }
     }
 
 
     return (
-        <div className="sideDropdown">
-            <div className="sideDropdown__userName">{`Catch them, ${user}!`}
+        <div className={styles.sideDropdown}>
+            <div className={styles.sideDropdown__userName}>{`Catch them, ${user}!`}
                 <Image src={pokeball} alt="pokeball" width={20}/>
             </div>
-            <DropdownButton title="POKEDEX " className="sideDropdown__item">
+            <DropdownButton title="POKEDEX " className={styles.sideDropdown__item}>
                 <Dropdown.Item onClick={() => warning('search')}>Search Pokemon</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={() => warning('all')}>See all Pokemons</Dropdown.Item>
                 <Dropdown.Divider />
-                {/* <Dropdown.Item onClick={() => warning('ranking')}>Ranking Pokemons</Dropdown.Item> */}
+                <Dropdown.Item onClick={() => warning('ranking')}>Ranking Pokemons</Dropdown.Item>
             </DropdownButton>
         </div>
     );

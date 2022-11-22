@@ -7,6 +7,10 @@ export enum ActionType {
     // PAUSE_MUSIC_BATTLE = 'PAUSE_MUSIC_BATTLE',
     SIGN_IN = 'SIGN_IN',
     SIGN_OUT = 'SIGN_OUT',
+
+    ADD_POKEMON_RANKING = 'ADD_POKEMON_RANKING',
+    REMOVE_POKEMON_RANKING = 'REMOVE_POKEMON_RANKING',
+    CHANGE_REVIEW = 'CHANGE_REVIEW',
 }
 
 // export const PLAY_MUSIC = 'PLAY_MUSIC';
@@ -18,7 +22,3 @@ export enum ActionType {
 
 // export const THERE_IS_BATTLE = 'THERE_IS_BATTLE';
 // export const NO_BATTLE = 'NO_BATTLE';
-
-// export const ADD_POKEMON_RANKING = 'ADD_POKEMON_RANKING';
-// export const REMOVE_POKEMON_RANKING = 'REMOVE_POKEMON_RANKING';
-// export const CHANGE_REVIEW = 'CHANGE_REVIEW';

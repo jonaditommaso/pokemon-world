@@ -34,3 +34,26 @@ export const signOut = () => {
         })
     }
 }
+
+
+
+export const addPokeToRanking = (pokemon:any, type:any, ranking:any) => {
+    return {
+        type: ActionType.ADD_POKEMON_RANKING,
+        payload: {pokemon, type, ranking}
+    }
+}
+
+export const removePokemonRanking = (pokemon: any) => {
+    return {
+        type: ActionType.REMOVE_POKEMON_RANKING,
+        payload: pokemon
+    }
+}
+
+export const changeReview = (pokemon:any, type:any, ranking:any) => {
+    return {
+        type: ActionType.CHANGE_REVIEW,
+        payload: {pokemon, type, ranking}
+    }
+}

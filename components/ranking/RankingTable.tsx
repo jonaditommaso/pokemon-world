@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 // import '../../styles/rankingTable.css';
 import { connect } from 'react-redux';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import Review from '../../utils/Review';
 
 const RankingTable = ({ ranking }: any) => {
 
@@ -34,12 +35,12 @@ const RankingTable = ({ ranking }: any) => {
                 </thead>
                 {pokemonRanking ?
                      <tbody >
-                    {/* {pokemonRanking?.map((poke, i) => (
+                    {pokemonRanking?.map((poke, i): any => (
                         <tr key={i}>
                             <td>{poke?.pokemon?.charAt(0).toUpperCase() + poke?.pokemon?.slice(1)}</td>
                             <td><Review review={poke?.ranking} readOnly /></td>
                         </tr>
-                    ))} */}
+                    ))}
                     </tbody>
                     : null
                 }

@@ -6,28 +6,32 @@ import styles from './eachPoke.module.css'
 // import { colorsByType } from '../../utils/colorsByType';
 // import Review from '../../utils/Review';
 import { MdOutlineCancel } from 'react-icons/md';
-// import { removePokemonRanking } from '../../redux/actions';
+import Review from '../../../utils/Review';
+import { colorsByType } from '../../../utils/colorsByType';
+import { useActions } from '../../../hooks/useActions';
+import { removePokemonRanking } from '../../../redux/action-creators';
 
 const EachPoke = ({
     pokemon,
-    // removePokemonRanking,
-    // ranking
+    ranking
 }: any) => {
 
-    // const initial_state = ranking.find(poke => poke.pokemon === pokemon.name)
-    // const [review, setReview] = useState(initial_state ? initial_state.ranking : 0);
+    const { removePokemonRanking } = useActions();
 
-    // const checkingRank = ranking.map(poke => poke.pokemon);
+    const initial_state = ranking.find((poke: any) => poke.pokemon === pokemon.name)
+    const [review, setReview] = useState(initial_state ? initial_state.ranking : 0);
 
-    // useEffect(() => {
-    //     if(!checkingRank.includes(pokemon.name)) {
-    //         setReview(0);
-    //     }
-    // }, [ranking]);
+    const checkingRank = ranking.map((poke: any) => poke.pokemon);
 
-    // const deletePokemonRanking = () => {
-    //     removePokemonRanking(pokemon.name);
-    // }
+    useEffect(() => {
+        if(!checkingRank.includes(pokemon.name)) {
+            setReview(0);
+        }
+    }, [ranking]);
+
+    const deletePokemonRanking = () => {
+        removePokemonRanking(pokemon.name);
+    }
 
     if(!pokemon?.sprites?.other?.dream_world?.front_default) return;
 
@@ -53,26 +57,31 @@ const EachPoke = ({
 
 
             <div className={styles.eachPoke__description}>
-                {/* <div className={styles.eachPoke__types}>
-                    {pokemon.types.map((type, i) => (
+                <div className={styles.eachPoke__types}>
+                    {pokemon.types.map((type: any, i: number) => (
                         <div
                             key={i}
                             className={styles.eachPoke__type}
-                            style={{backgroundColor: colorsByType[type.type.name]}}
+                            style={{backgroundColor: colorsByType[type.type.name as keyof typeof colorsByType]}}
                         >
                             {type.type.name}
                         </div>
                     ))}
-                </div> */}
+                </div>
 
-                    {/* {review > 0 &&
+                    {review > 0 &&
                         <MdOutlineCancel
                             color="red"
                             style={{cursor: 'pointer'}}
                             onClick={deletePokemonRanking}
                         />
-                    } */}
-                    {/* <Review review={review} pokemon={pokemon} getReview={setReview} checkRank={checkingRank} /> */}
+                    }
+                    <Review
+                      review={review}
+                      pokemon={pokemon}
+                      getReview={setReview}
+                      checkRank={checkingRank}
+                    />
 
                 <p className={styles.eachPoke__abilities}>
                     Weight: <span style={{color: '#d98218'}}>{pokemon.weight}</span>
@@ -94,9 +103,8 @@ const EachPoke = ({
     );
 }
 
-// const mapStateToProps = (state) => ({
-//     ranking: state.ranking.pokemonRanked
-// })
-export default EachPoke
+const mapStateToProps = (state: any) => ({
+    ranking: state.ranking.pokemonRanked
+})
 
-// export default connect(mapStateToProps, { removePokemonRanking })(EachPoke);
+export default connect(mapStateToProps, { removePokemonRanking })(EachPoke); //

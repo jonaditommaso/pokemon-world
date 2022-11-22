@@ -1,0 +1,9 @@
+.review {
+    display: inline-flex;
+    margin: 2px;
+    padding: 0;
+}
+
+#change {
+    cursor: pointer;
+}
