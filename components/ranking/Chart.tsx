@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
 // import '../../styles/chart.css';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import styles from './ranking.module.css'
 
 const Chart = ({ ranking }: any) => {
 
@@ -87,7 +88,7 @@ const Chart = ({ ranking }: any) => {
 
 
   return (
-    <div className="chartRanking">
+    <div className={styles.chartRanking}>
         { dataAvailable === false
           ? <div>No data available to display <RiErrorWarningLine color="red" /></div>
           : <Bar data={data} options={options} />

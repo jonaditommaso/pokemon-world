@@ -9,44 +9,47 @@ import { useRouter } from 'next/router'
 // import { noBattle, musicBattlePause } from '../../redux/actions';
 //{user, battle, noBattle, musicBattlePause}
 import styles from './sideDropdown.module.css'
+import { useActions } from '../../hooks/useActions';
+import { noBattle, musicBattlePause } from '../../redux/action-creators'
 
-const SideDropdown = ({user}: any) => {
-    const router = useRouter()
+const SideDropdown = ({user, battle}: any) => {
+    const router = useRouter();
+    const { noBattle, musicBattlePause } = useActions()
 
-    // useEffect(() => {
-    // }, [battle])
+    useEffect(() => {
+    }, [battle])
 
     const warning = (go: string) => {
-    //     if(battle.pokemon === true) {
-    //         Swal.fire({
-    //             icon: 'warning',
-    //             text: 'Are you sure you want to abandon the battle?',
-    //             showConfirmButton: true,
-    //             confirmButtonText: "Ok",
-    //             confirmButtonColor: '#2754d5',
-    //             showCancelButton: true,
-    //             cancelButtonText: 'Cancel',
-    //             backdrop: true
-    //         })
-    //             .then((result) => {
-    //                 if ((result.value) && (go === 'search')) {
-    //                     noBattle();
-    //                     history.push('/search');
-    //                     musicBattlePause();
-    //                 }
-    //                 if ((result.value) && (go === 'all')) {
-    //                     noBattle();
-    //                     history.push('/all');
-    //                     musicBattlePause();
-    //                 }
-    //                 if ((result.value) && (go === 'ranking')) {
-    //                     noBattle();
-    //                     history.push('/ranking');
-    //                     musicBattlePause();
-    //                 }
-    //             });
-    //     }
-    //     else {
+        if(battle.pokemon === true) {
+            Swal.fire({
+                icon: 'warning',
+                text: 'Are you sure you want to abandon the battle?',
+                showConfirmButton: true,
+                confirmButtonText: "Ok",
+                confirmButtonColor: '#2754d5',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                backdrop: true
+            })
+                .then((result) => {
+                    if ((result.value) && (go === 'search')) {
+                        noBattle(false);
+                        router.push('/search');
+                        musicBattlePause();
+                    }
+                    if ((result.value) && (go === 'all')) {
+                        noBattle(false);
+                        router.push('/all');
+                        musicBattlePause();
+                    }
+                    if ((result.value) && (go === 'ranking')) {
+                        noBattle(false);
+                        router.push('/ranking');
+                        musicBattlePause();
+                    }
+                });
+        }
+        else {
             if(go === 'search') {
                 router.push('/search');
             }
@@ -56,7 +59,7 @@ const SideDropdown = ({user}: any) => {
             else if(go === 'ranking') {
                 router.push('/ranking');
             }
-    //     }
+        }
     }
 
 
@@ -79,8 +82,8 @@ const SideDropdown = ({user}: any) => {
 const mapStateToProps = (state: any) => {
     return {
         user: state.login.user,
-        // battle: state.battle
+        battle: state.battle
     }
 }
 
-export default connect(mapStateToProps, null)(SideDropdown);
+export default connect(mapStateToProps, { noBattle, musicBattlePause })(SideDropdown);

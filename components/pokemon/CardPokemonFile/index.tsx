@@ -37,8 +37,6 @@ const CardPokemonFile = ({
 
 }: PokemonData) => {
 
-    // useEffect(() => {
-    // }, [pokemonData])
 
     return (
         <div className={styles.pokemonFile}>
@@ -47,7 +45,7 @@ const CardPokemonFile = ({
                 <div className={styles.searchPokemon__pokemon}>
 
                     {review && review >=0
-                    ?   <ListGroup className="list-group-flush pokemonFile__info">
+                    ?   <ListGroup className={styles.pokemonFile__info}>
                             <ListGroupItem>
                                 <Review review={review} readOnly/>
                             </ListGroupItem>

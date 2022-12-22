@@ -10,6 +10,14 @@ interface PlayAction {
     // payload: boolean
 }
 
+interface PlayBattleAction {
+    type: ActionType.PLAY_MUSIC_BATTLE,
+}
+
+interface PauseBattleAction {
+    type: ActionType.PAUSE_MUSIC_BATTLE,
+}
+
 interface SignIn {
     type: ActionType.SIGN_IN,
     payload: any
@@ -34,7 +42,34 @@ interface ChangeReview {
     payload: any
 }
 
-export type Action = PauseAction | PlayAction | SignIn | SignOut | AddToRanking | RemoveToRanking | ChangeReview
+interface Fighter {
+    type: ActionType.I_CHOOSE_YOU,
+    payload: any
+}
+
+interface BattleAction {
+    type: ActionType.THERE_IS_BATTLE,
+    payload: boolean
+}
+
+interface NoBattleAction {
+    type: ActionType.NO_BATTLE,
+    payload: boolean
+}
+
+export type Action =
+    PauseAction
+    | PlayAction
+    | SignIn
+    | SignOut
+    | AddToRanking
+    | RemoveToRanking
+    | ChangeReview
+    | Fighter
+    | PlayBattleAction
+    | PauseBattleAction
+    | BattleAction
+    | NoBattleAction
 
 // interface MusicAction {
 //     type: ActionType.PAUSE_MUSIC

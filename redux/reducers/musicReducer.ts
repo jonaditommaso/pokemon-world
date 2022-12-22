@@ -17,11 +17,11 @@ export const musicReducer = (state: MusicState = INITIAL_STATE, action: Action):
         case ActionType.PAUSE_MUSIC:
             return {...state, volume: false};
 
-        // case PLAY_MUSIC_BATTLE:
-        //     return {...state, other: true };
+        case ActionType.PLAY_MUSIC_BATTLE:
+            return {...state, other: true };
 
-        // case PAUSE_MUSIC_BATTLE:
-        //     return {...state, other: false };
+        case ActionType.PAUSE_MUSIC_BATTLE:
+            return {...state, other: false };
 
         default:
             return state;

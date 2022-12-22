@@ -19,10 +19,14 @@ import Image from 'next/image';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png'
 import PokemonService from '../../helpers/PokemonHelper';
 import { PokemonData } from '../../interfaces/PokemonData';
+import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
+import { useActions } from '../../hooks/useActions';
 
 const MySwal = withReactContent(Swal);
 
-const SearchPokemon = ({ thereIsUser }: any) => {
+const SearchPokemon = ({ thereIsUser, ranking }: any) => {
+
+    const { chooseYou, pauseMusic, playMusic } = useActions();
 
     const [pokemonSearched, setPokemonSearched] = useState('');
     const [pokemonData, setPokemonData] = useState <PokemonData | undefined> ();
@@ -41,18 +45,17 @@ const SearchPokemon = ({ thereIsUser }: any) => {
 
     const router = useRouter()
 
-    // const initial_state_to_review = ranking.find(poke => poke.pokemon === pokemonData?.name);
-    // const review = initial_state_to_review ? initial_state_to_review.ranking : 0;
+    const initial_state_to_review = ranking.find((poke: any) => poke.pokemon === pokemonData?.name);
+    const review = initial_state_to_review ? initial_state_to_review.ranking : 0;
 
     useEffect(() => {
         const getPokemon = async () => {
+            setChainUrlEvolutions('')
             pokeapi.get(`/pokemon/${pokemonSearched}`).then(response => {
                 setShowError(false);
                 const {data} = response;
                 setPokemonData(data);
-                console.log(data)
                 if (data) {
-                    console.log(data)
                     setPokemonType(data.types[0].type.name);
                     setPokemonMove(data.moves[4].move.name);
                 }
@@ -74,9 +77,9 @@ const SearchPokemon = ({ thereIsUser }: any) => {
     }, [pokemonSearched]);
 
 
-    // useEffect(() => {
-    //     setNotPrevious(false);
-    // }, [pokemonSearched]);
+    useEffect(() => {
+        setNotPrevious(false);
+    }, [pokemonSearched]);
 
 
     useEffect(() => {
@@ -88,7 +91,7 @@ const SearchPokemon = ({ thereIsUser }: any) => {
         if(pokemonData) {
             getEvolutionChainUrl();
         }
-    }, [pokemonData]);
+    }, [pokemonData, pokemonSearched]);
 
 
     useEffect(() => {
@@ -101,7 +104,7 @@ const SearchPokemon = ({ thereIsUser }: any) => {
         if(chainUrlEvolutions) {
             getChain();
         }
-    }, [pokemonData]);
+    }, [pokemonData, chainUrlEvolutions]);
 
     const POKEMON = pokemonData && pokemonData?.name.charAt(0).toUpperCase() + pokemonData?.name?.slice(1);
     const DESCRIPTION = `${POKEMON} is a ${pokemonType} type pokemon and his favorite move is ${pokemonMove}`;
@@ -144,7 +147,7 @@ const SearchPokemon = ({ thereIsUser }: any) => {
         }
         getEvolutionData()
 
-    }, [pokemonData]);
+    }, [pokemonData, CANT_EVOLVE, CAN_EVOLVE, firstEvolution, secondEvolution, thirdEvolution, pokemonSearched]);
 
 
     const handleClick = (text: string) => {
@@ -153,24 +156,24 @@ const SearchPokemon = ({ thereIsUser }: any) => {
         const listenDescription = () => {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
-            // if(music) {
-            //     utterance.onend = () => {
-            //         audio.play();
-            //         playMusic();
-            //     }
-            // }
-            // audio.pause();
-            // pauseMusic();
+            if(music) {
+                utterance.onend = () => {
+                    audio.play();
+                    playMusic();
+                }
+            }
+            audio.pause();
+            pauseMusic();
 
             speechSynthesis.speak(utterance);
         }
         listenDescription();
     }
 
-    // const iChooseYouButton = () => {
-    //     chooseYou(pokemonData);
-    //     router.push('/fight');
-    // }
+    const iChooseYouButton = () => {
+        chooseYou(pokemonData);
+        router.push('/fight');
+    }
 
     const prevPokemon = async () => {
         if(!pokemonData) return;
@@ -232,7 +235,7 @@ const SearchPokemon = ({ thereIsUser }: any) => {
                         </Button>
                         <Button
                             style={{width: '10rem', marginBottom: '2%'}}
-                            // onClick={iChooseYouButton}
+                            onClick={iChooseYouButton}
                         >
                             I choose you!
                         </Button>
@@ -246,7 +249,7 @@ const SearchPokemon = ({ thereIsUser }: any) => {
                     </div>
 
                     <CardPokemonFile
-                        // review={review}
+                        review={review}
                         hasEvolution={hasEvolution}
                         pokemonName={POKEMON ?? ''}
                         pokemonDescription={DESCRIPTION}
@@ -311,10 +314,10 @@ const SearchPokemon = ({ thereIsUser }: any) => {
 const mapStateToProps = (state: any) => {
     return {
         thereIsUser: state.login.user,
-        // music: state.music.volume,
-        // fight: state.fight.pokemon,
-        // ranking: state.ranking.pokemonRanked
+        music: state.music.volume,
+        fight: state.fight.pokemon,
+        ranking: state.ranking.pokemonRanked,
     }
 }
 
-export default connect(mapStateToProps, null)(SearchPokemon);
+export default connect(mapStateToProps, { chooseYou, pauseMusic, playMusic })(SearchPokemon);

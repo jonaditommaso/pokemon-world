@@ -33,15 +33,17 @@ const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false
 
     useEffect(() => {
         if(thereIsUser && !showSideDropDown) {
-                setTimeout(() => {
-                        setShowSideDropDown(true);
-                    }, 1000);
-                }
+            setTimeout(() => {
+                setShowSideDropDown(true);
+            }, 1000);
+        }
 
-                // if(music.other === true) {
-                    //     audio.pause();
-                    // }
         const audio = document.getElementById('music') as HTMLAudioElement;
+
+        if(music.other === true) {
+            audio.pause();
+        }
+
         if((music.other === false) && music.volume) {
             audio.play();
         }
@@ -56,27 +58,27 @@ const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false
 
     const handleMusic = () => {
         const audio = document.getElementById('music') as HTMLAudioElement;
-        // if(!music.volume && music.other) {
-        //     // playMusic();
-        // }
+        if(!music.volume && music.other) {
+            playMusic();
+        }
 
         if(audio.paused && !music.other) {
             audio.play();
             playMusic();
         }
 
-        // if(music.volume && music.other) {
-        //     // pauseMusic();
-        // }
+        if(music.volume && music.other) {
+            pauseMusic();
+        }
 
         if(music.volume && !music.other) {
             pauseMusic();
             audio.pause();
         }
 
-        // if(!music.volume){
-        //     audio.pause();
-        // }
+        if(!music.volume){
+            audio.pause();
+        }
     }
 
     const showVolumeIcon = () => {

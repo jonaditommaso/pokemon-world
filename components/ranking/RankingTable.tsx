@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { connect } from 'react-redux';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import Review from '../../utils/Review';
+import styles from './ranking.module.css'
 
 const RankingTable = ({ ranking }: any) => {
 
@@ -23,7 +24,7 @@ const RankingTable = ({ ranking }: any) => {
     }, [pokemonRanking]);
 
     return (
-        <div className="rankingTable">
+        <div className={styles.rankingTable}>
             { ranking.length === 0
             ? <div>No pokemons ranked <RiErrorWarningLine color="red" /> </div>
             : <Table striped bordered hover size="sm">

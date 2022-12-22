@@ -1,0 +1,197 @@
+.fight {
+    margin-left: 10%;
+    margin-right: 10%;
+    /* background-image: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6)), url('../assets/img/battlefield.jpg'); */
+    background-size: cover;
+    padding: 4%;
+}
+
+.fighter {
+    animation: golpe 0.1s alternate infinite ease-in-out;
+}
+
+@keyframes golpe {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(18%);
+    }
+  }
+
+.fightsData {
+    background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6));
+    border-radius: 10px;
+    height: 100px;
+    width: 310px;
+}
+
+.showingButton {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    margin-top: 12%;
+}
+
+.showingVideo {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.dataButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    margin-top: 1%;
+}
+
+.fighter__win {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    background-color: white;
+    height: 50px;
+    font-size: large;
+    font-style: italic;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.fighter__img {
+    width: 200px;
+    height: 200px;
+}
+
+.button__playAgain {
+    margin-right: 1%;
+}
+
+.fighter__myself {
+    margin-left: 20%;
+    display: flex;
+}
+
+.fighter__opponent {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20%;
+}
+
+.fighter__type {
+    text-align: center;
+    padding: 4px;
+    margin: 2px;
+    margin-bottom: 3px;
+    border-radius: 5px;
+    box-shadow: 1.5px 1px 1.5px #d0d0d0;
+    color: white;
+}
+
+@media (max-width: 770px) {
+    .showingVideo {
+        margin: auto;
+        margin-right: 30%;
+    }
+
+    .fighter__img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .fighter__myself {
+        margin: 0;
+        margin-right: 15%;
+        margin-top: 20%;
+    }
+
+    .fighter__opponent {
+        flex-direction: column;
+        margin-left: 15%;
+        display: -webkit-inline-box;
+    }
+
+    .fighter__imgOpponent {
+        margin-left: 60px;
+        display: inline;
+    }
+
+    .fighter__imgMyself {
+        margin-left: 20px;
+        margin-right: 50px;
+    }
+
+    .fight {
+        height: 650px;
+        width: 680px;
+        margin: auto;
+        background-size: cover;
+    }
+
+    .fighter__win {
+        width: 100%;
+        height: 60px;
+        margin-top: 10%;
+    }
+
+}
+
+@media (max-width: 415px) {
+    .showingVideo {
+        position: absolute;
+        margin: auto;
+        margin-top: 100px;
+        width: 400px;
+    }
+
+    .fighter__img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .fighter__myself {
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .fighter__opponent {
+        display: block;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .fighter__imgOpponent {
+        margin-left: 180px;
+    }
+
+    .fighter__imgMyself {
+        margin-left: 20px;
+    }
+
+    .fight {
+        height: 650px;
+        width: auto;
+        /* background-image: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6)), url('../assets/img/battlefield-little.jpg'); */
+        background-size: cover;
+    }
+
+    .fighter__win {
+        width: 340px;
+        margin: 0;
+    }
+
+    .fighter {
+        animation: golpe 0.1s alternate infinite ease-in-out;
+    }
+
+    @keyframes golpe {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(8%);
+        }
+    }
+}
