@@ -13,8 +13,8 @@ const SignIn = () => {
 
         <Image src={pokeball} alt="login" width={70} height={65} style={{marginTop: '20px'}}  />
 
-        <Typography variant='h4' sx={{fontStyle: 'italic'}}>
-            Sign in
+        <Typography variant='h4' sx={{fontStyle: 'italic'}} className={styles['sign-in-text']}>
+            SIGN IN
         </Typography>
 
        <div style={{marginTop: '15px'}}>

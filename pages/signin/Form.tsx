@@ -6,7 +6,6 @@ import { useActions } from '../../hooks/useActions';
 import { useRouter } from 'next/router';
 import { loginWithGithub } from '../../firebase/config';
 import { FaGithub } from 'react-icons/fa'
-import { CustomButton } from '../../components/CustomButton';
 import useUser from '../../hooks/useUser';
 
 interface FormValues {
@@ -83,9 +82,9 @@ export const Form = () => {
             </div>
 
             <div style={{margin: '30px'}}>
-                <CustomButton onClick={handleSignIn}>
+                <Button onClick={handleSignIn} color='secondary' variant='contained'>
                     <FaGithub size={23} style={{marginRight: '7px'}} /> Sign in with Github
-                </CustomButton>
+                </Button>
             </div>
         </form>
     );

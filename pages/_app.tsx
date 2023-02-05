@@ -5,6 +5,7 @@ import Navbar from '../components/navbar/Navbar'
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 import Head from 'next/head'
+import { ThemeConfig } from '../config/theme.config';
 
 export default function App({ Component, pageProps }: AppProps) {
   return <Provider store={store}>
@@ -12,6 +13,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <title>Pokemon World</title>
     </Head>
     <Navbar />
-    <Component {...pageProps} />
+    <ThemeConfig>
+      <Component {...pageProps} />
+    </ThemeConfig>
   </Provider>
 }

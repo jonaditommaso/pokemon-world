@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import styles from '../styles/Home.module.css';
 import pikachuNotFound from '../public/assets/img/pikachu4.png'
 import { useRouter } from 'next/router';
+import { Button } from '@mui/material';
 
 function NotFound() {
     const router = useRouter()
@@ -20,7 +20,8 @@ function NotFound() {
                 <div>
                     <Button
                         style={{marginBottom: '3%'}}
-                        variant="outline-light"
+                        variant="outlined"
+                        color='info'
                         onClick={()=> router.push('/')}
                     >
                         Go home
