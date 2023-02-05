@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
 import { useRouter } from 'next/router'
 import { useActions } from '../../hooks/useActions';
 import { signOut } from '../../redux/action-creators';
+import { Button } from '@mui/material';
 
 interface User {
     thereIsUser: string | boolean
@@ -13,14 +13,14 @@ const StateLogin = ({ thereIsUser }: User) => {
 
     const { signOut } = useActions()
 
-    const [buttonColor, setButtonColor] = useState('danger');
+    const [buttonColor, setButtonColor] = useState('contained');
     const router = useRouter()
     useEffect(() => {
         if(thereIsUser) {
-            setButtonColor('outline-danger');
+            setButtonColor('outlined');
         }
         else {
-            setButtonColor('danger');
+            setButtonColor('contained');
         }
     }, [thereIsUser]);
 
@@ -40,6 +40,7 @@ const StateLogin = ({ thereIsUser }: User) => {
             <Button
                 onClick={() => handleClick()}
                 variant={buttonColor}
+                color='error'
             >
                 {!thereIsUser ? 'Sign In' : 'Sign Out'}
             </Button>

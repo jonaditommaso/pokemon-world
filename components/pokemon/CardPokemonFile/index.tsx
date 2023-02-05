@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import styles from './card.module.css';
 import { colorsByType } from '../../../utils/colorsByType';
 import VolumeFill from '../../../utils/svg/VolumeFill';
 import Review from '../../../utils/Review';
+import { Button } from '@mui/material';
 
 interface PokemonData {
     pokemonName: string,
@@ -31,9 +32,6 @@ const CardPokemonFile = ({
     evolve,
 
 }: PokemonData) => {
-
-    console.log({viewEvolution})
-
 
     return (
         <div className={styles.pokemonFile}>
@@ -73,22 +71,23 @@ const CardPokemonFile = ({
                 </div>
 
                 {pokemonDescription && listenDescription &&
-                    <Button onClick={() => listenDescription(pokemonDescription)}>
+                    <Button onClick={() => listenDescription(pokemonDescription)} variant='contained'>
                         Listen
                         <VolumeFill width={16} height={16} style={{margin: '5px'}} />
                     </Button>
                 }
 
-                <ListGroup className={styles.pokemonFile__info}>
-                    <ListGroupItem>
+                <div className={styles.pokemonFile__info}>
+                    {/* <ListGroupItem> */}
                         Type: <strong style={{color: colorsByType[pokemonType as keyof typeof colorsByType]}}>{pokemonType}</strong>
-                    </ListGroupItem>
-                </ListGroup>
+                    {/* </ListGroupItem> */}
+                </div>
 
                 {evolve &&
                     <Button
                         onClick={viewEvolution}
                         disabled={hasEvolution === evolve ? true : false}
+                        variant='contained'
                     >
                         {hasEvolution}
                     </Button>

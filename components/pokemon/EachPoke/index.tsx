@@ -8,6 +8,7 @@ import { colorsByType } from '../../../utils/colorsByType';
 import { useActions } from '../../../hooks/useActions';
 import { removePokemonRanking } from '../../../redux/action-creators';
 import { PokemonData } from '../../../interfaces/PokemonData';
+import { Chip } from '@mui/material';
 
 interface Ranking {
     pokemon: string,
@@ -67,13 +68,12 @@ const EachPoke = ({
             <div className={styles.eachPoke__description}>
                 <div className={styles.eachPoke__types}>
                     {pokemon.types.map((type: any, i: number) => (
-                        <div
+                        <Chip
                             key={i}
                             className={styles.eachPoke__type}
-                            style={{backgroundColor: colorsByType[type.type.name as keyof typeof colorsByType]}}
-                        >
-                            {type.type.name}
-                        </div>
+                            sx={{backgroundColor: colorsByType[type.type.name as keyof typeof colorsByType]}}
+                            label={type.type.name}
+                        />
                     ))}
                 </div>
 

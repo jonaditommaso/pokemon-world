@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 // import '../../styles/fight.css';
 import FightsData from './FightsData';
 import Bar from './Bar';
-import { Button } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 import Link from 'next/link'
 import pokeapi from '../../helpers/pokeapi';
@@ -13,6 +12,7 @@ import styles from './fight.module.css';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useActions } from '../../hooks/useActions';
+import { Button } from '@mui/material';
 
 const Fighter = ({ fighter }: any) => {
 
@@ -182,7 +182,7 @@ const Fighter = ({ fighter }: any) => {
                 <span style={{margin: 'auto'}}>{winName()?.toUpperCase()} WINS</span>
                 <div className={styles.button__playAgain}>
                     <Link href='/search'>
-                        <Button onClick={() => musicBattlePause()}>PLAY AGAIN</Button>
+                        <Button variant='contained' onClick={() => musicBattlePause()}>PLAY AGAIN</Button>
                     </Link>
                 </div>
 

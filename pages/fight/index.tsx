@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import Fighter from '../../components/fight/Fighter';
 import { connect } from 'react-redux';
 import { musicBattle, musicBattlePause } from '../../redux/action-creators';
@@ -8,6 +7,7 @@ import styles from '../../components/fight/fight.module.css'
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { PokemonData } from '../../interfaces/PokemonData';
+import { Button } from '@mui/material';
 
 interface FightProps {
     thereIsUser: string,
@@ -73,8 +73,17 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
             ? <Alert text='sd'/>
             : (
             <div>
-                <div className={preparationWrap}>
-                <Button variant="danger" size="lg" onClick={() => handlePlay()} className={showButton}>FIGHT!</Button>
+                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '10%'}}>
+                    <Button
+                        variant="contained"
+                        color='error'
+                        size='large'
+                        onClick={() => handlePlay()}
+                        className={showButton}
+                        sx={{fontSize: '20px'}}
+                    >
+                        FIGHT!
+                    </Button>
 
                     <video
                     src='video/pokeballgo.mp4'

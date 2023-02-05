@@ -83,7 +83,7 @@ export const Form = () => {
 
             <div style={{margin: '30px'}}>
                 <Button onClick={handleSignIn} color='secondary' variant='contained'>
-                    <FaGithub size={23} style={{marginRight: '7px'}} /> Sign in with Github
+                    <FaGithub size={23} style={{marginRight: '7px'}} /> Continue with Github
                 </Button>
             </div>
         </form>

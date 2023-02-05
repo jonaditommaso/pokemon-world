@@ -1,23 +1,47 @@
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { buttonClasses, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
 interface ThemeProp {
     children: JSX.Element
 }
 
 export enum themePalette {
+    blue = '#22577a',
     dark = '#212121',
     light = '#ffffff'
 }
 
 const theme = createTheme({
     palette: {
+        primary: {
+            main: themePalette.blue,
+        },
         secondary: {
             main: themePalette.dark
         },
         info: {
             main: themePalette.light
+        },
+        action: {
+            disabledBackground: '',
+            disabled: '',
+        },
+    },
+    components: {
+        MuiButtonBase: {
+            styleOverrides: {
+              root: {
+                [`&.${buttonClasses.disabled}`]: {
+                  opacity: 0.5
+                },
+              }
+            }
+          }
+    },
+    typography: {
+        button: {
+          textTransform: 'none'
         }
-    }
+      }
 })
 
 export const ThemeConfig = ({ children }: ThemeProp) => (

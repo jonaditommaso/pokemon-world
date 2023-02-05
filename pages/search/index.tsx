@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
@@ -14,6 +13,7 @@ import PokemonService from '../../helpers/PokemonHelper';
 import { PokemonData } from '../../interfaces/PokemonData';
 import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
 import { useActions } from '../../hooks/useActions';
+import { Button } from '@mui/material';
 
 const MySwal = withReactContent(Swal);
 
@@ -220,21 +220,26 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
                 <>
                     <div className={styles.topButtons}>
                         <Button
-                            style={{width: '4rem', marginBottom: '2%', marginRight: '0.5%'}}
-                            variant='info'
+                            style={{width: '4rem', marginRight: '0.5%'}}
+                            variant='contained'
+                            color='primary'
                             onClick={prevPokemon}
+                            disabled={pokemonData.id === 1}
                         >
                             Prev
                         </Button>
                         <Button
-                            style={{width: '10rem', marginBottom: '2%'}}
+                            style={{width: '10rem'}}
                             onClick={iChooseYouButton}
+                            color='error'
+                            variant='contained'
                         >
                             I choose you!
                         </Button>
                         <Button
-                            style={{width: '4rem', marginBottom: '2%', marginLeft: '0.5%'}}
-                            variant='info'
+                            style={{width: '4rem', marginLeft: '0.5%'}}
+                            variant='contained'
+                            color='primary'
                             onClick={nextPokemon}
                         >
                             Next
@@ -267,8 +272,9 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
                 <div className={styles.searchPokemon}>
                     <div className={styles.searchPokemon__button}>
                         <Button
-                            variant="info"
-                            onClick={()=>router.push('/')}
+                            variant='contained'
+                            color='primary'
+                            onClick={() => router.push('/')}
                         >
                             Return to home
                         </Button>
@@ -294,7 +300,9 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
                     ? <Image
                         src={initialPikachu}
                         alt="pikachu"
-                        style={{width: '350px', marginTop: '5%'}}
+                        style={{marginTop: '5%'}}
+                        height={300}
+                        width={400}
                     />
                     : renderPokemon()}
                 </div>

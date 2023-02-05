@@ -4,7 +4,7 @@
 }
 
 .sideDropdown__userName {
-    background-color: #007bff;
+    background-color: #22577a;
     color: white;
     padding: 6px;
     border-radius: 5px;
@@ -13,10 +13,6 @@
 
 .sideDropdown__userName > img {
     margin: 2px;
-}
-
-.sideDropdown__item {
-    display: inline-flex;
 }
 
 @media (max-width: 374px) {

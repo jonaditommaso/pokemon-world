@@ -1,5 +1,5 @@
+import { Button } from '@mui/material';
 import React, { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import { Fighter } from '../../interfaces/Fighter';
 import styles from '../fight/fight.module.css';
 
@@ -21,11 +21,11 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
             case 0:
                 return 'success';
             case 1:
-                return 'warning';
+                return 'primary';
             case 2:
-                return 'danger';
+                return 'warning';
             case 3:
-                return 'info';
+                return 'error';
 
             default:
                 break;
@@ -97,8 +97,9 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                 ? skills?.map((skill, i) => (
                     <div key={i} style={{margin: '3px'}}>
                         <Button
-                            size="sm"
-                            variant={colorButton(i)}
+                            size="small"
+                            variant='contained'
+                            color={colorButton(i)}
                             style={{width: '9rem'}}
                             disabled={disableButtons()}
                             onClick={() => damagePoints(i)}

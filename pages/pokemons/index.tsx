@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
 import { PokemonData } from '../../interfaces/PokemonData';
@@ -11,6 +10,7 @@ import Image from 'next/image';
 import pokeball from '../../public/assets/img/pokeball.png'
 import FilterButton from '../../components/pokemon/FilterPokemonButton';
 import Alert from '../../utils/Alert';
+import { Button } from '@mui/material';
 interface AllPokemonsView {
     thereIsUser: string,
     ranking: any
@@ -100,15 +100,15 @@ const ShowAllPokemons = ({
     const showButtons = () => {
         if(optionSelected) {
             return (
-                <Button variant="primary" onClick={() => handleClickGoBack()}>Go Back</Button>
+                <Button variant="contained" color='error' onClick={() => handleClickGoBack()}>Go Back</Button>
             )
         }
         else {
             return (
                 <>
-                    <Button variant="primary" onClick={()=> router.push('/')}>Back</Button>
-                    <Button variant="info" onClick={prevPokemonList}>Prev</Button>
-                    <Button variant="info" onClick={nextPokemonList}>Next</Button>
+                    <Button variant="contained" color='error' onClick={()=> router.push('/')}>Go Home</Button>
+                    <Button variant="contained" onClick={prevPokemonList} disabled={!prevUrl}>Prev</Button>
+                    <Button variant="contained" onClick={nextPokemonList}>Next</Button>
                 </>
 
             );

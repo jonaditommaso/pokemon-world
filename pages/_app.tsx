@@ -12,7 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <Head>
       <title>Pokemon World</title>
     </Head>
-    <Navbar />
+    <ThemeConfig>
+      <Navbar />
+    </ThemeConfig>
     <ThemeConfig>
       <Component {...pageProps} />
     </ThemeConfig>
