@@ -17,11 +17,8 @@ interface MusicConfig {
 }
 
 interface NavbarProps {
-    thereIsUser: any,
+    thereIsUser: string,
     music: MusicConfig,
-    playMusic: any,
-    pauseMusic: any,
-    // battle: boolean,
 }
 
 const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false}}: NavbarProps) => {
@@ -117,7 +114,6 @@ const mapStateToProps = (state: any) => {
     return {
         thereIsUser: state.login.user,
         music: state.music,
-        // battle: state.battle
     }
 }
 

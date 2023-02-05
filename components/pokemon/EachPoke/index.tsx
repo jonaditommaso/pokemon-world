@@ -1,27 +1,35 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import '../../styles/eachPoke.css';
 import styles from './eachPoke.module.css'
-// import { colorsByType } from '../../utils/colorsByType';
-// import Review from '../../utils/Review';
 import { MdOutlineCancel } from 'react-icons/md';
 import Review from '../../../utils/Review';
 import { colorsByType } from '../../../utils/colorsByType';
 import { useActions } from '../../../hooks/useActions';
 import { removePokemonRanking } from '../../../redux/action-creators';
+import { PokemonData } from '../../../interfaces/PokemonData';
+
+interface Ranking {
+    pokemon: string,
+    ranking: number
+}
+
+interface Pokemon {
+    pokemon: PokemonData,
+    ranking: Ranking[]
+}
 
 const EachPoke = ({
     pokemon,
     ranking
-}: any) => {
+}: Pokemon) => {
 
     const { removePokemonRanking } = useActions();
 
-    const initial_state = ranking.find((poke: any) => poke.pokemon === pokemon.name)
+    const initial_state = ranking.find((poke) => poke.pokemon === pokemon.name)
     const [review, setReview] = useState(initial_state ? initial_state.ranking : 0);
 
-    const checkingRank = ranking.map((poke: any) => poke.pokemon);
+    const checkingRank = ranking.map((poke) => poke.pokemon);
 
     useEffect(() => {
         if(!checkingRank.includes(pokemon.name)) {
@@ -33,7 +41,7 @@ const EachPoke = ({
         removePokemonRanking(pokemon.name);
     }
 
-    if(!pokemon?.sprites?.other?.dream_world?.front_default) return;
+    if(!pokemon?.sprites?.other?.dream_world?.front_default) return <></>;
 
     return (
         <div className={styles.eachPoke}>
@@ -107,4 +115,4 @@ const mapStateToProps = (state: any) => ({
     ranking: state.ranking.pokemonRanked
 })
 
-export default connect(mapStateToProps, { removePokemonRanking })(EachPoke); //
+export default connect(mapStateToProps, { removePokemonRanking })(EachPoke);

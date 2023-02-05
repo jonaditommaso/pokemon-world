@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-// import '../../styles/fight.css';
-import styles from '../fight/fight.module.css'
+import { Fighter } from '../../interfaces/Fighter';
+import styles from '../fight/fight.module.css';
 
-function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, hisTurn, hit, attack }) {
+function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, hisTurn, hit, attack }: Fighter) {
 
     const [changeTurn, setChangeTurn] = React.useState(false);
 
@@ -16,7 +16,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
         }
     }, [changeTurn, hisTurn]);
 
-    const colorButton = (i) => {
+    const colorButton = (i: number) => {
         switch (i) {
             case 0:
                 return 'success';
@@ -39,7 +39,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
         return
     };
 
-    const damagePoints = (i) => {
+    const damagePoints = (i: number) => {
         switch (i) {
             case 0:
                 hit(true);

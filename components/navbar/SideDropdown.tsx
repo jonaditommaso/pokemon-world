@@ -1,4 +1,3 @@
-// import '../../styles/sideDropdown.css';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
@@ -6,13 +5,19 @@ import Swal from 'sweetalert2';
 import pokeball from '../../public/assets/img/pokeballOpen.png'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-// import { noBattle, musicBattlePause } from '../../redux/actions';
-//{user, battle, noBattle, musicBattlePause}
 import styles from './sideDropdown.module.css'
 import { useActions } from '../../hooks/useActions';
 import { noBattle, musicBattlePause } from '../../redux/action-creators'
 
-const SideDropdown = ({user, battle}: any) => {
+interface SideDropdownProps {
+    user: string,
+    battle: {
+        pokemon: null | boolean
+    }
+}
+
+const SideDropdown = ({user, battle}: SideDropdownProps) => {
+
     const router = useRouter();
     const { noBattle, musicBattlePause } = useActions()
 

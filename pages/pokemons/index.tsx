@@ -11,7 +11,6 @@ import Image from 'next/image';
 import pokeball from '../../public/assets/img/pokeball.png'
 import FilterButton from '../../components/pokemon/FilterPokemonButton';
 import Alert from '../../utils/Alert';
-// import Alert from '../log/Alert';
 interface AllPokemonsView {
     thereIsUser: string,
     ranking: any

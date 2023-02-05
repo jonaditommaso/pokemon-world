@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import history from '../../history';
-// import '../../styles/searchPokemon.css';
-// import pokeapi from '../../utils/pokeapi';
 import { Button } from 'react-bootstrap';
-// import Alert from '../log/Alert';
-// import { pauseMusic, playMusic, chooseYou } from '../../redux/actions/index';
-// import PokemonService from '../../services/PokemonService';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
@@ -15,7 +9,6 @@ import CardPokemonFile from '../../components/pokemon/CardPokemonFile';
 import styles from './search.module.css'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-// import CardPokemonFile from '../../utils/CardPokemonFile';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png'
 import PokemonService from '../../helpers/PokemonHelper';
 import { PokemonData } from '../../interfaces/PokemonData';
@@ -24,7 +17,7 @@ import { useActions } from '../../hooks/useActions';
 
 const MySwal = withReactContent(Swal);
 
-const SearchPokemon = ({ thereIsUser, ranking }: any) => {
+const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
 
     const { chooseYou, pauseMusic, playMusic } = useActions();
 
@@ -151,7 +144,7 @@ const SearchPokemon = ({ thereIsUser, ranking }: any) => {
 
 
     const handleClick = (text: string) => {
-        const audio = document.getElementById('music');
+        const audio = document.getElementById('music') as HTMLAudioElement;
 
         const listenDescription = () => {
             const utterance = new SpeechSynthesisUtterance(text);

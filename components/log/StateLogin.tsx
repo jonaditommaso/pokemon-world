@@ -5,7 +5,11 @@ import { useRouter } from 'next/router'
 import { useActions } from '../../hooks/useActions';
 import { signOut } from '../../redux/action-creators';
 
-const StateLogin = ({ thereIsUser }: any) => {
+interface User {
+    thereIsUser: string | boolean
+}
+
+const StateLogin = ({ thereIsUser }: User) => {
 
     const { signOut } = useActions()
 

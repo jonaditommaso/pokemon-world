@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-// import '../../styles/fight.css';
 import Fighter from '../../components/fight/Fighter';
 import { connect } from 'react-redux';
 import { musicBattle, musicBattlePause } from '../../redux/action-creators';
 import Alert from '../../utils/Alert';
 import styles from '../../components/fight/fight.module.css'
 import { useActions } from '../../hooks/useActions';
+import { MusicState } from '../../interfaces/Music';
+import { PokemonData } from '../../interfaces/PokemonData';
 
-const Fight = ({thereIsUser, fighter, music, battle}: any) => {
+interface FightProps {
+    thereIsUser: string,
+    music: MusicState,
+    fighter: {
+        pokemon: PokemonData
+    }
+}
+
+const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
 
     const { musicBattle, musicBattlePause } = useActions()
 
@@ -19,7 +28,7 @@ const Fight = ({thereIsUser, fighter, music, battle}: any) => {
     const [preparationWrap, setPreparationWrap] = useState('');
 
     useEffect(() => {
-        const battleMusic = document.getElementById('pokemon-battle');
+        const battleMusic = document.getElementById('pokemon-battle') as HTMLAudioElement;
         if(music.other && !music.volume) {
             battleMusic.pause();
         }
@@ -33,7 +42,7 @@ const Fight = ({thereIsUser, fighter, music, battle}: any) => {
         setShowVideo('showingVideo');
 
         if(music.volume) {
-            const battle = document.getElementById('pokemon-battle');
+            const battle = document.getElementById('pokemon-battle') as HTMLAudioElement;
             musicBattle();
             battle.play();
 
@@ -41,14 +50,14 @@ const Fight = ({thereIsUser, fighter, music, battle}: any) => {
                 musicBattlePause();
             })
         }
-        const video = document.getElementById('video');
+        const video = document.getElementById('video') as HTMLVideoElement;
         video.play();
     }
 
 
     if(showVideo === 'showingVideo') {
-        const video = document.getElementById('video');
-        const pokemonName = document.getElementById('pokemon-name');
+        const video = document.getElementById('video') as HTMLVideoElement;
+        const pokemonName = document.getElementById('pokemon-name') as HTMLAudioElement;
 
         video.addEventListener('ended', () => {
             setShowVideo('d-none');

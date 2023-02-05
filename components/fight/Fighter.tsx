@@ -8,7 +8,6 @@ import { Button } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 import Link from 'next/link'
 import pokeapi from '../../helpers/pokeapi';
-// import { thereBattle, musicBattlePause } from '../../redux/actions';
 import { thereBattle, musicBattlePause } from '../../redux/action-creators';
 import styles from './fight.module.css';
 import clsx from 'clsx';
@@ -226,7 +225,6 @@ const Fighter = ({ fighter }: any) => {
                                 punchMe={opponentsTurn}
                                 wins={setWinner}
                                 me
-                                dontmodifybar={iWin}
                                 winner={thereWinner}
                             />
                         </div>

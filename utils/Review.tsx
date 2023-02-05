@@ -4,9 +4,6 @@ import Star from './svg/Star';
 import styles from '../styles/review.module.css'
 import { useActions } from '../hooks/useActions';
 import { addPokeToRanking, changeReview } from '../redux/action-creators';
-// import { addPokeToRanking, changeReview } from '../redux/actions';
-// import '../styles/review.css';
-// import Star from './svg/Star'
 
 const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: any) => {
 
@@ -33,7 +30,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: an
         <>
         {review === 0 && <i style={{display: 'inline-flex'}}>Without review</i>}
         <div>
-            {Array(5).fill().map((_, i) => (
+            {Array(5).fill(undefined).map((_, i) => (
                 <div key={i} className={styles.review} onClick={() => giveDataPokemonClicked(i)} id={styles[`${!readOnly ? 'change' : ''}`]}>
                     {i < review
                     ? <Star fill="#FFD19A" />

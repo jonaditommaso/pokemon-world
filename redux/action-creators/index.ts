@@ -18,7 +18,7 @@ export const pauseMusic = () => {
     }
 }
 
-export const signIn = (user: any) => {
+export const signIn = (user: string) => {
     return (dispatch: Dispatch <Action>) => {
         dispatch({
             type: ActionType.SIGN_IN,

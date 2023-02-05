@@ -1,6 +1,6 @@
+import { LinearProgress, makeStyles, withStyles } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { BarSettings } from '../../interfaces/BarSettings';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -38,14 +38,14 @@ export default function Bar ({
   myAccumulate,
   damageMe,
   winner
-}: any) {
+}: BarSettings) {
 
   const classes = useStyles();
 
   const [acumulador, setAcumulador] = useState(0);
   const [damageToMe, setDamageToMe] = useState(0);
 
-  const notPassTheLine = (result: any) => {
+  const notPassTheLine = (result: number) => {
     if(result >= 100) {
       return 100
     }
@@ -78,7 +78,7 @@ export default function Bar ({
 
   useEffect(() => {
     let barRise = [0];
-    barRise.push(damageMe * ((Math.random(0, 1) / 5 ) * 2.5));
+    barRise.push(damageMe * ((Math.random() / 5 ) * 2.5));
     const result = (barRise.reduce((plus, value) => value + plus, damageToMe));
 
     const iWinOrNot = () => {

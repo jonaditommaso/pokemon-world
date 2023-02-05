@@ -1,25 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-// import Review from './Review';
-// import '../styles/searchPokemon.css';
-// import '../styles/cardPokemonFile.css';
 import styles from './card.module.css';
 import { colorsByType } from '../../../utils/colorsByType';
 import VolumeFill from '../../../utils/svg/VolumeFill';
 import Review from '../../../utils/Review';
-// import VolumeFill from './svg/VolumeFill';
 
-//pokemonData.sprites?.other['official-artwork']?.front_default
 interface PokemonData {
     pokemonName: string,
     pokemonDescription?: string,
     pokemonType: string,
     pokemonId: number,
     pokemonImage: string,
-    listenDescription?: any,
+    listenDescription?(): void,
     evolve?: string,
     hasEvolution?: string,
-    viewEvolution?: any,
+    viewEvolution?(): void,
     review?: number,
 }
 
@@ -36,6 +31,8 @@ const CardPokemonFile = ({
     evolve,
 
 }: PokemonData) => {
+
+    console.log({viewEvolution})
 
 
     return (
@@ -75,7 +72,7 @@ const CardPokemonFile = ({
 
                 </div>
 
-                {pokemonDescription &&
+                {pokemonDescription && listenDescription &&
                     <Button onClick={() => listenDescription(pokemonDescription)}>
                         Listen
                         <VolumeFill width={16} height={16} style={{margin: '5px'}} />

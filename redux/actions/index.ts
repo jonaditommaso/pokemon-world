@@ -20,7 +20,7 @@ interface PauseBattleAction {
 
 interface SignIn {
     type: ActionType.SIGN_IN,
-    payload: any
+    payload: string
 }
 
 interface SignOut {

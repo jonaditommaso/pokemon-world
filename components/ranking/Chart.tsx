@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
-// import '../../styles/chart.css';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import styles from './ranking.module.css'
 
@@ -67,7 +66,7 @@ const Chart = ({ ranking }: any) => {
 
 
   const options = {
-    indexAxis: 'y',
+    indexAxis: 'y' as const,
     elements: {
       bar: {
         borderWidth: 2,

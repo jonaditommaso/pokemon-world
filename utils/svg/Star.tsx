@@ -1,13 +1,16 @@
 import * as React from "react"
 
-export default function Star(props: any) {
+interface Props {
+  fill: string
+}
+
+export default function Star({ fill }: Props) {
   return (
     <svg
       width={16}
       height={16}
-      fill="none"
+      fill={fill ?? "none"}
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <path
         fillRule="evenodd"

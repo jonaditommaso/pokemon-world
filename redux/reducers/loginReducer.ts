@@ -2,7 +2,7 @@ import { ActionType } from '../types'
 import { Action } from '../actions'
 
 interface LoginState {
-    user: boolean,
+    user: string | boolean,
 }
 
 const INITIAL_STATE = {user: false};
