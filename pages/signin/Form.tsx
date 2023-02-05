@@ -48,39 +48,41 @@ export const Form = () => {
         <form onSubmit={formik.handleSubmit}>
             <div>
                 <TextField
-                id="username"
-                name="username"
-                label="Username"
-                size='small'
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                error={formik.touched.username && Boolean(formik.errors.username)}
-                helperText={formik.touched.username && formik.errors.username}
+                    id="username"
+                    name="username"
+                    label="Username"
+                    size='small'
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    error={formik.touched.username && Boolean(formik.errors.username)}
+                    helperText={formik.touched.username && formik.errors.username}
+                    sx={{ width: '80%', margin: '7px'}}
                 />
                 <TextField
-                id="password"
-                name="password"
-                label="Password"
-                type="password"
-                size='small'
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={formik.touched.password && Boolean(formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password}
+                    id="password"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    size='small'
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                    sx={{ width: '80%', margin: '7px'}}
                 />
             </div>
-            <div style={{marginTop: '10px'}}>
+            <div style={{margin: '7px'}}>
                 <Button
                   color="error"
                   variant="contained"
                   type="submit"
                   disabled={!formik.values.username || !formik.values.password}
                 >
-                    Submit
+                    Sign in
                 </Button>
             </div>
 
-            <div>
+            <div style={{margin: '30px'}}>
                 <CustomButton onClick={handleSignIn}>
                     <FaGithub size={23} style={{marginRight: '7px'}} /> Sign in with Github
                 </CustomButton>

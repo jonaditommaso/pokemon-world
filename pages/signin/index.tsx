@@ -11,13 +11,15 @@ const SignIn = () => {
   return (
     <div className={styles.container}>
 
-        <Image src={pokeball} alt="login" width={70} height={65} />
+        <Image src={pokeball} alt="login" width={70} height={65} style={{marginTop: '20px'}}  />
 
-        <Typography variant='h3' sx={{fontStyle: 'italic'}}>
+        <Typography variant='h4' sx={{fontStyle: 'italic'}}>
             Sign in
         </Typography>
 
-       <Form />
+       <div style={{marginTop: '15px'}}>
+        <Form />
+       </div>
 
         {/* <Alert
             variant="success"
