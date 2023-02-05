@@ -4,6 +4,10 @@ import { validationSchemaSignIn } from '../../utils/validationSchemaSignIn';
 import { Button, TextField } from '@mui/material';
 import { useActions } from '../../hooks/useActions';
 import { useRouter } from 'next/router';
+import { loginWithGithub } from '../../firebase/config';
+import { FaGithub } from 'react-icons/fa'
+import { CustomButton } from '../../components/CustomButton';
+import useUser from '../../hooks/useUser';
 
 interface FormValues {
     username: string,
@@ -14,12 +18,19 @@ export const Form = () => {
 
     const { signIn } = useActions();
     const router = useRouter();
+    // const user = useUser();
 
     const login = (values: FormValues) => {
         signIn(values.username) //send complete object
         setTimeout(()=> {
           router.push('/pokemons');
         }, 800);
+    }
+
+    const handleSignIn = async () => {
+        const { user } = await loginWithGithub();
+        if (user?.displayName) signIn(user.displayName);
+        return;
     }
 
     const formik = useFormik({
@@ -29,7 +40,7 @@ export const Form = () => {
       },
       validationSchema: validationSchemaSignIn,
       onSubmit: (values) => {
-        console.log(values)
+        login(values);
       },
     });
 
@@ -40,6 +51,7 @@ export const Form = () => {
                 id="username"
                 name="username"
                 label="Username"
+                size='small'
                 value={formik.values.username}
                 onChange={formik.handleChange}
                 error={formik.touched.username && Boolean(formik.errors.username)}
@@ -50,6 +62,7 @@ export const Form = () => {
                 name="password"
                 label="Password"
                 type="password"
+                size='small'
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 error={formik.touched.password && Boolean(formik.errors.password)}
@@ -57,9 +70,20 @@ export const Form = () => {
                 />
             </div>
             <div style={{marginTop: '10px'}}>
-                <Button color="error" variant="contained" type="submit">
+                <Button
+                  color="error"
+                  variant="contained"
+                  type="submit"
+                  disabled={!formik.values.username || !formik.values.password}
+                >
                     Submit
                 </Button>
+            </div>
+
+            <div>
+                <CustomButton onClick={handleSignIn}>
+                    <FaGithub size={23} style={{marginRight: '7px'}} /> Sign in with Github
+                </CustomButton>
             </div>
         </form>
     );
