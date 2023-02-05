@@ -15,7 +15,7 @@ function NotFound() {
                     <h4>Page not found.</h4>
                 </div>
 
-                <Image src={pikachuNotFound} alt="404" className={styles.notFound__img} width={120} height={300} />
+                <Image src={pikachuNotFound} alt="404" className={styles.notFound__img} width={300} height={300} />
 
                 <div>
                     <Button
