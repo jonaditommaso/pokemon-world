@@ -11,19 +11,23 @@ import pokeball from '../../public/assets/img/pokeball.png'
 import FilterButton from '../../components/pokemon/FilterPokemonButton';
 import Alert from '../../utils/Alert';
 import { Button } from '@mui/material';
+import { loadPokemons } from '../../helpers/getAndLoadPokemons';
+
 interface AllPokemonsView {
     thereIsUser: string,
-    ranking: any
+    pokemons: any,
+    initialNextUrl: string
 }
 
 const ShowAllPokemons = ({
     thereIsUser,
-    ranking
+    pokemons,
+    initialNextUrl
 }: AllPokemonsView) => {
 
     const [loading, setLoading] = useState(true);
-    const [pokemonData, setPokemonData] = useState <PokemonData[] | undefined > ();
-    const [nextUrl, setNextUrl] = useState('');
+    const [pokemonData, setPokemonData] = useState <PokemonData[] | undefined > (pokemons);
+    const [nextUrl, setNextUrl] = useState(initialNextUrl);
     const [prevUrl, setPrevUrl] = useState('');
     const [optionSelected, setOptionSelected] = useState(false);
     const [showAllPokemons, setShowAllPokemons] = useState(false);
@@ -57,26 +61,12 @@ const ShowAllPokemons = ({
     }, [optionSelected]);
 
 
-    const loadPokemons = async (pokemonList: any) => {
-        let _pokemonData = await Promise.all(pokemonList.map(async (pokemon: any) => {
-        const url = pokemon.url || pokemon.pokemon.url;
-        let pokemonRecord = await getPokemon(url);
-        return pokemonRecord;
-        }));
-        setPokemonData(_pokemonData);
-    }
-
-    const getPokemon = async (url: string) => {
-        const pokemonService = new PokemonService();
-        const {data} = await pokemonService.getUrlForEachPokemon(url);
-        return data;
-    }
-
     const nextPokemonList = async () => {
         setLoading(true);
         const pokemonService = new PokemonService();
         const {data} = await pokemonService.getUrlForEachPokemon(nextUrl);
-        await loadPokemons(data.results);
+        const newPokemons = await loadPokemons(data.results);
+        setPokemonData(newPokemons);
         setNextUrl(data.next);
         setPrevUrl(data.previous);
         setLoading(false);
@@ -87,7 +77,8 @@ const ShowAllPokemons = ({
         setLoading(true);
         const pokemonService = new PokemonService();
         const {data} = await pokemonService.getUrlForEachPokemon(prevUrl);
-        await loadPokemons(data.results);
+        const newPokemons = await loadPokemons(data.results);
+        setPokemonData(newPokemons);
         setPrevUrl(data.previous);
         setLoading(false);
     }
@@ -151,8 +142,21 @@ const ShowAllPokemons = ({
 const mapStateToProps = (state: any) => {
     return {
         thereIsUser: state.login.user,
-        ranking: state.ranking
     }
 }
 
 export default connect(mapStateToProps, null)(ShowAllPokemons);
+
+export async function getStaticProps() {
+    console.log('entra')
+    const {data} = await pokeapi.get(`/pokemon/`);
+    const pokemons = await loadPokemons(data.results);
+    const initialNextUrl = data.next;
+
+    return {
+        props: {
+            pokemons,
+            initialNextUrl
+        }
+    }
+}

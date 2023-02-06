@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router'
 import { useActions } from '../../hooks/useActions';
-import { signOut } from '../../redux/action-creators';
+import { signOut, signIn } from '../../redux/action-creators';
 import { Button } from '@mui/material';
+import useUser from '../../hooks/useUser';
 
 interface User {
     thereIsUser: string | boolean
@@ -11,10 +12,19 @@ interface User {
 
 const StateLogin = ({ thereIsUser }: User) => {
 
-    const { signOut } = useActions()
+    const { signOut, signIn } = useActions();
+    const githubUser = useUser();
 
     const [buttonColor, setButtonColor] = useState('contained');
-    const router = useRouter()
+    const router = useRouter();
+
+    useEffect(() => {
+        const user = localStorage.getItem('USER_NAME')
+        if (user || githubUser) {
+            signIn(user ?? githubUser.userName)
+        }
+    }, [githubUser]);
+
     useEffect(() => {
         if(thereIsUser) {
             setButtonColor('outlined');
@@ -30,6 +40,7 @@ const StateLogin = ({ thereIsUser }: User) => {
         }
         else {
             signOut();
+            localStorage.removeItem('USER_NAME')
             router.push('/');
         }
     }
@@ -53,4 +64,4 @@ const mapStateToProps = (state: any) => {
     return { thereIsUser: state.login.user }
 }
 
-export default connect(mapStateToProps, { signOut })(StateLogin);
+export default connect(mapStateToProps, { signOut, signIn })(StateLogin);

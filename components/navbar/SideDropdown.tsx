@@ -46,7 +46,7 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
                     }
                     if ((result.value) && (go === 'all')) {
                         noBattle(false);
-                        router.push('/all');
+                        router.push('/pokemons');
                         musicBattlePause();
                     }
                     if ((result.value) && (go === 'ranking')) {

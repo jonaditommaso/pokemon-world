@@ -6,7 +6,6 @@ import { useActions } from '../../hooks/useActions';
 import { useRouter } from 'next/router';
 import { loginWithGithub } from '../../firebase/config';
 import { FaGithub } from 'react-icons/fa'
-import useUser from '../../hooks/useUser';
 
 interface FormValues {
     username: string,
@@ -17,19 +16,17 @@ export const Form = () => {
 
     const { signIn } = useActions();
     const router = useRouter();
-    // const user = useUser();
 
     const login = (values: FormValues) => {
         signIn(values.username) //send complete object
-        setTimeout(()=> {
-          router.push('/pokemons');
-        }, 800);
+        localStorage.setItem('USER_NAME', values.username);
+        router.push('/pokemons');
     }
 
     const handleSignIn = async () => {
         const { user } = await loginWithGithub();
         if (user?.displayName) signIn(user.displayName);
-        return;
+        router.push('/pokemons');
     }
 
     const formik = useFormik({
