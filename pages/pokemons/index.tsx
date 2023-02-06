@@ -148,7 +148,6 @@ const mapStateToProps = (state: any) => {
 export default connect(mapStateToProps, null)(ShowAllPokemons);
 
 export async function getStaticProps() {
-    console.log('entra')
     const {data} = await pokeapi.get(`/pokemon/`);
     const pokemons = await loadPokemons(data.results);
     const initialNextUrl = data.next;
