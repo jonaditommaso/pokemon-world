@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import pokeball from '../../public/assets/img/pokeballOpen.png'
@@ -19,12 +19,14 @@ interface SideDropdownProps {
 const SideDropdown = ({user, battle}: SideDropdownProps) => {
 
     const router = useRouter();
-    const { noBattle, musicBattlePause } = useActions()
+    const { noBattle, musicBattlePause } = useActions();
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
     }, [battle])
 
     const warning = (go: string) => {
+        setOpen(false);
         if(battle.pokemon === true) {
             Swal.fire({
                 icon: 'warning',
@@ -76,6 +78,8 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
             <FormControl sx={{ minWidth: 120, background: '#22577a', borderRadius: '5px' }}>
                 <Select
                     size='small'
+                    open={open}
+                    onOpen={() => setOpen(true)}
                     displayEmpty
                     renderValue={() => <em>POKEDEX</em>}
                     sx={{
