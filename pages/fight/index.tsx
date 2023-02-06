@@ -8,6 +8,7 @@ import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { PokemonData } from '../../interfaces/PokemonData';
 import { Button } from '@mui/material';
+import bgImage from '../../assets/img/battlefield.jpg'
 
 interface FightProps {
     thereIsUser: string,
@@ -113,7 +114,16 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
                 </audio>
                 </div>
 
-                <div className={showBattle}>
+                <div
+                    className={showBattle}
+                    style={{
+                        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.4)), url(${bgImage.src})`,
+                        backgroundSize: 'cover',
+                        marginLeft: '10%',
+                        marginRight: '10%',
+                        padding: '4%'
+                    }}
+                >
                     <Fighter />
                 </div>
             </div>

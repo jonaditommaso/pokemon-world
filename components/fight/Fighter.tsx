@@ -181,7 +181,7 @@ const Fighter = ({ fighter }: any) => {
             <div className={clsx(styles[winner], winner)}>
                 <span style={{margin: 'auto'}}>{winName()?.toUpperCase()} WINS</span>
                 <div className={styles.button__playAgain}>
-                    <Link href='/search'>
+                    <Link href='/search' style={{textDecoration: 'none'}}>
                         <Button variant='contained' onClick={() => musicBattlePause()}>PLAY AGAIN</Button>
                     </Link>
                 </div>

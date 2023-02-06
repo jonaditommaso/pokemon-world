@@ -1,11 +1,3 @@
-.fight {
-    margin-left: 10%;
-    margin-right: 10%;
-    /* background-image: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6)), url('../assets/img/battlefield.jpg'); */
-    background-size: cover;
-    padding: 4%;
-}
-
 .fighter {
     animation: golpe 0.1s alternate infinite ease-in-out;
 }
