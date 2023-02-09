@@ -14,12 +14,14 @@ import { PokemonData } from '../../interfaces/PokemonData';
 import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
 import { useActions } from '../../hooks/useActions';
 import { Button } from '@mui/material';
+import { useGetRanked } from '../../hooks/useGetRanked';
 
 const MySwal = withReactContent(Swal);
 
 const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
 
     const { chooseYou, pauseMusic, playMusic } = useActions();
+    useGetRanked(ranking);
 
     const [pokemonSearched, setPokemonSearched] = useState('');
     const [pokemonData, setPokemonData] = useState <PokemonData | undefined> ();

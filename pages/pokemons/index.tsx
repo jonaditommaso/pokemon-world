@@ -12,17 +12,20 @@ import FilterButton from '../../components/pokemon/FilterPokemonButton';
 import Alert from '../../utils/Alert';
 import { Button } from '@mui/material';
 import { loadPokemons } from '../../helpers/getAndLoadPokemons';
+import { useGetRanked } from '../../hooks/useGetRanked';
 
 interface AllPokemonsView {
     thereIsUser: string,
     pokemons: any,
-    initialNextUrl: string
+    initialNextUrl: string,
+    ranking: any
 }
 
 const ShowAllPokemons = ({
     thereIsUser,
     pokemons,
-    initialNextUrl
+    initialNextUrl,
+    ranking,
 }: AllPokemonsView) => {
 
     const [loading, setLoading] = useState(true);
@@ -32,6 +35,7 @@ const ShowAllPokemons = ({
     const [optionSelected, setOptionSelected] = useState(false);
     const [showAllPokemons, setShowAllPokemons] = useState(false);
     const router = useRouter()
+    useGetRanked(ranking);
 
     useEffect(() => {
         const getAllPokemons = async () => {
@@ -142,6 +146,7 @@ const ShowAllPokemons = ({
 const mapStateToProps = (state: any) => {
     return {
         thereIsUser: state.login.user,
+        ranking: state.ranking.pokemonRanked
     }
 }
 
