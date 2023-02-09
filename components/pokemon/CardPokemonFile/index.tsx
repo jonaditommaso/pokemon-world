@@ -1,10 +1,9 @@
 import React from 'react';
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import styles from './card.module.css';
 import { colorsByType } from '../../../utils/colorsByType';
 import VolumeFill from '../../../utils/svg/VolumeFill';
 import Review from '../../../utils/Review';
-import { Button } from '@mui/material';
+import { Button, Card, CardContent, CardMedia , Typography} from '@mui/material';
 
 interface PokemonData {
     pokemonName: string,
@@ -39,48 +38,44 @@ const CardPokemonFile = ({
             <Card className={styles.searchPokemon__card}>
                 <div className={styles.searchPokemon__pokemon}>
 
-                    {review && review >=0
-                    ?   <ListGroup className={styles.pokemonFile__info}>
-                            <ListGroupItem>
-                                <Review review={review} readOnly/>
-                            </ListGroupItem>
-                        </ListGroup>
-                    : null
-                    }
+                    {Number.isInteger(review) && review >=0 ? <div className={''} style={{margin: '10px'}}>
+                        <div className={styles['review-container']}>
+                            <Review review={review} readOnly />
+                        </div>
+                    </div> : null}
 
-                    <Card.Img
+                     <CardMedia
                         className={styles.searchPokemon__img}
-                        variant="top"
-                        src={pokemonImage}
+                        image={pokemonImage}
+                        title={pokemonName}
+                        sx={{height: '18rem'}}
                     />
 
-                    <Card.Body>
-                        <Card.Title className={styles.pokemonFile__title}>
+                    <CardContent>
+                        <Typography className={styles.pokemonFile__title} variant='h5'>
                             {pokemonName} #{pokemonId}
-                        </Card.Title>
+                        </Typography>
                         {pokemonDescription &&
                             <>
                                 <hr />
-                                <Card.Text>
+                                <Typography>
                                     {pokemonDescription}
-                                </Card.Text>
+                                </Typography>
                             </>
                         }
-                    </Card.Body>
+                    </CardContent>
 
                 </div>
 
                 {pokemonDescription && listenDescription &&
-                    <Button onClick={() => listenDescription(pokemonDescription)} variant='contained'>
+                    <Button onClick={() => listenDescription(pokemonDescription)} variant='contained' sx={{width: '100%'}}>
                         Listen
                         <VolumeFill width={16} height={16} style={{margin: '5px'}} />
                     </Button>
                 }
 
                 <div className={styles.pokemonFile__info}>
-                    {/* <ListGroupItem> */}
-                        Type: <strong style={{color: colorsByType[pokemonType as keyof typeof colorsByType]}}>{pokemonType}</strong>
-                    {/* </ListGroupItem> */}
+                    Type: <strong style={{color: colorsByType[pokemonType as keyof typeof colorsByType]}}>{pokemonType}</strong>
                 </div>
 
                 {evolve &&
@@ -88,6 +83,7 @@ const CardPokemonFile = ({
                         onClick={viewEvolution}
                         disabled={hasEvolution === evolve ? true : false}
                         variant='contained'
+                        sx={{width: '100%'}}
                     >
                         {hasEvolution}
                     </Button>

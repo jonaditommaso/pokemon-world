@@ -9,6 +9,13 @@
     padding: 10px;
 }
 
+.review-container {
+    border: 1px solid #00000020;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .pokemonFile__title {
     display: flex;
     justify-content: center;
