@@ -1,3 +1,4 @@
+import { RankingStructure } from "../../interfaces/RankingStructure";
 import { ActionType } from "../types";
 
 interface PauseAction {
@@ -42,6 +43,11 @@ interface ChangeReview {
     payload: any
 }
 
+interface SetInitialRanking {
+    type: ActionType.INITIAL_DB_RANKING,
+    payload: RankingStructure[]
+}
+
 interface Fighter {
     type: ActionType.I_CHOOSE_YOU,
     payload: any
@@ -65,6 +71,7 @@ export type Action =
     | AddToRanking
     | RemoveToRanking
     | ChangeReview
+    | SetInitialRanking
     | Fighter
     | PlayBattleAction
     | PauseBattleAction

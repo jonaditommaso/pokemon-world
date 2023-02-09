@@ -29,6 +29,9 @@ export const rankingReducer = (state = INITIAL_STATE, action: Action): any => {
             }
             return { ...state, pokemonRanked: changeRanking }
 
+        case ActionType.INITIAL_DB_RANKING:
+            return {...state, pokemonRanked: action.payload}
+
         default:
             return state;
     }

@@ -21,7 +21,7 @@ const RankingTable = ({ ranking }: any) => {
         if(ranking) {
             getTeams();
         }
-    }, [pokemonRanking]);
+    }, [pokemonRanking, ranking]);
 
     return (
         <div className={styles.rankingTable}>

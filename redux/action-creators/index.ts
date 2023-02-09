@@ -1,6 +1,7 @@
 import { Action } from "../actions";
 import { ActionType } from "../types";
 import { Dispatch } from 'redux';
+import { RankingStructure } from "../../interfaces/RankingStructure";
 
 export const playMusic = () => {
     return (dispatch: Dispatch <Action>) => {
@@ -35,9 +36,14 @@ export const signOut = () => {
     }
 }
 
+export const fetchPokeRanking = (document: RankingStructure[]) => {
+    return {
+        type: ActionType.INITIAL_DB_RANKING,
+        payload: document
+    }
+}
 
-
-export const addPokeToRanking = (pokemon:any, type:any, ranking:any) => {
+export const addPokeToRanking = (pokemon:string, type:string[], ranking:number) => {
     return {
         type: ActionType.ADD_POKEMON_RANKING,
         payload: {pokemon, type, ranking}

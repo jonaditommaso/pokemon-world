@@ -4,8 +4,12 @@ import Star from './svg/Star';
 import styles from '../styles/review.module.css'
 import { useActions } from '../hooks/useActions';
 import { addPokeToRanking, changeReview } from '../redux/action-creators';
+import { rankPokemonDB } from '../firebase/config';
+import useUser from '../hooks/useUser';
 
 const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: any) => {
+
+    const githubUser = useUser();
 
     const { addPokeToRanking, changeReview } = useActions()
     useEffect(() => {
@@ -17,6 +21,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: an
         if(!readOnly) {
             if(pokemon && !checkRank.includes(pokemon.name)) {
                 addPokeToRanking(pokemon.name, typePokemon, review + 1);
+                rankPokemonDB(pokemon.name, typePokemon, review + 1, githubUser.userId)
                 getReview(review + 1)
             }
             else {

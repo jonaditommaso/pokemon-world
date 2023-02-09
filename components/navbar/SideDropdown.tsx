@@ -75,27 +75,28 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
             <div className={styles.sideDropdown__userName}>{`Catch them, ${user}!`}
                 <Image src={pokeball} alt="pokeball" width={20}/>
             </div>
-            <FormControl sx={{ minWidth: 120, background: '#22577a', borderRadius: '5px' }}>
-                <Select
-                    size='small'
-                    open={open}
-                    onOpen={() => setOpen(true)}
-                    displayEmpty
-                    renderValue={() => <em>POKEDEX</em>}
-                    sx={{
-                        color: 'white',
-                        '.MuiSvgIcon-root ': {
-                            fill: "white !important",
-                        }
-                    }}
-                >
-                    <MenuItem onClick={() => warning('search')}>Search Pokemon</MenuItem>
-                    <Divider  />
-                    <MenuItem onClick={() => warning('all')}>See all Pokemons</MenuItem>
-                    <Divider  />
-                    <MenuItem onClick={() => warning('ranking')}>Ranking Pokemons</MenuItem>
-                </Select>
-            </FormControl>
+                <FormControl sx={{ minWidth: 120, background: '#22577a', borderRadius: '5px' }}>
+                    <Select
+                        size='small'
+                        open={open}
+                        onOpen={() => setOpen(true)}
+                        onClose={() => setOpen(false)}
+                        displayEmpty
+                        renderValue={() => <em>POKEDEX</em>}
+                        sx={{
+                            color: 'white',
+                            '.MuiSvgIcon-root ': {
+                                fill: "white !important",
+                            }
+                        }}
+                    >
+                        <MenuItem onClick={() => warning('search')}>Search Pokemon</MenuItem>
+                        <Divider  />
+                        <MenuItem onClick={() => warning('all')}>See all Pokemons</MenuItem>
+                        <Divider  />
+                        <MenuItem onClick={() => warning('ranking')}>Ranking Pokemons</MenuItem>
+                    </Select>
+                </FormControl>
         </div>
     );
 }

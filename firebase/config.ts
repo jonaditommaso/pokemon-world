@@ -12,15 +12,20 @@ const firebaseConfig = {
 
 !firebase.apps.length && firebase.initializeApp(firebaseConfig);
 
+
+//LOGIN
+
 export const loginWithGithub = () => {
     const githubProvider = new firebase.auth.GithubAuthProvider();
     return firebase.auth().signInWithPopup(githubProvider);
 }
 
 const mapUserFromFirebaseAuth = (user: any) => {
-    const { displayName } = user;
+
+    const { displayName, uid } = user;
     return {
-      userName: displayName
+      userName: displayName,
+      userId: uid
     }
 }
 
@@ -30,4 +35,27 @@ export const onAuthStateChanged = (onChange: any) => {
       onChange(thereUser)
     });
 
+}
+
+
+//DATABASE
+
+const db = firebase.firestore();
+
+export const rankPokemonDB = (pokemon: string, type: string[], ranking: number, user: string) => {
+
+  return db.collection('ranking').add({
+    pokemon, type, ranking, user
+  });
+}
+
+export const fetchRanking = async (user: string) => {
+  return db.collection('ranking').where('user', '==', user)
+  .get()
+  .then(snapshot => {
+    return snapshot.docs.map(doc => {
+      const data = doc.data()
+      return {...data}
+    })
+  })
 }
