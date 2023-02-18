@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import { signIn } from '../../redux/action-creators';
 import pokeball from '../../public/assets/img/pokeball.png'
@@ -7,6 +10,14 @@ import { Form } from './Form';
 import Typography from '@mui/material/Typography';
 
 const SignIn = () => {
+  const [formView, setFormView] = useState('sign_in');
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.asPath.includes('#signup')) setFormView('sign_up');
+  }, [router]);
+
 
   return (
     <div className={styles.container}>
@@ -14,12 +25,22 @@ const SignIn = () => {
         <Image src={pokeball} alt="login" width={70} height={65} style={{marginTop: '20px'}}  />
 
         <Typography variant='h4' sx={{fontStyle: 'italic'}} className={styles['sign-in-text']}>
-            SIGN IN
+            {formView === 'sign_in' ? 'SIGN IN' : 'SIGN UP'}
         </Typography>
 
        <div style={{marginTop: '15px'}}>
-        <Form />
+        <Form mode={formView} />
        </div>
+
+       <div style={{display: 'flex', justifyContent: 'center', marginTop: '15px'}}>
+          {formView === 'sign_in'
+          ? <>
+            <p>{"Don't have an account?"}</p> &nbsp;
+            <Link href='#signup' onClick={() => setFormView('sign_up')}>Sign Up</Link>
+          </>
+          : <Link href='' onClick={() => setFormView('sign_in')}>Go back to sign in form</Link>
+          }
+        </div>
 
         {/* <Alert
             variant="success"
