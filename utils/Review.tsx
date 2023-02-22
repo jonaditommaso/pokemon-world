@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
+
 import { connect } from 'react-redux';
-import Star from './svg/Star';
-import styles from '../styles/review.module.css'
-import { useActions } from '../hooks/useActions';
-import { addPokeToRanking, changeReview } from '../redux/action-creators';
+
 import { rankPokemonDB } from '../firebase/config';
+import { useActions } from '../hooks/useActions';
 import useUser from '../hooks/useUser';
+import { addPokeToRanking, changeReview } from '../redux/action-creators';
+import styles from '../styles/review.module.css'
+import Star from './svg/Star';
 
 const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: any) => {
 

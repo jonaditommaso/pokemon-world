@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { fetchRanking } from '../firebase/config';
 import { useActions } from './useActions';
 import useUser from './useUser';

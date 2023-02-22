@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import { validationSchemaSignIn } from '../../utils/validationSchemaSignIn';
+
 import { Button, Snackbar, TextField } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import { useActions } from '../../hooks/useActions';
+import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
+
 import { loginWithGithub } from '../../firebase/config';
+import { useActions } from '../../hooks/useActions';
+import { validationSchemaSignIn } from '../../utils/validationSchemaSignIn';
 import ContinueWith from './ContinueWith';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(

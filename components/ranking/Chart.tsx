@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+
 import { Bar } from 'react-chartjs-2';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import { connect } from 'react-redux';
+
 import styles from './ranking.module.css'
 
 const Chart = ({ ranking }: any) => {

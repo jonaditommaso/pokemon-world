@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { Carousel } from 'react-bootstrap';
+
 import pikachu1 from '../public/assets/img/pikachu1.png'
 import pikachu2 from '../public/assets/img/pikachu2.png'
 import pikachu3 from '../public/assets/img/pikachu3.png'
+import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (

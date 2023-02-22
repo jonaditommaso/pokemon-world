@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Fighter from '../../components/fight/Fighter';
+
+import { Button } from '@mui/material';
 import { connect } from 'react-redux';
-import { musicBattle, musicBattlePause } from '../../redux/action-creators';
-import Alert from '../../utils/Alert';
-import styles from '../../components/fight/fight.module.css'
+
+import bgImage from '../../assets/img/battlefield.jpg'
+// import styles from '../../components/fight/fight.module.css'
+import Fighter from '../../components/fight/Fighter';
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { PokemonData } from '../../interfaces/PokemonData';
-import { Button } from '@mui/material';
-import bgImage from '../../assets/img/battlefield.jpg'
+import { musicBattle, musicBattlePause } from '../../redux/action-creators';
+import Alert from '../../utils/Alert';
 
 interface FightProps {
     thereIsUser: string,

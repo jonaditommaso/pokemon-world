@@ -1,8 +1,9 @@
 import { Button } from '@mui/material';
-import { FaGithub } from 'react-icons/fa';
-import { useActions } from '../../hooks/useActions';
 import { useRouter } from 'next/router';
+import { FaGithub } from 'react-icons/fa';
+
 import { loginWithGithub } from '../../firebase/config';
+import { useActions } from '../../hooks/useActions';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 
 interface ContinueProps {

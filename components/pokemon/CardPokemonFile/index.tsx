@@ -1,9 +1,12 @@
 import React from 'react';
-import styles from './card.module.css';
-import { colorsByType } from '../../../utils/colorsByType';
-import VolumeFill from '../../../utils/svg/VolumeFill';
-import Review from '../../../utils/Review';
+
 import { Button, Card, CardContent, CardMedia , Typography} from '@mui/material';
+
+import { colorsByType } from '../../../utils/colorsByType';
+import Review from '../../../utils/Review';
+import VolumeFill from '../../../utils/svg/VolumeFill';
+import styles from './card.module.css';
+
 
 interface PokemonData {
     pokemonName: string,

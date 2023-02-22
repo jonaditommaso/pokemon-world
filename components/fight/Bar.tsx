@@ -1,7 +1,9 @@
-import { LinearProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { BarSettings } from '../../interfaces/BarSettings';
+
+import { LinearProgress } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles'
+
+import { BarSettings } from '../../interfaces/BarSettings';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {

@@ -1,5 +1,7 @@
-import { FormControl, MenuItem, Select } from '@mui/material';
 import React from 'react';
+
+import { FormControl, MenuItem, Select } from '@mui/material';
+
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import { colorsByType } from '../../../utils/colorsByType';
 

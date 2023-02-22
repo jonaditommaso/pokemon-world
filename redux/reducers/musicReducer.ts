@@ -1,6 +1,6 @@
-import { ActionType } from '../types'
-import { Action } from '../actions'
 import { MusicState } from '../../interfaces/Music';
+import { Action } from '../actions'
+import { ActionType } from '../types'
 
 
 const INITIAL_STATE = {volume: false, other: false};

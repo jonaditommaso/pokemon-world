@@ -1,5 +1,5 @@
-import { ActionType } from '../types'
 import { Action } from '../actions'
+import { ActionType } from '../types'
 
 interface LoginState {
     user: string | boolean,

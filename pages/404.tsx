@@ -1,9 +1,11 @@
-import Image from 'next/image';
 import React from 'react';
-import styles from '../styles/Home.module.css';
-import pikachuNotFound from '../public/assets/img/pikachu4.png'
-import { useRouter } from 'next/router';
+
 import { Button } from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+
+import pikachuNotFound from '../public/assets/img/pikachu4.png'
+import styles from '../styles/Home.module.css';
 
 function NotFound() {
     const router = useRouter()

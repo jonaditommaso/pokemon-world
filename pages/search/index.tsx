@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+
+import { Button } from '@mui/material';
 import axios from 'axios';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
-import pokeapi from '../../helpers/pokeapi';
+
 import CardPokemonFile from '../../components/pokemon/CardPokemonFile';
-import styles from './search.module.css'
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import initialPikachu from '../../public/assets/img/pikachusleeping.png'
+import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
-import { PokemonData } from '../../interfaces/PokemonData';
-import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
 import { useActions } from '../../hooks/useActions';
-import { Button } from '@mui/material';
 import { useGetRanked } from '../../hooks/useGetRanked';
+import { PokemonData } from '../../interfaces/PokemonData';
+import initialPikachu from '../../public/assets/img/pikachusleeping.png'
+import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
+import styles from './search.module.css'
 
 const MySwal = withReactContent(Swal);
 

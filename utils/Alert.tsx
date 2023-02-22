@@ -1,5 +1,5 @@
-import Swal from 'sweetalert2';
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2';
 
 interface AlertProps {
     text: string

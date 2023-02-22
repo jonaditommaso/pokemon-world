@@ -1,5 +1,5 @@
-import { ActionType } from '../types'
 import { Action } from '../actions'
+import { ActionType } from '../types'
 
 const INITIAL_STATE = {pokemonRanked: []};
 

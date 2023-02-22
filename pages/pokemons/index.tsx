@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
+
+import { Button } from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
+
+import EachPoke from '../../components/pokemon/EachPoke';
+import FilterButton from '../../components/pokemon/FilterPokemonButton';
+import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
-import { PokemonData } from '../../interfaces/PokemonData';
-import { useRouter } from 'next/router';
-import EachPoke from '../../components/pokemon/EachPoke';
-import styles from './allPokemons.module.css'
-import Image from 'next/image';
-import pokeball from '../../public/assets/img/pokeball.png'
-import FilterButton from '../../components/pokemon/FilterPokemonButton';
-import Alert from '../../utils/Alert';
-import { Button } from '@mui/material';
-import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import { useGetRanked } from '../../hooks/useGetRanked';
+import { PokemonData } from '../../interfaces/PokemonData';
+import pokeball from '../../public/assets/img/pokeball.png'
+import Alert from '../../utils/Alert';
+import styles from './allPokemons.module.css'
+
+
 
 interface AllPokemonsView {
     thereIsUser: string,

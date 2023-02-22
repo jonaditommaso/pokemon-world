@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+
+import { Table, TableBody, TableCell, tableCellClasses, TableHead, TableRow, styled } from '@mui/material';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import { connect } from 'react-redux';
+
+import { themePalette } from '../../config/theme.config';
+import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import Review from '../../utils/Review';
 import styles from './ranking.module.css'
-import { Table, TableBody, TableCell, tableCellClasses, TableHead, TableRow, styled } from '@mui/material';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
-import { themePalette } from '../../config/theme.config';
 
 const RankingTable = ({ ranking }: any) => {
 

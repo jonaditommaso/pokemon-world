@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-// import pokeapi from '../../utils/pokeapi';
-// import '../../styles/fight.css';
-import FightsData from './FightsData';
-import Bar from './Bar';
-// import { Link } from 'react-router-dom';
-import Link from 'next/link'
-import pokeapi from '../../helpers/pokeapi';
-import { thereBattle, musicBattlePause } from '../../redux/action-creators';
-import styles from './fight.module.css';
+
+import { Button } from '@mui/material';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link'
+import { connect } from 'react-redux';
+
+import pokeapi from '../../helpers/pokeapi';
 import { useActions } from '../../hooks/useActions';
-import { Button } from '@mui/material';
+import { thereBattle, musicBattlePause } from '../../redux/action-creators';
+import Bar from './Bar';
+import styles from './fight.module.css';
+import FightsData from './FightsData';
+
 
 const Fighter = ({ fighter }: any) => {
 

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useRouter } from 'next/router'
-import { useActions } from '../../hooks/useActions';
-import { signOut, signIn } from '../../redux/action-creators';
+
 import { Button } from '@mui/material';
+import { useRouter } from 'next/router'
+import { connect } from 'react-redux';
+
+import { useActions } from '../../hooks/useActions';
 import useUser from '../../hooks/useUser';
+import { signOut, signIn } from '../../redux/action-creators';
 
 interface User {
     thereIsUser: string | boolean

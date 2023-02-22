@@ -1,7 +1,8 @@
+import { Dispatch } from 'redux';
+
+import { RankingStructure } from "../../interfaces/RankingStructure";
 import { Action } from "../actions";
 import { ActionType } from "../types";
-import { Dispatch } from 'redux';
-import { RankingStructure } from "../../interfaces/RankingStructure";
 
 export const playMusic = () => {
     return (dispatch: Dispatch <Action>) => {

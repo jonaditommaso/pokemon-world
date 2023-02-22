@@ -1,5 +1,7 @@
-import { Button } from '@mui/material';
 import React, { useEffect } from 'react';
+
+import { Button } from '@mui/material';
+
 import { Fighter } from '../../interfaces/Fighter';
 import styles from '../fight/fight.module.css';
 

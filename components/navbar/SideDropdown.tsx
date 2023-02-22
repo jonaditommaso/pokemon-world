@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
-import pokeball from '../../public/assets/img/pokeballOpen.png'
+
+import { Divider, FormControl, MenuItem, Select } from '@mui/material';
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import styles from './sideDropdown.module.css'
+import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
+
 import { useActions } from '../../hooks/useActions';
+import pokeball from '../../public/assets/img/pokeballOpen.png'
 import { noBattle, musicBattlePause } from '../../redux/action-creators'
-import { Divider, FormControl, MenuItem, Select } from '@mui/material';
+import styles from './sideDropdown.module.css'
 
 interface SideDropdownProps {
     user: string,

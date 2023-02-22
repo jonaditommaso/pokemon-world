@@ -1,14 +1,17 @@
-import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import styles from './eachPoke.module.css'
-import { MdOutlineCancel } from 'react-icons/md';
-import Review from '../../../utils/Review';
-import { colorsByType } from '../../../utils/colorsByType';
-import { useActions } from '../../../hooks/useActions';
-import { removePokemonRanking } from '../../../redux/action-creators';
-import { PokemonData } from '../../../interfaces/PokemonData';
+
 import { Chip } from '@mui/material';
+import Image from 'next/image';
+import { MdOutlineCancel } from 'react-icons/md';
+import { connect } from 'react-redux';
+
+import { useActions } from '../../../hooks/useActions';
+import { PokemonData } from '../../../interfaces/PokemonData';
+import { removePokemonRanking } from '../../../redux/action-creators';
+import { colorsByType } from '../../../utils/colorsByType';
+import Review from '../../../utils/Review';
+import styles from './eachPoke.module.css'
+
 
 interface Ranking {
     pokemon: string,

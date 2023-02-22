@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
+
+import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { signIn } from '../../redux/action-creators';
+
 import pokeball from '../../public/assets/img/pokeball.png'
-import styles from './signin.module.css'
+import { signIn } from '../../redux/action-creators';
 import { Form } from './Form';
-import Typography from '@mui/material/Typography';
+import styles from './signin.module.css'
 
 const SignIn = () => {
   const [formView, setFormView] = useState('sign_in');
