@@ -5,9 +5,19 @@ import { Button } from '@mui/material';
 import { Fighter } from '../../interfaces/Fighter';
 import styles from '../fight/fight.module.css';
 
+type AttackCount = {
+    [key: number]: number;
+  };
+
 function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, hisTurn, hit, attack }: Fighter) {
 
     const [changeTurn, setChangeTurn] = React.useState(false);
+    const [attacksAvailable, setAttacksAvailable] = React.useState<AttackCount>({
+        1: 10,
+        2: 7,
+        3: 5,
+        4: 3
+    });
 
     useEffect(() => {
         if(hisTurn) {
@@ -44,6 +54,10 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
     const damagePoints = (i: number) => {
         switch (i) {
             case 0:
+                setAttacksAvailable((prevState) => ({
+                    ...prevState,
+                    [i + 1]: prevState[i + 1] - 1
+                  }));
                 hit(true);
                 opponentDamage(attack * (0.05 * 2)); // sacar el x2 cuando ponga el hp
                 punched('fighter');
@@ -53,6 +67,10 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                 }, 800);
                 break;
             case 1:
+                setAttacksAvailable((prevState) => ({
+                    ...prevState,
+                    [i + 1]: prevState[i + 1] - 1
+                  }));
                 hit(true);
                 opponentDamage(attack * (0.1 * 2));
                 punched('fighter');
@@ -62,6 +80,10 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                 }, 800);
                 break;
             case 2:
+                setAttacksAvailable((prevState) => ({
+                    ...prevState,
+                    [i + 1]: prevState[i + 1] - 1
+                  }));
                 hit(true);
                 opponentDamage(attack * (0.12 * 2));
                 punched('fighter');
@@ -71,6 +93,10 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                 }, 800);
                 break;
             case 3:
+                setAttacksAvailable((prevState) => ({
+                    ...prevState,
+                    [i + 1]: prevState[i + 1] - 1
+                  }));
                 hit(true);
                 opponentDamage(attack * (0.17 * 2));
                 punched('fighter');
@@ -85,8 +111,8 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
         }
     }
 
-    const disableButtons = () => {
-        if(opponent || (finish === 'fighter__win') || changeTurn) {
+    const disableButtons = (index: number) => {
+        if(opponent || (finish === 'fighter__win') || changeTurn || attacksAvailable[index] === 0) {
             return true
         }
         return false
@@ -102,11 +128,12 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                             size="small"
                             variant='contained'
                             color={colorButton(i)}
-                            style={{width: '9rem'}}
-                            disabled={disableButtons()}
+                            style={{width: '10rem', justifyContent: !opponent ? 'space-between' : ''}}
+                            disabled={disableButtons(i + 1)}
                             onClick={() => damagePoints(i)}
                         >
                             {skill?.move?.name?.toUpperCase()}
+                            {!opponent && <span>{attacksAvailable[i + 1]}</span>}
                         </Button>
                     </div>
                 ))

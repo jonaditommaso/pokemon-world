@@ -15,6 +15,7 @@ const Chart = ({ ranking }: any) => {
   const [fiveStars, setFiveStars] = useState(0);
 
   const [dataAvailable, setDataAvailable] = useState(false);
+  const [chartsAdded, setChartsAdded] = useState([]);
 
   const data = {
     labels: ['1 star', '2 stars', '3 stars', '4 stars', '5 stars'],
@@ -92,7 +93,9 @@ const Chart = ({ ranking }: any) => {
     <div className={styles.chartRanking}>
         { dataAvailable === false
           ? <div>No data available to display <RiErrorWarningLine color="red" /></div>
-          : <Bar data={data} options={options} />
+          : <div>
+            <Bar data={data} options={options} />
+          </div>
         }
     </div>
   )

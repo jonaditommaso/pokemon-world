@@ -5,10 +5,10 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 
-import { loginWithGithub } from '../../firebase/config';
+import ContinueWith from './ContinueWith';
+import { loginWithGithub, fetchUsers, createUser } from '../../firebase/config';
 import { useActions } from '../../hooks/useActions';
 import { validationSchemaSignIn } from '../../utils/validationSchemaSignIn';
-import ContinueWith from './ContinueWith';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -36,16 +36,27 @@ export const Form = ({ mode } : FormProps) => {
     const { signIn } = useActions();
     const router = useRouter();
 
-    const login = (values: FormValues) => {
-        //check if user alredy exist
+    const login = async (values: FormValues) => {
+        if(mode === 'sign_in') {
+            //check if user alredy exist
+            const response = await fetchUsers(values).then(res => res)
+            if (response.length === 0) {
+                //user doesn't exist
+                setOpenErrorMessage(true);
+                return;
+            } else {
+                signIn(values.username) //send complete object
+                localStorage.setItem('USER_NAME', values.username);
+                router.push('/pokemons');
+            }
+        }
 
-        //user doesn't exist
-        setOpenErrorMessage(true);
-        //user exist
-        return;
-        signIn(values.username) //send complete object
-        localStorage.setItem('USER_NAME', values.username);
-        router.push('/pokemons');
+        if(mode === 'sign_up') {
+            createUser(values.username, values.password);
+            signIn(values.username)
+            localStorage.setItem('USER_NAME', values.username);
+            router.push('/pokemons');
+        }
     }
 
 

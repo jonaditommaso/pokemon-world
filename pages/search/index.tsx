@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
 
+import styles from './search.module.css'
 import CardPokemonFile from '../../components/pokemon/CardPokemonFile';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
@@ -16,7 +17,6 @@ import { useGetRanked } from '../../hooks/useGetRanked';
 import { PokemonData } from '../../interfaces/PokemonData';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png'
 import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
-import styles from './search.module.css'
 
 const MySwal = withReactContent(Swal);
 

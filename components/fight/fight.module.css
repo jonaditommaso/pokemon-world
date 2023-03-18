@@ -15,7 +15,7 @@
     background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6));
     border-radius: 10px;
     height: 100px;
-    width: 310px;
+    width: 350px;
 }
 
 .showingButton {
@@ -38,6 +38,10 @@
     flex-wrap: wrap;
     align-content: flex-end;
     margin-top: 1%;
+}
+
+.dataButtons span {
+    font-weight: 800;
 }
 
 .fighter__win {

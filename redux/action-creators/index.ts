@@ -5,19 +5,23 @@ import { Action } from "../actions";
 import { ActionType } from "../types";
 
 export const playMusic = () => {
-    return (dispatch: Dispatch <Action>) => {
-        dispatch({
+    // return (dispatch: Dispatch <Action>) => {
+        // dispatch({
+            return {
             type: ActionType.PLAY_MUSIC
-        })
+        // })
     }
 }
 
 export const pauseMusic = () => {
-    return (dispatch: Dispatch <Action>) => {
-        dispatch({
+    // return (dispatch: Dispatch <Action>) => {
+    //     dispatch({
+        return {
+
             type: ActionType.PAUSE_MUSIC
-        })
-    }
+        }
+        // })
+    // }
 }
 
 export const signIn = (user: string) => {

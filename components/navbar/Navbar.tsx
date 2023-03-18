@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 
+import styles from './navbar.module.css'
+import SideDropdown from './SideDropdown';
 import { useActions } from '../../hooks/useActions';
 import { playMusic, pauseMusic } from '../../redux/action-creators';
 import VolumeFill from '../../utils/svg/VolumeFill';
 import VolumeMute from '../../utils/svg/VolumeMute';
 import StateLogin from '../log/StateLogin';
-import styles from './navbar.module.css'
-import SideDropdown from './SideDropdown';
 
 interface MusicConfig {
     other: boolean,

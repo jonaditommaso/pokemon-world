@@ -21,9 +21,11 @@ const StateLogin = ({ thereIsUser }: User) => {
     const router = useRouter();
 
     useEffect(() => {
-        const user = localStorage.getItem('USER_NAME')
+        const user = localStorage.getItem('USER_NAME');
+        if(!localStorage.getItem('USER_NAME')) return;
         if (user || githubUser) {
-            signIn(user ?? githubUser.userName)
+            signIn(user ?? githubUser.userName);
+            localStorage.setItem('USER_NAME', user || githubUser.userName);
         }
     }, [githubUser]);
 

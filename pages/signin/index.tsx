@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 
-import pokeball from '../../public/assets/img/pokeball.png'
-import { signIn } from '../../redux/action-creators';
 import { Form } from './Form';
 import styles from './signin.module.css'
+import pokeball from '../../public/assets/img/pokeball.png'
+import { signIn } from '../../redux/action-creators';
 
 const SignIn = () => {
   const [formView, setFormView] = useState('sign_in');

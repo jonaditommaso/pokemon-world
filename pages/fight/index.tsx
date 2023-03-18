@@ -76,7 +76,7 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
             ? <Alert text='sd'/>
             : (
             <div>
-                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '10%'}}>
+                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
                     <Button
                         variant="contained"
                         color='error'
@@ -93,6 +93,7 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
                     // type="audio/mp4"
                     preload="auto"
                     id="video"
+                    style={{height: '360px', width: '475px', objectFit: 'none'}}
                     className={showVideo}
                     >
                     </video>

@@ -21,12 +21,15 @@ const ContinueWith = ({ account }: ContinueProps) => {
 
     const handleSignIn = async () => {
         const { user } = await loginWithGithub();
-        if (user?.displayName) signIn(user.displayName);
-        router.push('/pokemons');
+        if (user?.displayName) {
+            signIn(user.displayName);
+            localStorage.setItem('USER_NAME', user.displayName)
+            router.push('/pokemons');
+        }
     }
 
     return (
-        <div style={{marginTop: '30px'}}>
+        <div style={{marginTop: '30px', marginBottom: '10px'}}>
             <Button onClick={handleSignIn} color='secondary' variant='contained'>
                 {icons[account as keyof typeof icons]}    Continue with {capitalizeFirstLetter(account)}
             </Button>

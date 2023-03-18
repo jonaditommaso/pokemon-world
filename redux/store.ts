@@ -14,4 +14,6 @@ export const store = configureStore({
         fight: fightReducer,
         battle: battleReducer,
     }
-})
+});
+
+export type RootState = ReturnType<typeof store.getState>;

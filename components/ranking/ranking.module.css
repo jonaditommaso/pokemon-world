@@ -22,7 +22,8 @@
 }
 
 .chartRanking {
-    width: 500px;
+    width: 400px;
+    max-width: 400px;
     background-color: white;
     margin-top: 5%;
     margin-bottom: 5%;

@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 
+import { FirebaseUser } from '../interfaces/FirebaseUser';
+
 const firebaseConfig = {
     apiKey: "AIzaSyBQrsTqx3bcfMp13qRDuP-RbAtBGI2C_hk",
     authDomain: "poke-game-ec62f.firebaseapp.com",
@@ -58,4 +60,24 @@ export const fetchRanking = async (user: string) => {
       return {...data}
     })
   })
+}
+
+export const fetchUsers = async (user: FirebaseUser) => {
+  return db.collection('users')
+  .where('username', '==', user.username)
+  .where('password', '==', user.password)
+  .get()
+  .then(snapshot => {
+    return snapshot.docs.map(doc => {
+      const data = doc.data()
+      return {...data}
+    })
+  })
+}
+
+export const createUser = (username: string, password: string) => {
+
+  return db.collection('users').add({
+    username, password
+  });
 }
