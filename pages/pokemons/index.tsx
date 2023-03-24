@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 
+import styles from './allPokemons.module.css'
 import EachPoke from '../../components/pokemon/EachPoke';
 import FilterButton from '../../components/pokemon/FilterPokemonButton';
 import { loadPokemons } from '../../helpers/getAndLoadPokemons';
@@ -14,7 +15,6 @@ import { useGetRanked } from '../../hooks/useGetRanked';
 import { PokemonData } from '../../interfaces/PokemonData';
 import pokeball from '../../public/assets/img/pokeball.png'
 import Alert from '../../utils/Alert';
-import styles from './allPokemons.module.css'
 
 
 
@@ -42,22 +42,19 @@ const ShowAllPokemons = ({
     useGetRanked(ranking);
 
     useEffect(() => {
-        const getAllPokemons = async () => {
-            const {data} = await pokeapi.get(`/pokemon/`);
-            await loadPokemons(data.results);
-
-            setNextUrl(data.next);
+        if(showAllPokemons && !optionSelected) {
             setLoading(false);
+            setPokemonData(pokemons)
         }
-        getAllPokemons()
-    }, [showAllPokemons]);
+    }, [showAllPokemons, pokemonData, optionSelected]);
 
 
     useEffect(() => {
         const getTypePokemon = async () => {
             setLoading(true)
             const {data} = await pokeapi.get(`/type/${optionSelected}/`);
-            await loadPokemons(data.pokemon);
+            const result = await loadPokemons(data.pokemon);
+            setPokemonData(result)
             setLoading(false);
         }
 

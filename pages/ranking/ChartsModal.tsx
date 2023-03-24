@@ -3,20 +3,25 @@ import { useState } from 'react';
 import { Button, ThemeProvider, Typography } from '@mui/material';
 import clsx from 'clsx';
 import Image from 'next/image'
+import { Carousel } from 'react-bootstrap';
 import { BsInfoCircle } from 'react-icons/bs';
 import { GoChevronLeft } from 'react-icons/go';
 import Swal from 'sweetalert2';
 
 import styles from './ranking.module.css'
 import { theme } from '../../config/theme.config';
+import { updateCharts } from '../../firebase/config';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import { charts } from '../../utils/charts';
-import { Carousel } from 'react-bootstrap';
 
+interface ChartsModalProps {
+    setCharts: void,
+    currentCharts: string[]
+}
 
-const ChartsModal = ({ setNewCharts }: void) => {
+const ChartsModal = ({ setCharts, currentCharts }: ChartsModalProps) => {
 
-    const [chartsSelected, setChartsSelected] = useState <String[]> ([]);
+    const [chartsSelected, setChartsSelected] = useState <string[]> ([]);
     // const [carouselIndex, setCarouselIndex] = useState({});
 
     const handleChartSelection = (chart: string) => {
@@ -31,7 +36,8 @@ const ChartsModal = ({ setNewCharts }: void) => {
     }
 
     const handleOk = () => {
-        setNewCharts(chartsSelected);
+        setCharts(chartsSelected);
+        updateCharts('Jona', chartsSelected)
         Swal.close()
     }
 
@@ -49,8 +55,15 @@ const ChartsModal = ({ setNewCharts }: void) => {
                         // <Carousel key={chart.name} activeIndex={`${carouselIndex[index]}`}>
                             <div key={chart.name}>
                                 <div
-                                  className={clsx(styles['image-container'], chartsSelected.includes(chart.name) && styles['image-container-selected'])}
-                                  onClick={() => handleChartSelection(chart.name)}
+                                    className={clsx(
+                                        styles['image-container'],
+                                        chartsSelected.includes(chart.name) && styles['image-container-selected'],
+                                        currentCharts.includes(chart.name) && styles['disabled-chart']
+                                    )}
+                                    onClick={() => {
+                                        if (currentCharts.includes(chart.name)) return;
+                                        handleChartSelection(chart.name)
+                                    }}
                                 >
                                     <Image
                                         src={chart.src}

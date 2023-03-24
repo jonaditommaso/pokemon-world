@@ -30,6 +30,7 @@
     cursor: pointer;
 }
 
+
 .image-container:hover {
     transform: scale(1.05);
     transition: 0.2s;
@@ -45,6 +46,13 @@
     border: 2px solid #22577a;
 }
 
+.disabled-chart {
+    opacity: 0.4;
+    cursor: default;
+    transform: none !important;
+    box-shadow: none !important;
+    border: 2px solid transparent !important;
+}
 @media (max-width: 1100px) {
     .ranking {
         flex-direction: column;

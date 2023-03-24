@@ -81,3 +81,37 @@ export const createUser = (username: string, password: string) => {
     username, password
   });
 }
+
+export const updateCharts = (user: string, charts: string[]) => {
+  let userRef = db.collection('users').where('username', '==', user);
+
+  userRef.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      // Use the document ID to get a reference to the document
+      var docRef = db.collection("users").doc(doc.id);
+
+      // Update the data for the user document
+      docRef.update({
+        charts: charts
+      })
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+          console.error("Error updating document: ", error);
+        });
+    });
+  });
+}
+
+export const fetchCharts = async (user: string) => {
+  return db.collection('users')
+  .where('username', '==', user)
+  .get()
+  .then(snapshot => {
+    return snapshot.docs.map(doc => {
+      const data = doc.data()
+      return {...data.charts}
+    })
+  })
+}

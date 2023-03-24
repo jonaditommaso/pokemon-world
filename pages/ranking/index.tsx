@@ -11,7 +11,7 @@ import styles from './ranking.module.css'
 import Chart from '../../components/ranking/Chart';
 import ContainerChart from '../../components/ranking/ContainerChart';
 import RankingTable from '../../components/ranking/RankingTable';
-import { fetchRanking } from '../../firebase/config';
+import { fetchCharts, fetchRanking } from '../../firebase/config';
 import { useActions } from '../../hooks/useActions';
 import { useGetRanked } from '../../hooks/useGetRanked';
 import useUser from '../../hooks/useUser';
@@ -22,14 +22,24 @@ const MySwal = withReactContent(Swal);
 const Ranking = ({ ranking }: any) => {
 
     const [currentTab, setCurrentTab] = useState(0);
-    const [newCharts, setNewCharts] = useState <String[]>([]);
+    const [charts, setCharts] = useState <string[]>([]);
 
     useGetRanked(ranking);
+
+    useEffect(() => {
+        (async function getCharts () {
+            const response = await fetchCharts('Jona').then(res => {
+                return res.map((chart, index) => Object.values(chart)[index])
+            });
+            console.log(response)
+            if(response.length > 0) setCharts(response as unknown[] as string[]);
+        })();
+    }, []);
 
     const showModal = () => {
         MySwal.fire({
           html: (
-            <ChartsModal setNewCharts={setNewCharts} />
+            <ChartsModal setCharts={setCharts} currentCharts={charts} />
           ),
           showCancelButton: false,
           showConfirmButton: false,
@@ -59,7 +69,7 @@ const Ranking = ({ ranking }: any) => {
                             Add chart &nbsp; <GoPlus />
                         </Button>
                     </div>
-                    <ContainerChart chartsSelected={newCharts} />
+                    <ContainerChart chartsSelected={charts} />
                 </TabPanel>
             </div>
         </div>
