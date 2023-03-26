@@ -8,6 +8,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import ChartsModal from './ChartsModal';
 import styles from './ranking.module.css'
+import Battles from '../../components/fight/Battles';
 import Chart from '../../components/ranking/Chart';
 import ContainerChart from '../../components/ranking/ContainerChart';
 import RankingTable from '../../components/ranking/RankingTable';
@@ -54,6 +55,7 @@ const Ranking = ({ ranking }: any) => {
                 <Tabs value={currentTab} onChange={(e, value) => setCurrentTab(value)}>
                     <Tab label='Table' id='0'/>
                     <Tab label='Charts' id='1'/>
+                    <Tab label='Battles' id='2'/>
                 </Tabs>
             </div>
             <div>
@@ -70,6 +72,9 @@ const Ranking = ({ ranking }: any) => {
                         </Button>
                     </div>
                     <ContainerChart chartsSelected={charts} />
+                </TabPanel>
+                <TabPanel value={currentTab} index={2}>
+                    <Battles />
                 </TabPanel>
             </div>
         </div>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button } from '@mui/material';
+import clsx from 'clsx'
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
+import styles from './fight.module.css'
+import TypeFight from './TypeFight';
 import bgImage from '../../assets/img/battlefield.jpg'
-// import styles from '../../components/fight/fight.module.css'
 import Fighter from '../../components/fight/Fighter';
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
@@ -27,6 +30,7 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
     const [showButton, setShowButton] = useState('showingButton');
     const [showVideo, setShowVideo] = useState('d-none');
     const [showBattle, setShowBattle] = useState('d-none');
+    const [fightTypeSelected, setFightTypeSelected] = useState('');
 
     const [preparationWrap, setPreparationWrap] = useState('');
 
@@ -41,6 +45,18 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
     }, [music]);
 
     const handlePlay = () => {
+        if(!fightTypeSelected) return;
+        if(fightTypeSelected === 'squirtle' || fightTypeSelected === 'pikachu') {
+            Swal.fire({
+                icon: 'warning',
+                text: 'Game mode not available yet',
+                showConfirmButton: true,
+                confirmButtonText: "Ok",
+                confirmButtonColor: '#2754d5',
+                backdrop: true
+            });
+            return;
+        }
         setShowButton('d-none');
         setShowVideo('showingVideo');
 
@@ -76,45 +92,50 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
             ? <Alert text='sd'/>
             : (
             <div>
-                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
-                    <Button
-                        variant="contained"
-                        color='error'
-                        size='large'
-                        onClick={() => handlePlay()}
-                        className={showButton}
-                        sx={{fontSize: '20px'}}
-                    >
-                        FIGHT!
-                    </Button>
+                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '4%'}}>
+                    <div className={showButton}>
+                        <TypeFight typeFight={fightTypeSelected} changeTypeFight={setFightTypeSelected} />
+                    </div>
+                    <div className={clsx(styles['fight-button'], !fightTypeSelected && styles['fight-button-disabled'])}>
+                        <Button
+                            variant="contained"
+                            color='error'
+                            size='large'
+                            onClick={() => handlePlay()}
+                            className={showButton}
+                            sx={{fontSize: '20px'}}
+                        >
+                            FIGHT!
+                        </Button>
 
-                    <video
-                    src='video/pokeballgo.mp4'
-                    // type="audio/mp4"
-                    preload="auto"
-                    id="video"
-                    style={{height: '360px', width: '475px', objectFit: 'none'}}
-                    className={showVideo}
-                    >
-                    </video>
-                    <audio
-                    src='audio/pokemon-battle.mp3'
-                    // type="audio/mpeg"
-                    preload="auto"
-                    id="pokemon-battle"
-                    controls
-                    style={{display: 'none'}}
-                >
-                </audio>
-                <audio
-                    src={`audio/voices/${fighter?.pokemon.name}.mp3`}
-                    // type="audio/mpeg"
-                    preload="auto"
-                    id="pokemon-name"
-                    controls
-                    style={{display: 'none'}}
-                >
-                </audio>
+                        <video
+                        src='video/pokeballgo.mp4'
+                        // type="audio/mp4"
+                        preload="auto"
+                        id="video"
+                        style={{height: '360px', width: '475px', objectFit: 'none'}}
+                        className={showVideo}
+                        >
+                        </video>
+                        <audio
+                        src='audio/pokemon-battle.mp3'
+                        // type="audio/mpeg"
+                        preload="auto"
+                        id="pokemon-battle"
+                        controls
+                        style={{display: 'none'}}
+                        >
+                        </audio>
+                        <audio
+                            src={`audio/voices/${fighter?.pokemon.name}.mp3`}
+                            // type="audio/mpeg"
+                            preload="auto"
+                            id="pokemon-name"
+                            controls
+                            style={{display: 'none'}}
+                        >
+                        </audio>
+                    </div>
                 </div>
 
                 <div

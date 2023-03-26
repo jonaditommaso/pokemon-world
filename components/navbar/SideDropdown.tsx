@@ -96,7 +96,7 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
                         <Divider  />
                         <MenuItem onClick={() => warning('all')}>See all Pokemons</MenuItem>
                         <Divider  />
-                        <MenuItem onClick={() => warning('ranking')}>Ranking Pokemons</MenuItem>
+                        <MenuItem onClick={() => warning('ranking')}>Statistics Pokemons</MenuItem>
                     </Select>
                 </FormControl>
         </div>

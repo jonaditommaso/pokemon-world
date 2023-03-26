@@ -81,7 +81,7 @@ export default function Bar ({
 
   useEffect(() => {
     let barRise = [0];
-    barRise.push(damageMe * ((Math.random() / 5 ) * 2.5));
+    barRise.push(damageMe * ((Math.random() / 5 ) * 5)); //2.5
     const result = (barRise.reduce((plus, value) => value + plus, damageToMe));
 
     const iWinOrNot = () => {

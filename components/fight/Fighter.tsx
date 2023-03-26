@@ -6,20 +6,20 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { connect } from 'react-redux';
 
-import pokeapi from '../../helpers/pokeapi';
-import { useActions } from '../../hooks/useActions';
-import { thereBattle, musicBattlePause } from '../../redux/action-creators';
 import Bar from './Bar';
 import styles from './fight.module.css';
 import FightsData from './FightsData';
+import pokeapi from '../../helpers/pokeapi';
+import { useActions } from '../../hooks/useActions';
+import { thereBattle, musicBattlePause } from '../../redux/action-creators';
 
 
-const Fighter = ({ fighter }: any) => {
+const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
 
     const { thereBattle, musicBattlePause } = useActions()
 
-    const [pokemonData, setPokemonData] = useState('');
-    const [opponentSkills, setOpponentSkills] = useState('');
+    const [pokemonData, setPokemonData] = useState(opponentData);
+    const [opponentSkills, setOpponentSkills] = useState(skillsOp);
     const [skills, setSkills] = useState('')
     const [ownSkills, setOwnSkills] = useState('');
 
@@ -40,8 +40,8 @@ const Fighter = ({ fighter }: any) => {
 
     const [opponentHp, setOpponentHp] = useState('');
 
-    const OPPONENT = Math.round(Math.random()*100).toString();
-    // podria multiplicar por 150 y setear opponent siempre y cuando el resultado no sea 132 (ditto tiene una sola habilidad)
+    const [youWin, setYouWin] = useState(undefined);
+    const [pokemonWon, setPokemonWon] = useState('');
 
     const [thereWinner, setThereWinner] = useState(false)
 
@@ -119,21 +119,43 @@ const Fighter = ({ fighter }: any) => {
     }, [opponentsTurn, winner, iWin]);
 
 
-    useEffect(() => {
-        const getPokemon = async () => {
-            const {data} = await pokeapi.get(`/pokemon/${OPPONENT}`);
-                setPokemonData(data);
-                setOpponentSkills(data?.moves);
-        }
-        getPokemon();
+    // useEffect(() => {
+    //     const getPokemon = async () => {
+    //         const {data} = await pokeapi.get(`/pokemon/${OPPONENT}`);
+    //             setPokemonData(data);
+    //             setOpponentSkills(data?.moves);
+    //     }
+    //     getPokemon();
 
-    }, []);
+    // }, []);
+
+    useEffect(() => {
+        const winName = () => {
+            let pokemonName = undefined
+            if(iWin >= 100) {
+                setYouWin(true);
+                pokemonName = fighter?.pokemon?.name;
+            }
+            if(heWin >= 100) {
+                setYouWin(false);
+                pokemonName = pokemonData?.name;
+            }
+            setPokemonWon(pokemonName)
+        };
+
+      if(winner === 'fighter__win') {
+        winName();
+      }
+    }, [winner])
+
 
     const winName = () => {
         if(iWin >= 100) {
+            setYouWin(false);
             return fighter?.pokemon?.name;
         }
         if(heWin >= 100) {
+            setYouWin(true);
             return pokemonData?.name;
         }
     };
@@ -179,7 +201,8 @@ const Fighter = ({ fighter }: any) => {
             </div>
 
             <div className={clsx(styles[winner], winner)}>
-                <span style={{margin: 'auto'}}>{winName()?.toUpperCase()} WINS</span>
+                <span style={{color:'#d90dde', marginLeft: '20px'}}>{`+${youWin ? '72' : '23'} XP`}</span>
+                <span style={{margin: 'auto'}}>{pokemonWon.toUpperCase()} WINS</span>
                 <div className={styles.button__playAgain}>
                     <Link href='/search' style={{textDecoration: 'none'}}>
                         <Button variant='contained' onClick={() => musicBattlePause()}>PLAY AGAIN</Button>
@@ -245,3 +268,19 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { thereBattle, musicBattlePause })(Fighter);
+
+export async function getStaticProps() {
+    const OPPONENT = Math.round(Math.random()*100).toString();
+    // podria multiplicar por 150 y setear opponent siempre y cuando el resultado no sea 132 (ditto tiene una sola habilidad)
+
+    const {data} = await pokeapi.get(`/pokemon/${OPPONENT}`);
+    let opponentData = data
+    let skillsOp = data?.moves
+
+    return {
+        props: {
+            opponentData,
+            skillsOp
+        }
+    }
+}

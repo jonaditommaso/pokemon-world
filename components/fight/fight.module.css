@@ -1,3 +1,26 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('../../assets/fonts/Pokemon\ Solid.ttf'),
+        url('../../assets/fonts/Pokemon\ Hollow.ttf');
+}
+
+.register-container {
+    width: 100px;
+    text-align: center;
+}
+
+.register-data {
+    font-family: pokemon !important;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.register-section {
+    line-height: initial;
+    font-style: italic;
+}
+
+
 .fighter {
     animation: golpe 0.1s alternate infinite ease-in-out;
 }

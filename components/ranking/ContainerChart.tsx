@@ -79,7 +79,7 @@ const ContainerChart = ({ chartsSelected = [], ranking }) => {
         },
         title: {
           display: true,
-          text: 'Types'
+          text: 'Types ranked'
         }
       }
     }
