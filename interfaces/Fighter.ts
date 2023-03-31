@@ -1,17 +1,28 @@
-interface Moves {
-    move: {
-        name: string
-    }
-}
-
 export interface Fighter {
-    hit: any,
+    setHit: any,
     punched: any,
     turn: any,
     opponentDamage: any,
     attack: number,
     hisTurn: boolean,
     finish: string,
-    skills: Moves[],
-    opponent: boolean | undefined
+    skills: string[],
+    opponent: boolean | undefined,
+}
+
+export interface LifePoints {
+    opponent: number;
+    player: number;
+}
+
+export interface Moves {
+    opponent: string[];
+    player: string[];
+}
+
+export interface PokemonFighter {
+    front_default: string,
+    name: string,
+    stats: any[],
+    moves: any[],
 }

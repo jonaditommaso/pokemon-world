@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { LinearProgress } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles'
 
 import { BarSettings } from '../../interfaces/BarSettings';
+import { LifePoints } from '../../interfaces/Fighter';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -29,24 +30,19 @@ const useStyles = makeStyles({
 });
 
 export default function Bar ({
-  damage,
-  wins,
-  hisAccumulate,
   hit,
   setHit,
-  hp,
-  punchMe,
-  me,
-  he,
-  myAccumulate,
-  damageMe,
-  winner
+  setGameOver,
+  fighter,
+  changeLife,
+  damage,
+  opponentsTurn,
 }: BarSettings) {
 
   const classes = useStyles();
 
-  const [acumulador, setAcumulador] = useState(0);
-  const [damageToMe, setDamageToMe] = useState(0);
+  const [damageCount, setDamageCount] = useState(0);
+
 
   const notPassTheLine = (result: number) => {
     if(result >= 100) {
@@ -55,63 +51,44 @@ export default function Bar ({
     return result
   }
 
-  useEffect(() => {
+  const changeDamage = useCallback((damagePoints: number) => {
 
-    if(hit) {
-      let barRise = [0];
-      barRise.push(damage);
-
-      const result = (barRise.reduce((plus, value) => value + plus, acumulador));
-
-      setAcumulador(notPassTheLine(result));
-
-      setHit(false);
-    }
-
-    if(hp) {
-      if(acumulador >= 100 ) {
-        setTimeout(() => {
-          wins('fighter__win');
-        }, 500);
-        hisAccumulate(acumulador);
-      }
-    }
-  }, [damage, hit, acumulador]);
-
-
-  useEffect(() => {
     let barRise = [0];
-    barRise.push(damageMe * ((Math.random() / 5 ) * 5)); //2.5
-    const result = (barRise.reduce((plus, value) => value + plus, damageToMe));
+    barRise.push(damagePoints);
+    const result = barRise.reduce((plus, value) => value + plus, damageCount);
+    setDamageCount(notPassTheLine(result));
+    setHit(false);
+  }, [opponentsTurn]);
 
-    const iWinOrNot = () => {
-      if(winner){
-      }
-      else {
-        setDamageToMe(notPassTheLine(result));
-      }
+  useEffect(() => {
+    if(hit && opponentsTurn && fighter === 'opponent') {
+      changeDamage(damage)
     }
 
-    if(me && punchMe) {
+    if(hit && opponentsTurn === false && fighter === 'player') {
+      changeDamage(damage * ((Math.random() / 5 )))
+    }
+
+  }, [hit])
+
+
+  useEffect(() => {
+
+    if(damageCount >= 100 ) {
       setTimeout(() => {
-        iWinOrNot()
-      }, 5000);
+        setGameOver('fighter__win');
+      }, 500);
+      changeLife((prevLifePoints: LifePoints) => ({
+        ...prevLifePoints,
+        [fighter]: damageCount
+      }));
     }
-
-    if(me) {
-      if(damageToMe >= 100 ) {
-        setTimeout(() => {
-          wins('fighter__win');
-        }, 500);
-        myAccumulate(damageToMe);
-      }
-    };
-  }, [punchMe, winner]);
+  }, [damage, hit, damageCount, fighter, opponentsTurn]);
 
 
   return (
     <div className={classes.root}>
-      <BorderLinearProgress variant="determinate" value={he ? acumulador : damageToMe}/>
+      <BorderLinearProgress variant="determinate" value={damageCount}/>
     </div>
   );
 }

@@ -9,7 +9,7 @@ type AttackCount = {
     [key: number]: number;
   };
 
-function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, hisTurn, hit, attack }: Fighter) {
+function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, hisTurn, setHit, attack }: Fighter) {
 
     const [changeTurn, setChangeTurn] = React.useState(false);
     const [attacksAvailable, setAttacksAvailable] = React.useState<AttackCount>({
@@ -45,7 +45,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
     }
 
     const notMyTurn = () => {
-        if (hisTurn === false) {
+        if (!hisTurn) {
             turn(true);
         }
         return
@@ -58,7 +58,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     ...prevState,
                     [i + 1]: prevState[i + 1] - 1
                   }));
-                hit(true);
+                setHit(true);
                 opponentDamage(attack * (0.05 * 2)); // sacar el x2 cuando ponga el hp
                 punched('fighter');
                 notMyTurn();
@@ -71,7 +71,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     ...prevState,
                     [i + 1]: prevState[i + 1] - 1
                   }));
-                hit(true);
+                setHit(true);
                 opponentDamage(attack * (0.1 * 2));
                 punched('fighter');
                 notMyTurn();
@@ -84,7 +84,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     ...prevState,
                     [i + 1]: prevState[i + 1] - 1
                   }));
-                hit(true);
+                setHit(true);
                 opponentDamage(attack * (0.12 * 2));
                 punched('fighter');
                 notMyTurn();
@@ -97,7 +97,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     ...prevState,
                     [i + 1]: prevState[i + 1] - 1
                   }));
-                hit(true);
+                setHit(true);
                 opponentDamage(attack * (0.17 * 2));
                 punched('fighter');
                 notMyTurn();
@@ -132,7 +132,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                             disabled={disableButtons(i + 1)}
                             onClick={() => damagePoints(i)}
                         >
-                            {skill?.move?.name?.toUpperCase()}
+                            {skill.toUpperCase()}
                             {!opponent && <span>{attacksAvailable[i + 1]}</span>}
                         </Button>
                     </div>

@@ -8,12 +8,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: black;
 }
 
 .images-container img {
     cursor: pointer;
-    transition: 0.2s;
-    z-index: 2;
+    transition: 0.4s;
 }
 
 .images-container-not-selected {
@@ -21,9 +21,8 @@
 }
 
 .images-container img:hover {
-    transform: scale(1.1);
-    transition: 0.2s;
-    z-index: 2 !important;
+    opacity: 0.8;
+    transition: 0.4s;
     filter: none;
 }
 
@@ -32,7 +31,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
 }
 
 .fight-button-disabled button {
@@ -52,7 +50,6 @@
     font-weight: bold;
     position: absolute;
     top: 8px;
-    z-index: 1;
     font-size: 35px;
     pointer-events: none;
 }

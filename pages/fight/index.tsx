@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import styles from './fight.module.css'
 import TypeFight from './TypeFight';
 import bgImage from '../../assets/img/battlefield.jpg'
-import Fighter from '../../components/fight/Fighter';
+import Fighter, { getStaticProps as getFighterStaticProps } from '../../components/fight/Fighter';
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { PokemonData } from '../../interfaces/PokemonData';
@@ -20,10 +20,11 @@ interface FightProps {
     music: MusicState,
     fighter: {
         pokemon: PokemonData
-    }
+    },
+    pokemonData: any,
 }
 
-const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
+const Fight = ( {thereIsUser, fighter, music, pokemonData }: FightProps) => {
 
     const { musicBattle, musicBattlePause } = useActions()
 
@@ -92,11 +93,11 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
             ? <Alert text='sd'/>
             : (
             <div>
-                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '4%'}}>
+                <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '4%', position: showVideo === 'd-none' ? 'relative' : 'static'}}>
                     <div className={showButton}>
                         <TypeFight typeFight={fightTypeSelected} changeTypeFight={setFightTypeSelected} />
                     </div>
-                    <div className={clsx(styles['fight-button'], !fightTypeSelected && styles['fight-button-disabled'])}>
+                    <div style={{position: 'absolute', top: '50%'}} className={clsx(styles['fight-button'], !fightTypeSelected && styles['fight-button-disabled'])}>
                         <Button
                             variant="contained"
                             color='error'
@@ -108,33 +109,33 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
                             FIGHT!
                         </Button>
 
-                        <video
-                        src='video/pokeballgo.mp4'
-                        // type="audio/mp4"
-                        preload="auto"
-                        id="video"
-                        style={{height: '360px', width: '475px', objectFit: 'none'}}
-                        className={showVideo}
-                        >
-                        </video>
-                        <audio
-                        src='audio/pokemon-battle.mp3'
-                        // type="audio/mpeg"
-                        preload="auto"
-                        id="pokemon-battle"
-                        controls
-                        style={{display: 'none'}}
-                        >
-                        </audio>
-                        <audio
-                            src={`audio/voices/${fighter?.pokemon.name}.mp3`}
-                            // type="audio/mpeg"
-                            preload="auto"
-                            id="pokemon-name"
-                            controls
-                            style={{display: 'none'}}
-                        >
-                        </audio>
+                        <div style={{display: !fightTypeSelected ? 'none' : '', position: 'absolute', top: '50%', left: '50%',transform: 'translate(-50%, -50%)'}}>
+                            <video
+                                src='video/pokeballgo.mp4'
+                                preload="auto"
+                                id="video"
+                                style={{height: '360px', width: '475px', objectFit: 'none'}}
+                                className={showVideo}
+                            >
+                            </video>
+
+                            <audio
+                                src='audio/pokemon-battle.mp3'
+                                preload="auto"
+                                id="pokemon-battle"
+                                controls
+                                style={{display: 'none'}}
+                            >
+                            </audio>
+                            <audio
+                                src={`audio/voices/${fighter?.pokemon.name}.mp3`}
+                                preload="auto"
+                                id="pokemon-name"
+                                controls
+                                style={{display: 'none'}}
+                            >
+                            </audio>
+                        </div>
                     </div>
                 </div>
 
@@ -148,7 +149,7 @@ const Fight = ( {thereIsUser, fighter, music }: FightProps) => {
                         padding: '4%'
                     }}
                 >
-                    <Fighter />
+                    <Fighter pokemonData={pokemonData} />
                 </div>
             </div>
             )}
@@ -167,3 +168,8 @@ const mapStateToProps = (state: any) => {
 }
 
 export default connect(mapStateToProps, { musicBattle, musicBattlePause })(Fight);
+
+export async function getStaticProps() {
+    const fighterProps = await getFighterStaticProps();
+    return fighterProps; // returning props from getStaticProps function in Fighter, in order to this component can use them
+}

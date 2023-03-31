@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Button } from '@mui/material';
 import clsx from 'clsx';
+import get from 'lodash/get';
 import Image from 'next/image';
 import Link from 'next/link'
 import { connect } from 'react-redux';
@@ -9,100 +10,81 @@ import { connect } from 'react-redux';
 import Bar from './Bar';
 import styles from './fight.module.css';
 import FightsData from './FightsData';
+import { OOPONENT_DATA } from '../../constants';
 import pokeapi from '../../helpers/pokeapi';
 import { useActions } from '../../hooks/useActions';
+import { LifePoints, Moves, PokemonFighter } from '../../interfaces/Fighter';
 import { thereBattle, musicBattlePause } from '../../redux/action-creators';
+import { extractedData } from '../../utils/extractedData';
 
 
-const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
+const Fighter = ({ fighter, pokemonData }: any) => {
 
-    const { thereBattle, musicBattlePause } = useActions()
+    const { thereBattle, musicBattlePause } = useActions();
 
-    const [pokemonData, setPokemonData] = useState(opponentData);
-    const [opponentSkills, setOpponentSkills] = useState(skillsOp);
-    const [skills, setSkills] = useState('')
-    const [ownSkills, setOwnSkills] = useState('');
+    const [skills, setSkills] = useState <string[]> ([]);
+    const [ownSkills, setOwnSkills] = useState <string[]> ([]);
 
     const [opponentPunched, setOpponentPunched] = useState('');
     const [iWasPunched, setIWasPunched] = useState('')
 
-    const [pointsOfDamageTowardsMe, setPointsOfDamageTowardsMe] = useState(0);
-
     const [damagePointsForTheOpponent, setDamagePointsForTheOpponent] = useState(0);
-    const [winner, setWinner] = useState('d-none');
 
-    const [iWin, setIWin] = useState(false);
-    const [heWin, setHeWin] = useState(false);
+    const [gameOver, setGameOver] = useState('d-none');
 
-    const [opponentsTurn, setOpponentsTurn] = useState(false);
+    const [lifePoints, setLifePoints] = useState <LifePoints> ({
+        opponent: 0,
+        player: 0
+    });
 
-    const [thereIsHit, setThereIsHit] = useState(false);
+    const [opponentsTurn, setOpponentsTurn] = useState <undefined | boolean> (undefined); // this represent if it is the opponent turn 'cause user don't manage him
 
-    const [opponentHp, setOpponentHp] = useState('');
+    const [thereIsHit, setThereIsHit] = useState(false); // this represent a hit for anyone
 
-    const [youWin, setYouWin] = useState(undefined);
-    const [pokemonWon, setPokemonWon] = useState('');
-
-    const [thereWinner, setThereWinner] = useState(false)
+    const [youWin, setYouWin] = useState <undefined | boolean> (undefined);
 
     useEffect(() => {
-        let moves = [];
-        let ownMoves = []
+        let moves: Moves = {
+            opponent: [],
+            player: [],
+        }
 
-        async function getSkills() {
-            if(opponentSkills[16]) {
+        type Player = 'opponent' | 'player';
+
+        async function getSkills(pokemon: PokemonFighter, player: Player) {
+            if(pokemon.moves[20]) {
                 for (let i = 16; i < 20; i++) {
-                    moves?.push(opponentSkills[i]);
+                    moves[player].push(pokemon.moves[i].move.name);
                 }
                 return moves;
             }
             else {
                 for (let i = 0; i < 4; i++) {
-                    moves.push(opponentSkills[i]);
+                    moves[player].push(pokemon.moves[i].move.name);
                 }
                 return moves;
             }
         }
 
         if(pokemonData) {
-            getSkills();
-            setSkills(moves);
-            setOpponentHp(pokemonData?.stats[0]?.base_stat);
-            setPointsOfDamageTowardsMe(pokemonData?.stats[1].base_stat);
+            getSkills(pokemonData, 'opponent');
+            setSkills(moves.opponent);
             thereBattle(pokemonData);
         }
 
-        async function getOwnSkills() {
-            if(fighter?.pokemon && fighter?.pokemon?.moves[16]) {
-                for (let i = 16; i < 20; i++) {
-                    ownMoves.push(fighter?.pokemon?.moves[i]);
-                }
-                return ownMoves;
-            }
-            else {
-                for (let i = 0; i < 4; i++) {
-                    ownMoves.push(fighter?.pokemon?.moves[i]);
-                }
-                return ownMoves;
-            }
-        }
-
         if(fighter) {
-            getOwnSkills();
+            getSkills(fighter.pokemon, 'player');
+            setOwnSkills(moves.player);
         }
-        setOwnSkills(ownMoves);
 
-    }, [opponentSkills]);
+    }, [pokemonData, fighter]);
 
 
     useEffect(() => {
         if(opponentsTurn === true) {
-            if(iWin === 100) {
-                setThereWinner(true)
-            }
 
             setTimeout(() => {
-                if(iWin === 100) {
+                if(lifePoints.opponent === 100) {
                     setIWasPunched('');
                 }
                 else {
@@ -112,53 +94,29 @@ const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
 
 
             setTimeout(() => {
+                setThereIsHit(true);
                 setIWasPunched('');
                 setOpponentsTurn(false);
             }, 5800);
         }
-    }, [opponentsTurn, winner, iWin]);
+    }, [opponentsTurn, gameOver, lifePoints]);
 
-
-    // useEffect(() => {
-    //     const getPokemon = async () => {
-    //         const {data} = await pokeapi.get(`/pokemon/${OPPONENT}`);
-    //             setPokemonData(data);
-    //             setOpponentSkills(data?.moves);
-    //     }
-    //     getPokemon();
-
-    // }, []);
 
     useEffect(() => {
-        const winName = () => {
-            let pokemonName = undefined
-            if(iWin >= 100) {
+        const setWinner = () => {
+            if(lifePoints.opponent >= 100) {
                 setYouWin(true);
-                pokemonName = fighter?.pokemon?.name;
             }
-            if(heWin >= 100) {
+            if(lifePoints.player >= 100) {
                 setYouWin(false);
-                pokemonName = pokemonData?.name;
             }
-            setPokemonWon(pokemonName)
         };
 
-      if(winner === 'fighter__win') {
-        winName();
+      if(gameOver === 'fighter__win') {
+        setWinner();
       }
-    }, [winner])
+    }, [gameOver, lifePoints]);
 
-
-    const winName = () => {
-        if(iWin >= 100) {
-            setYouWin(false);
-            return fighter?.pokemon?.name;
-        }
-        if(heWin >= 100) {
-            setYouWin(true);
-            return pokemonData?.name;
-        }
-    };
 
     return (
         <div>
@@ -170,12 +128,15 @@ const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
                     <div style={{display: 'flex', margin: '0'}}>
                         <Bar
                             damage={damagePointsForTheOpponent}
-                            wins={setWinner}
-                            hisAccumulate={setIWin}
+                            setGameOver={setGameOver}
+                            fighter='opponent'
+                            changeLife={setLifePoints}
+                            // hisAccumulate={setIWin}
                             hit={thereIsHit}
                             setHit={setThereIsHit}
-                            hp={opponentHp}
-                            he
+                            opponentsTurn={opponentsTurn}
+                            // hp={pokemonData?.stats[0]?.base_stat}
+                            // he
                         />
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column'}} className={styles.opponent}>
@@ -183,13 +144,14 @@ const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
                             skills={skills}
                             opponent={true}
                             hePunchedMe={setIWasPunched}
+                            setHit={setThereIsHit}
                         />
                    </div>
                 </div>
 
                 <div className={styles[opponentPunched]}>
                     <Image
-                        src={pokemonData.sprites?.other?.dream_world?.front_default}
+                        src={pokemonData.front_default}
                         alt="opponent"
                         className={clsx(styles.fighter__img, styles.fighter__imgOpponent)}
                         style={{height: '180px'}}
@@ -200,9 +162,14 @@ const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
 
             </div>
 
-            <div className={clsx(styles[winner], winner)}>
+            <div className={clsx(styles[gameOver], gameOver)}>
                 <span style={{color:'#d90dde', marginLeft: '20px'}}>{`+${youWin ? '72' : '23'} XP`}</span>
-                <span style={{margin: 'auto'}}>{pokemonWon.toUpperCase()} WINS</span>
+                <span style={{margin: 'auto'}}>
+                    {youWin
+                        ? fighter.pokemon.name.toUpperCase()
+                        : pokemonData.name.toUpperCase()
+                    } WINS
+                </span>
                 <div className={styles.button__playAgain}>
                     <Link href='/search' style={{textDecoration: 'none'}}>
                         <Button variant='contained' onClick={() => musicBattlePause()}>PLAY AGAIN</Button>
@@ -231,8 +198,8 @@ const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
                                 skills={ownSkills}
                                 opponentDamage={setDamagePointsForTheOpponent}
                                 punched={setOpponentPunched}
-                                finish={winner}
-                                hit={setThereIsHit}
+                                finish={gameOver}
+                                setHit={setThereIsHit}
                                 attack={fighter?.pokemon?.stats[1]?.base_stat}
                                 turn={setOpponentsTurn}
                                 hisTurn={opponentsTurn}
@@ -240,15 +207,15 @@ const Fighter = ({ fighter, opponentData, skillsOp }: any) => {
 
                         </div>
 
-
                         <div style={{display: 'flex'}}>
                             <Bar
-                                damageMe={pointsOfDamageTowardsMe}
-                                myAccumulate={setHeWin}
-                                punchMe={opponentsTurn}
-                                wins={setWinner}
-                                me
-                                winner={thereWinner}
+                                damage={get(pokemonData, 'stats[1].base_stat')}
+                                opponentsTurn={opponentsTurn}
+                                setGameOver={setGameOver}
+                                fighter='player'
+                                changeLife={setLifePoints}
+                                hit={thereIsHit}
+                                setHit={setThereIsHit}
                             />
                         </div>
                     </div>
@@ -273,14 +240,13 @@ export async function getStaticProps() {
     const OPPONENT = Math.round(Math.random()*100).toString();
     // podria multiplicar por 150 y setear opponent siempre y cuando el resultado no sea 132 (ditto tiene una sola habilidad)
 
-    const {data} = await pokeapi.get(`/pokemon/${OPPONENT}`);
-    let opponentData = data
-    let skillsOp = data?.moves
+    const { data } = await pokeapi.get(`/pokemon/${OPPONENT}`);
+
+    const pokemonData = extractedData(data, OOPONENT_DATA)
 
     return {
         props: {
-            opponentData,
-            skillsOp
+            pokemonData
         }
     }
 }
