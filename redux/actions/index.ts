@@ -1,3 +1,4 @@
+import { BattleStats } from "../../interfaces/Fighter";
 import { RankingStructure } from "../../interfaces/RankingStructure";
 import { ActionType } from "../types";
 
@@ -63,6 +64,20 @@ interface NoBattleAction {
     payload: boolean
 }
 
+interface BattleData {
+    type: ActionType.BATTLE_DATA,
+    payload: BattleStats,
+}
+
+interface BattleMode {
+    type: ActionType.BATTLE_MODE,
+    payload: string,
+}
+
+interface NoBattleMode {
+    type: ActionType.NO_BATTLE_MODE,
+}
+
 export type Action =
     PauseAction
     | PlayAction
@@ -77,11 +92,6 @@ export type Action =
     | PauseBattleAction
     | BattleAction
     | NoBattleAction
-
-// interface MusicAction {
-//     type: ActionType.PAUSE_MUSIC
-// }
-
-// interface MusicAction {
-//     type: ActionType.PAUSE_MUSIC
-// }
+    | BattleMode
+    | NoBattleMode
+    | BattleData

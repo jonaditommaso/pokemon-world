@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 
+import { BattleStats } from '../../interfaces/Fighter';
 import { RankingStructure } from "../../interfaces/RankingStructure";
 import { Action } from "../actions";
 import { ActionType } from "../types";
@@ -101,3 +102,23 @@ export const musicBattlePause = () => {
         type: ActionType.PAUSE_MUSIC_BATTLE
     }
 }
+
+export const battleData = (data: BattleStats)=> {
+    return {
+        type: ActionType.BATTLE_DATA,
+        payload: data
+    }
+};
+
+export const battleMode = (mode: string)=> {
+    return {
+        type: ActionType.BATTLE_MODE,
+        payload: mode
+    }
+};
+
+export const noBattleMode = ()=> {
+    return {
+        type: ActionType.NO_BATTLE_MODE,
+    }
+};

@@ -1,24 +1,22 @@
+import { BattleStats } from '../../interfaces/Fighter';
 import { Action } from '../actions'
 import { ActionType } from '../types'
 
-const INITIAL_STATE = {
-    battles: 0,
-    won: 0,
-    lost: 0,
-    rate: 0,
+const INITIAL_STATE: BattleStats = {
     abandoned: 0,
+    battles: 0,
+    lost: 0,
     points: 0,
+    rate: 0,
     spotted: 0,
-    survivor: 0
+    survivor: 0,
+    won: 0,
 };
 
 export const battleDataReducer = (state = INITIAL_STATE, action: Action) => {
     switch (action.type) {
-        // case ActionType.THERE_IS_BATTLE:
-        //     return {...state, pokemon: true};
-
-        // case ActionType.NO_BATTLE:
-        //     return {...state, pokemon: false};
+        case ActionType.BATTLE_DATA:
+            return {...state, battle_data: action.payload};
 
         default:
             return state;
