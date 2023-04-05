@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { Form } from './Form';
 import styles from './signin.module.css'
 import pokeball from '../../public/assets/img/pokeball.png'
+import { RootState } from '../../redux';
 import { signIn } from '../../redux/action-creators';
 
 const SignIn = () => {
@@ -54,7 +55,7 @@ const SignIn = () => {
   )
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: RootState) => {
   return { thereIsUser: state.login.user }
 }
 

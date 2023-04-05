@@ -4,6 +4,7 @@ import { Bar, Doughnut, Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux';
 
 import Chart from './Chart';
+import { RootState } from '../../redux';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import { countDuplicates } from '../../utils/countDuplicates';
 
@@ -101,7 +102,7 @@ const ContainerChart = ({ chartsSelected = [], ranking }) => {
   );
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   ranking: state.ranking.pokemonRanked
 })
 

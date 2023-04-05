@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
+import Star from './svg/Star';
 import { rankPokemonDB } from '../firebase/config';
 import { useActions } from '../hooks/useActions';
 import useUser from '../hooks/useUser';
+import { RootState } from '../redux';
 import { addPokeToRanking, changeReview } from '../redux/action-creators';
 import styles from '../styles/review.module.css'
-import Star from './svg/Star';
 
 const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: any) => {
 
@@ -51,7 +52,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: an
     );
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: RootState) => {
     return { ranking: state.ranking.pokemonRanked }
 }
 

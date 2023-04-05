@@ -14,6 +14,7 @@ import { OOPONENT_DATA } from '../../constants';
 import pokeapi from '../../helpers/pokeapi';
 import { useActions } from '../../hooks/useActions';
 import { LifePoints, Moves, PokemonFighter } from '../../interfaces/Fighter';
+import { RootState } from '../../redux';
 import { thereBattle, musicBattlePause } from '../../redux/action-creators';
 import { extractedData } from '../../utils/extractedData';
 
@@ -227,7 +228,7 @@ const Fighter = ({ fighter, pokemonData }: any) => {
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
     return {
         fighter: state.fight,
         battle: state.battle

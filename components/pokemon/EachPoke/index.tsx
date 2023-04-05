@@ -5,12 +5,13 @@ import Image from 'next/image';
 import { MdOutlineCancel } from 'react-icons/md';
 import { connect } from 'react-redux';
 
+import styles from './eachPoke.module.css'
 import { useActions } from '../../../hooks/useActions';
 import { PokemonData } from '../../../interfaces/PokemonData';
+import { RootState } from '../../../redux';
 import { removePokemonRanking } from '../../../redux/action-creators';
 import { colorsByType } from '../../../utils/colorsByType';
 import Review from '../../../utils/Review';
-import styles from './eachPoke.module.css'
 
 
 interface Ranking {
@@ -114,7 +115,7 @@ const EachPoke = ({
     );
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
     ranking: state.ranking.pokemonRanked
 })
 

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import useUser from '../../hooks/useUser';
 import { signOut, signIn } from '../../redux/action-creators';
+import { RootState } from '../../redux';
 
 interface User {
     thereIsUser: string | boolean
@@ -64,7 +65,7 @@ const StateLogin = ({ thereIsUser }: User) => {
 
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: RootState) => {
     return { thereIsUser: state.login.user }
 }
 

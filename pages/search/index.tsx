@@ -16,6 +16,7 @@ import { useActions } from '../../hooks/useActions';
 import { useGetRanked } from '../../hooks/useGetRanked';
 import { PokemonData } from '../../interfaces/PokemonData';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png'
+import { RootState } from '../../redux';
 import { chooseYou, pauseMusic, playMusic } from '../../redux/action-creators';
 
 const MySwal = withReactContent(Swal);
@@ -316,7 +317,7 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
     );
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: RootState) => {
     return {
         thereIsUser: state.login.user,
         music: state.music.volume,

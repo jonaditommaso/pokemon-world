@@ -5,6 +5,7 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import { connect } from 'react-redux';
 
 import styles from './ranking.module.css'
+import { RootState } from '../../redux';
 
 const Chart = ({ ranking }: any) => {
 
@@ -101,7 +102,7 @@ const Chart = ({ ranking }: any) => {
   )
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   ranking: state.ranking.pokemonRanked
 })
 

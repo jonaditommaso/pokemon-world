@@ -1,7 +1,7 @@
 import { Action } from '../actions'
 import { ActionType } from '../types'
 
-const INITIAL_STATE = {pokemon: null};
+const INITIAL_STATE = {pokemon: false};
 
 export const battleReducer = (state = INITIAL_STATE, action: Action) => {
     switch (action.type) {

@@ -4,10 +4,11 @@ import { Table, TableBody, TableCell, tableCellClasses, TableHead, TableRow, sty
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { connect } from 'react-redux';
 
+import styles from './ranking.module.css'
 import { themePalette } from '../../config/theme.config';
+import { RootState } from '../../redux';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import Review from '../../utils/Review';
-import styles from './ranking.module.css'
 
 const RankingTable = ({ ranking }: any) => {
 
@@ -78,7 +79,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     );
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
     ranking: state.ranking.pokemonRanked
 });
 

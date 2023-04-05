@@ -16,6 +16,7 @@ import { fetchCharts, fetchRanking } from '../../firebase/config';
 import { useActions } from '../../hooks/useActions';
 import { useGetRanked } from '../../hooks/useGetRanked';
 import useUser from '../../hooks/useUser';
+import { RootState } from '../../redux';
 import { TabPanel } from '../../utils/TabPanel';
 
 const MySwal = withReactContent(Swal);
@@ -81,7 +82,7 @@ const Ranking = ({ ranking }: any) => {
     );
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
     ranking: state.ranking.pokemonRanked
 });
 
