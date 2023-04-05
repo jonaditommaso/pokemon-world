@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { Button } from '@mui/material';
 import clsx from 'clsx';
@@ -16,12 +16,13 @@ import { useActions } from '../../hooks/useActions';
 import { LifePoints, Moves, PokemonFighter } from '../../interfaces/Fighter';
 import { RootState } from '../../redux';
 import { thereBattle, musicBattlePause } from '../../redux/action-creators';
+import { battleData } from '../../redux/action-creators/index';
 import { extractedData } from '../../utils/extractedData';
 
 
-const Fighter = ({ fighter, pokemonData }: any) => {
+const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
 
-    const { thereBattle, musicBattlePause } = useActions();
+    const { thereBattle, musicBattlePause, battleData } = useActions();
 
     const [skills, setSkills] = useState <string[]> ([]);
     const [ownSkills, setOwnSkills] = useState <string[]> ([]);
@@ -43,6 +44,7 @@ const Fighter = ({ fighter, pokemonData }: any) => {
     const [thereIsHit, setThereIsHit] = useState(false); // this represent a hit for anyone
 
     const [youWin, setYouWin] = useState <undefined | boolean> (undefined);
+    const setting = useRef(false);
 
     useEffect(() => {
         let moves: Moves = {
@@ -117,6 +119,30 @@ const Fighter = ({ fighter, pokemonData }: any) => {
         setWinner();
       }
     }, [gameOver, lifePoints]);
+
+    useEffect(() => {
+      const sendResultData = () => {
+        setting.current = true;
+        let spotted = [...battlesData.spotted];
+        if (!spotted.includes(pokemonData.name)) spotted.push(pokemonData.name);
+        let result = {...battlesData}
+        result.spotted = spotted;
+        if(youWin) {
+            result.won = result.won + 1
+            result.points = result.points + 72
+        } else {
+            result.lost = result.lost + 1
+            result.points = result.points + 23
+        }
+        result.battles = result.battles + 1
+
+        battleData(result);
+      }
+
+      if (gameOver === 'fighter__win' && battleMode.mode !== 'training' && !setting.current) sendResultData();
+
+    }, [gameOver, battleData, youWin, battlesData, battleMode, pokemonData]);
+
 
 
     return (
@@ -231,11 +257,13 @@ const Fighter = ({ fighter, pokemonData }: any) => {
 const mapStateToProps = (state: RootState) => {
     return {
         fighter: state.fight,
-        battle: state.battle
+        battle: state.battle,
+        battlesData: state.battlesData,
+        battleMode: state.battleMode,
     }
 }
 
-export default connect(mapStateToProps, { thereBattle, musicBattlePause })(Fighter);
+export default connect(mapStateToProps, { thereBattle, musicBattlePause, battleData })(Fighter);
 
 export async function getStaticProps() {
     const OPPONENT = Math.round(Math.random()*100).toString();

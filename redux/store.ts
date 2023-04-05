@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { battleDataReducer } from "./reducers/battleDataReducer";
+import { battleModeReducer } from "./reducers/battleModeReducer";
 import { battleReducer } from "./reducers/battleReducer";
 import { fightReducer } from "./reducers/fightReducer";
 import { loginReducer } from "./reducers/loginReducer";
@@ -13,6 +15,8 @@ export const store = configureStore({
         ranking: rankingReducer,
         fight: fightReducer,
         battle: battleReducer,
+        battlesData: battleDataReducer,
+        battleMode: battleModeReducer,
     }
 });
 

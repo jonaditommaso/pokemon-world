@@ -42,11 +42,16 @@ const ShowAllPokemons = ({
     useGetRanked(ranking);
 
     useEffect(() => {
+      if (pokemons) setLoading(false);
+    }, [])
+
+
+    useEffect(() => {
         if(showAllPokemons && !optionSelected) {
             setLoading(false);
             setPokemonData(pokemons)
         }
-    }, [showAllPokemons, pokemonData, optionSelected]);
+    }, [showAllPokemons, pokemonData, optionSelected, pokemons]);
 
 
     useEffect(() => {
@@ -113,7 +118,6 @@ const ShowAllPokemons = ({
 
 
     return (
-
         <>
             {!thereIsUser
                 ? <Alert text='asas' />

@@ -12,7 +12,7 @@ import Fighter, { getStaticProps as getFighterStaticProps } from '../../componen
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { PokemonData } from '../../interfaces/PokemonData';
-import { musicBattle, musicBattlePause } from '../../redux/action-creators';
+import { battleMode, musicBattle, musicBattlePause } from '../../redux/action-creators';
 import Alert from '../../utils/Alert';
 
 interface FightProps {
@@ -26,7 +26,7 @@ interface FightProps {
 
 const Fight = ( {thereIsUser, fighter, music, pokemonData }: FightProps) => {
 
-    const { musicBattle, musicBattlePause } = useActions()
+    const { musicBattle, musicBattlePause, battleMode } = useActions()
 
     const [showButton, setShowButton] = useState('showingButton');
     const [showVideo, setShowVideo] = useState('d-none');
@@ -60,6 +60,7 @@ const Fight = ( {thereIsUser, fighter, music, pokemonData }: FightProps) => {
         }
         setShowButton('d-none');
         setShowVideo('showingVideo');
+        battleMode(fightTypeSelected);
 
         if(music.volume) {
             const battle = document.getElementById('pokemon-battle') as HTMLAudioElement;
@@ -167,7 +168,7 @@ const mapStateToProps = (state: any) => {
     }
 }
 
-export default connect(mapStateToProps, { musicBattle, musicBattlePause })(Fight);
+export default connect(mapStateToProps, { musicBattle, musicBattlePause, battleMode })(Fight);
 
 export async function getStaticProps() {
     const fighterProps = await getFighterStaticProps();

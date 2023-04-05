@@ -13,22 +13,26 @@ const TypeFight = ({ typeFight, changeTypeFight }: any) => {
         {
             src: bulbasaurBattle,
             alt: 'bulbasaur',
-            typeLabel: 'Challenge 1'
+            typeLabel: 'Challenge 1',
+            key: 'normal',
         },
         {
             src: squirtleBattle,
             alt: 'squirtle',
-            typeLabel: '3 vs 3'
+            typeLabel: '3 vs 3',
+            key: '3battle',
         },
         {
             src: charmanderBattle,
             alt: 'charmander',
-            typeLabel: 'Training'
+            typeLabel: 'Training',
+            key: 'training',
         },
         {
             src: pikachuBattle,
             alt: 'pikachu',
-            typeLabel: 'Survivor'
+            typeLabel: 'Survivor',
+            key: 'survivor',
         },
     ];
 
@@ -42,8 +46,8 @@ const TypeFight = ({ typeFight, changeTypeFight }: any) => {
                     alt={image.alt}
                     height={200}
                     width={400}
-                    className={typeFight && typeFight !== image.alt ? styles['images-container-not-selected'] : ''}
-                    onClick={() => changeTypeFight(image.alt)}
+                    className={typeFight && typeFight !== image.key ? styles['images-container-not-selected'] : ''}
+                    onClick={() => changeTypeFight(image.key)}
                     />
                     <p className={clsx(styles['type-fight-text'], styles[`type-fight-text-${index === 0 || index === 2 ? 'left': 'right'}`])}>
                         {image.typeLabel}

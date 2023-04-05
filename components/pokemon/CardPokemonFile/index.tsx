@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Button, Card, CardContent, CardMedia , Typography} from '@mui/material';
 
+import styles from './card.module.css';
 import { colorsByType } from '../../../utils/colorsByType';
 import Review from '../../../utils/Review';
 import VolumeFill from '../../../utils/svg/VolumeFill';
-import styles from './card.module.css';
 
 
 interface PokemonData {

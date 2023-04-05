@@ -8,7 +8,7 @@ const INITIAL_STATE: BattleStats = {
     lost: 0,
     points: 0,
     rate: 0,
-    spotted: 0,
+    spotted: [],
     survivor: 0,
     won: 0,
 };
@@ -16,7 +16,7 @@ const INITIAL_STATE: BattleStats = {
 export const battleDataReducer = (state = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case ActionType.BATTLE_DATA:
-            return {...state, battle_data: action.payload};
+            return {...state, battlesData: action.payload};
 
         default:
             return state;

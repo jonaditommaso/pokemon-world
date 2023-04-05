@@ -33,7 +33,7 @@ export interface BattleStats {
     lost: number,
     points: number,
     rate: number,
-    spotted: number,
+    spotted: string[],
     survivor: number,
     won: number,
 }
