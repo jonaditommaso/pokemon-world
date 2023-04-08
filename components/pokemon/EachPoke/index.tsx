@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { Chip } from '@mui/material';
 import Image from 'next/image';
-import { MdOutlineCancel } from 'react-icons/md';
 import { connect } from 'react-redux';
 
 import styles from './eachPoke.module.css'
@@ -24,27 +23,43 @@ interface Pokemon {
     ranking: Ranking[]
 }
 
+// interface PokemonRankingState {
+//     pokemon: string,
+//     ranking: number,
+//     type: string[]
+//     user: string,
+// }
+
 const EachPoke = ({
     pokemon,
     ranking
 }: Pokemon) => {
 
-    const { removePokemonRanking } = useActions();
-
-    const initial_state = ranking.find((poke) => poke.pokemon === pokemon.name)
-    const [review, setReview] = useState(initial_state ? initial_state.ranking : 0);
+    const [pokemonRanking, setPokemonRanking] = useState <any>(undefined);
+    const [review, setReview] = useState(pokemonRanking ? pokemonRanking.ranking : 0);
 
     const checkingRank = ranking.map((poke) => poke.pokemon);
+
+    const updatePokemonRanking = () => {
+        const initialRankingState = ranking.find((poke) => poke.pokemon === pokemon.name);
+        setPokemonRanking(initialRankingState);
+      }
+
+    useEffect(() => {
+        if (pokemonRanking) {
+          setReview(pokemonRanking.ranking);
+        }
+      }, [pokemonRanking]);
+
+    useEffect(() => {
+        updatePokemonRanking();
+      }, [ranking, pokemon]);
 
     useEffect(() => {
         if(!checkingRank.includes(pokemon.name)) {
             setReview(0);
         }
-    }, [ranking]);
-
-    const deletePokemonRanking = () => {
-        removePokemonRanking(pokemon.name);
-    }
+    }, [ranking, checkingRank, pokemon, review]);
 
     if(!pokemon?.sprites?.other?.dream_world?.front_default) return <></>;
 
@@ -81,13 +96,6 @@ const EachPoke = ({
                     ))}
                 </div>
 
-                    {review > 0 &&
-                        <MdOutlineCancel
-                            color="red"
-                            style={{cursor: 'pointer'}}
-                            onClick={deletePokemonRanking}
-                        />
-                    }
                     <Review
                       review={review}
                       pokemon={pokemon}
@@ -119,4 +127,4 @@ const mapStateToProps = (state: RootState) => ({
     ranking: state.ranking.pokemonRanked
 })
 
-export default connect(mapStateToProps, { removePokemonRanking })(EachPoke);
+export default connect(mapStateToProps, null)(EachPoke);

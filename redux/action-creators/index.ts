@@ -35,10 +35,8 @@ export const signIn = (user: string) => {
 }
 
 export const signOut = () => {
-    return (dispatch: Dispatch <Action>) => {
-        dispatch({
+    return {
             type: ActionType.SIGN_OUT,
-        })
     }
 }
 

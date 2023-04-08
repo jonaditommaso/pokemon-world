@@ -16,10 +16,11 @@ import { charts } from '../../utils/charts';
 
 interface ChartsModalProps {
     setCharts: void,
-    currentCharts: string[]
+    currentCharts: string[],
+    userLogged: any,
 }
 
-const ChartsModal = ({ setCharts, currentCharts }: ChartsModalProps) => {
+const ChartsModal = ({ setCharts, currentCharts, userLogged }: ChartsModalProps) => {
 
     const [chartsSelected, setChartsSelected] = useState <string[]> ([]);
     // const [carouselIndex, setCarouselIndex] = useState({});
@@ -37,7 +38,7 @@ const ChartsModal = ({ setCharts, currentCharts }: ChartsModalProps) => {
 
     const handleOk = () => {
         setCharts(chartsSelected);
-        updateCharts('Jona', chartsSelected)
+        updateCharts(userLogged, chartsSelected)
         Swal.close()
     }
 

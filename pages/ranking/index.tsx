@@ -21,7 +21,7 @@ import { TabPanel } from '../../utils/TabPanel';
 
 const MySwal = withReactContent(Swal);
 
-const Ranking = ({ ranking }: any) => {
+const Ranking = ({ ranking, userLogged }: any) => {
 
     const [currentTab, setCurrentTab] = useState(0);
     const [charts, setCharts] = useState <string[]>([]);
@@ -30,18 +30,17 @@ const Ranking = ({ ranking }: any) => {
 
     useEffect(() => {
         (async function getCharts () {
-            const response = await fetchCharts('Jona').then(res => {
+            const response = await fetchCharts(userLogged).then(res => {
                 return res.map((chart, index) => Object.values(chart)[index])
             });
-            console.log(response)
             if(response.length > 0) setCharts(response as unknown[] as string[]);
         })();
-    }, []);
+    }, [userLogged]);
 
     const showModal = () => {
         MySwal.fire({
           html: (
-            <ChartsModal setCharts={setCharts} currentCharts={charts} />
+            <ChartsModal setCharts={setCharts} currentCharts={charts} userLogged={userLogged}/>
           ),
           showCancelButton: false,
           showConfirmButton: false,
@@ -83,7 +82,8 @@ const Ranking = ({ ranking }: any) => {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    ranking: state.ranking.pokemonRanked
+    ranking: state.ranking.pokemonRanked,
+    userLogged: state.login.user,
 });
 
 export default connect(mapStateToProps, null)(Ranking);

@@ -13,7 +13,7 @@ const Battles = ({ battlesData }: any) => {
     const [data, setData] = useState(undefined);
 
     useEffect(() => {
-        if(battlesData.battles > 0) {
+        if(get(battlesData, 'battles', 0) > 0) {
             let obj = {...battlesData}
             let rate = (battlesData.won / battlesData.battles) * 100
             obj.rate = `${rate}%`;
@@ -25,7 +25,12 @@ const Battles = ({ battlesData }: any) => {
 
     return (
         <div>
-            {battlesData.battles === 0 && <div>{`You don't battle yet`} <RiErrorWarningLine color="red" /> </div>}
+            {get(battlesData, 'battles', 0) === 0 && (
+                <div
+                  style={{display: 'flex', justifyContent: 'center', marginBottom: '15px', alignItems: 'center'}}>
+                    {`You don't battle yet`}&nbsp;<RiErrorWarningLine color="red" />
+                </div>
+                )}
             <div style={{display: 'flex', flexWrap: 'wrap', width: '400px', margin: 'auto'}}>
                 {sections.map((section, index) => (
                     <Register key={section.key} dataNumber={get(data, `${section.key}`, '-')} section={section} />

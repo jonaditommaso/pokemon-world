@@ -27,7 +27,7 @@ export interface PokemonFighter {
     moves: any[],
 }
 
-export interface BattleStats {
+interface BattleStats {
     abandoned: number,
     battles: number,
     lost: number,
@@ -36,4 +36,8 @@ export interface BattleStats {
     spotted: string[],
     survivor: number,
     won: number,
+}
+
+export interface BattleDataStats {
+    battlesData: BattleStats
 }

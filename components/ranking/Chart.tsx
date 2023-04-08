@@ -16,7 +16,7 @@ const Chart = ({ ranking }: any) => {
   const [fiveStars, setFiveStars] = useState(0);
 
   const [dataAvailable, setDataAvailable] = useState(false);
-  const [chartsAdded, setChartsAdded] = useState([]);
+  // const [chartsAdded, setChartsAdded] = useState([]);
 
   const data = {
     labels: ['1 star', '2 stars', '3 stars', '4 stars', '5 stars'],

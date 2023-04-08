@@ -74,7 +74,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
             </TableBody>
           </Table>
             }
-            <i>{pokemonRanking.length} pokemons ranked</i>
+            {pokemonRanking.length > 0 && <i>{pokemonRanking.length} pokemons ranked</i>}
         </div>
     );
 }

@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 
 import { useActions } from '../../hooks/useActions';
 import useUser from '../../hooks/useUser';
-import { signOut, signIn } from '../../redux/action-creators';
 import { RootState } from '../../redux';
+import { signOut, signIn } from '../../redux/action-creators';
 
 interface User {
     thereIsUser: string | boolean
@@ -23,10 +23,10 @@ const StateLogin = ({ thereIsUser }: User) => {
 
     useEffect(() => {
         const user = localStorage.getItem('USER_NAME');
-        if(!localStorage.getItem('USER_NAME')) return;
+        if(!localStorage.getItem('USER_NAME') && !localStorage.getItem('USER_NAME_GITHUB')) return;
         if (user || githubUser) {
             signIn(user ?? githubUser.userName);
-            localStorage.setItem('USER_NAME', user || githubUser.userName);
+            user ? localStorage.setItem('USER_NAME', user) : localStorage.setItem('USER_NAME_GITHUB', githubUser.userName);
         }
     }, [githubUser]);
 
@@ -45,7 +45,8 @@ const StateLogin = ({ thereIsUser }: User) => {
         }
         else {
             signOut();
-            localStorage.removeItem('USER_NAME')
+            localStorage.removeItem('USER_NAME');
+            localStorage.removeItem('USER_NAME_GITHUB');
             router.push('/');
         }
     }

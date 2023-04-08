@@ -32,7 +32,7 @@ const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false
         if(thereIsUser && !showSideDropDown) {
             setTimeout(() => {
                 setShowSideDropDown(true);
-            }, 1000);
+            }, 2500);
         }
 
         const audio = document.getElementById('music') as HTMLAudioElement;

@@ -139,7 +139,7 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
         battleData(result);
       }
 
-      if (gameOver === 'fighter__win' && battleMode.mode !== 'training' && !setting.current) sendResultData();
+      if (gameOver === 'fighter__win' && battleMode.mode !== 'training' && !setting.current && youWin !== undefined) sendResultData();
 
     }, [gameOver, battleData, youWin, battlesData, battleMode, pokemonData]);
 
@@ -258,7 +258,7 @@ const mapStateToProps = (state: RootState) => {
     return {
         fighter: state.fight,
         battle: state.battle,
-        battlesData: state.battlesData,
+        battlesData: state.battlesData.battlesData,
         battleMode: state.battleMode,
     }
 }

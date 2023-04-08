@@ -85,13 +85,13 @@ const ContainerChart = ({ chartsSelected = [], ranking }) => {
       }
     }
 
-    const charts = {
-      donut: <Doughnut data={data} plugins={[insideDonutText]} />,
-      pie: <Pie data={data} options={pieOptions}/>
-    }
+  const charts = {
+    donut: <Doughnut data={data} plugins={[insideDonutText]} />,
+    pie: <Pie data={data} options={pieOptions}/>
+  }
 
   return (
-    <div style={{maxWidth: '1000px', display: 'flex'}}>
+    <div style={{maxWidth: '1000px', display: 'flex', justifyContent: ranking.length === 0 ? 'center' : ''}}>
       <Chart />
         {chartsSelected.length > 0 && chartsSelected?.map(chart => (
             <div key={chart} style={{ maxWidth: '400px' }}>

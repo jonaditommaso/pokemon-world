@@ -62,11 +62,11 @@ export default function Bar ({
 
   useEffect(() => {
     if(hit && opponentsTurn && fighter === 'opponent') {
-      changeDamage(damage)
+      changeDamage(damage * 1.5)
     }
 
     if(hit && opponentsTurn === false && fighter === 'player') {
-      changeDamage(damage * ((Math.random() / 5 )))
+      changeDamage(damage * ((Math.random() / 3 )))
     }
 
   }, [hit])

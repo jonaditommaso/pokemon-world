@@ -47,7 +47,7 @@ const Fight = ( {thereIsUser, fighter, music, pokemonData }: FightProps) => {
 
     const handlePlay = () => {
         if(!fightTypeSelected) return;
-        if(fightTypeSelected === 'squirtle' || fightTypeSelected === 'pikachu') {
+        if(fightTypeSelected === '3battle' || fightTypeSelected === 'survivor') {
             Swal.fire({
                 icon: 'warning',
                 text: 'Game mode not available yet',
@@ -91,7 +91,7 @@ const Fight = ( {thereIsUser, fighter, music, pokemonData }: FightProps) => {
     return (
         <>
         {!thereIsUser
-            ? <Alert text='sd'/>
+            ? <Alert text=''/>
             : (
             <div>
                 <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '4%', position: showVideo === 'd-none' ? 'relative' : 'static'}}>

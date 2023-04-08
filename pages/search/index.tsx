@@ -49,19 +49,22 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
     useEffect(() => {
         const getPokemon = async () => {
             setChainUrlEvolutions('')
-            pokeapi.get(`/pokemon/${pokemonSearched}`).then(response => {
-                setShowError(false);
-                const {data} = response;
-                setPokemonData(data);
-                if (data) {
-                    setPokemonType(data.types[0].type.name);
-                    setPokemonMove(data.moves[4].move.name);
-                }
-            }).catch(err => {
-                console.log("err", err);
+            if(!pokemonSearched) return;
+            try {
+                pokeapi.get(`/pokemon/${pokemonSearched}`).then(response => {
+                    setShowError(false);
+                    const {data} = response;
+                    setPokemonData(data);
+                    if (data) {
+                        setPokemonType(data.types[0].type.name);
+                        setPokemonMove(data.moves[4].move.name);
+                    }
+                })
+            } catch (err) {
+                console.error("err", err);
                 setShowError(true);
                 return;
-            });
+            }
         }
             const getPokemonTimeOut = setTimeout(() => {
                 if (pokemonSearched) {
@@ -134,11 +137,12 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
 
         const getEvolutionData = async () => {
             if(pokemonData?.name === firstEvolution) {
+                if(!secondEvolution) return;
                 const {data} = await pokeapi.get(`/pokemon/${secondEvolution}`);
                  setEvolutionData(data);
-
              }
              if(pokemonData?.name === secondEvolution) {
+                if(!thirdEvolution) return;
                  const {data} = await pokeapi.get(`/pokemon/${thirdEvolution}`);
                  setEvolutionData(data);
              }
@@ -155,13 +159,13 @@ const SearchPokemon = ({ thereIsUser, ranking, music }: any) => {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
             if(music) {
+                audio.pause();
+                pauseMusic();
                 utterance.onend = () => {
                     audio.play();
                     playMusic();
                 }
             }
-            audio.pause();
-            pauseMusic();
 
             speechSynthesis.speak(utterance);
         }
