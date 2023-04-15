@@ -57,7 +57,7 @@ const EachPoke = ({
 
     useEffect(() => {
         if (!checkingRank) return;
-        if(!checkingRank.includes(pokemon.name)) {
+        if(!checkingRank?.includes(pokemon.name)) {
             setReview(0);
         }
     }, [ranking, checkingRank, pokemon, review]);
