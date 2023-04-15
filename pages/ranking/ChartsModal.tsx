@@ -20,7 +20,7 @@ interface ChartsModalProps {
     userLogged: any,
 }
 
-const ChartsModal = ({ setCharts, currentCharts, userLogged }: ChartsModalProps) => {
+const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalProps) => {
 
     const [chartsSelected, setChartsSelected] = useState <string[]> ([]);
     // const [carouselIndex, setCarouselIndex] = useState({});

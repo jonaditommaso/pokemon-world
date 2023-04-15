@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Typography from '@mui/material/Typography';
+import get from 'lodash/get'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
@@ -18,7 +19,7 @@ const SignIn = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (router.asPath.includes('#signup')) setFormView('sign_up');
+    if (get(router, 'asPath', '').includes('#signup')) setFormView('sign_up');
   }, [router]);
 
 

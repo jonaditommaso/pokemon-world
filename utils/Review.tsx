@@ -13,7 +13,7 @@ import { addPokeToRanking, changeReview } from '../redux/action-creators';
 import { removePokemonRanking } from '../redux/action-creators/index';
 import styles from '../styles/review.module.css'
 
-const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: any) => {
+const Review = ({ review, pokemon, getReview, ranking, checkRank = [], readOnly }: any) => {
 
     // const githubUser = useUser();
     const { addPokeToRanking, changeReview, removePokemonRanking } = useActions();
