@@ -17,7 +17,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank, readOnly }: an
 
     // const githubUser = useUser();
     const { addPokeToRanking, changeReview, removePokemonRanking } = useActions();
-    const currentView = window.location.pathname.split(' ');
+    const currentView = typeof window !== 'undefined' ? window.location.pathname.split(' ') : [''];
     const originUser = useOriginUser()
 
     useEffect(() => {
