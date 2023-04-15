@@ -124,7 +124,7 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
       const sendResultData = () => {
         setting.current = true;
         let spotted = [...battlesData.spotted];
-        if (!spotted.includes(pokemonData.name)) spotted.push(pokemonData.name);
+        if (!spotted?.includes(pokemonData.name)) spotted.push(pokemonData.name);
         let result = {...battlesData}
         result.spotted = spotted;
         if(youWin) {

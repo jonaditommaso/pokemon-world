@@ -27,7 +27,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank = [], readOnly 
 
     const giveDataPokemonClicked = (review: any) => {
         if(!readOnly) {
-            if(pokemon && !checkRank.includes(pokemon.name)) { //set a new pokemon ranked
+            if(pokemon && !checkRank?.includes(pokemon.name)) { //set a new pokemon ranked
                 addPokeToRanking(pokemon.name, typePokemon, review + 1);
                 rankPokemonDB(pokemon.name, typePokemon, review + 1, originUser.username)
                 getReview(review + 1);
@@ -46,7 +46,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank = [], readOnly 
     return (
         <>
             {review === 0 && <i style={{display: 'inline-flex'}}>Without review</i>}
-            {(review > 0 && currentView.includes('/pokemons')) &&
+            {(review > 0 && currentView?.includes('/pokemons')) &&
                 <MdOutlineCancel
                     color="red"
                     style={{cursor: 'pointer'}}

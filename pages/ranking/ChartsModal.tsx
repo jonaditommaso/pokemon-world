@@ -27,7 +27,7 @@ const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalP
 
     const handleChartSelection = (chart: string) => {
         let currentCharts = [...chartsSelected];
-        if(currentCharts.includes(chart)) {
+        if(currentCharts?.includes(chart)) {
             const index = currentCharts.indexOf(chart)
             currentCharts.splice(index, 1);
         } else {
@@ -58,11 +58,11 @@ const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalP
                                 <div
                                     className={clsx(
                                         styles['image-container'],
-                                        chartsSelected.includes(chart.name) && styles['image-container-selected'],
-                                        currentCharts.includes(chart.name) && styles['disabled-chart']
+                                        chartsSelected?.includes(chart.name) && styles['image-container-selected'],
+                                        currentCharts?.includes(chart.name) && styles['disabled-chart']
                                     )}
                                     onClick={() => {
-                                        if (currentCharts.includes(chart.name)) return;
+                                        if (currentCharts?.includes(chart.name)) return;
                                         handleChartSelection(chart.name)
                                     }}
                                 >
