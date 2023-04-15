@@ -19,7 +19,7 @@ const SignIn = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (get(router, 'asPath', '')?.includes('#signup')) setFormView('sign_up');
+    if (router && get(router, 'asPath', '')?.includes('#signup')) setFormView('sign_up');
   }, [router]);
 
 
