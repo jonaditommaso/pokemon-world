@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
+import styles from './sideDropdown.module.css'
 import { useActions } from '../../hooks/useActions';
 import pokeball from '../../public/assets/img/pokeballOpen.png'
 import { noBattle, musicBattlePause } from '../../redux/action-creators'
-import styles from './sideDropdown.module.css'
 
 interface SideDropdownProps {
     user: string,
