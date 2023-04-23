@@ -1,4 +1,4 @@
-import { BattleStats } from "../../interfaces/Fighter";
+import { BattleDataStats } from "../../interfaces/Fighter";
 import { RankingStructure } from "../../interfaces/RankingStructure";
 import { ActionType } from "../types";
 
@@ -66,7 +66,7 @@ interface NoBattleAction {
 
 interface BattleData {
     type: ActionType.BATTLE_DATA,
-    payload: BattleStats,
+    payload: BattleDataStats,
 }
 
 interface BattleMode {

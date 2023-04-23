@@ -170,7 +170,6 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
                         <FightsData
                             skills={skills}
                             opponent={true}
-                            hePunchedMe={setIWasPunched}
                             setHit={setThereIsHit}
                         />
                    </div>

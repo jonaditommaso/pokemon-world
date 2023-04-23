@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { BattleStats } from '../../interfaces/Fighter';
+import { BattleDataStats } from '../../interfaces/Fighter';
 import { RankingStructure } from "../../interfaces/RankingStructure";
 import { Action } from "../actions";
 import { ActionType } from "../types";
@@ -101,7 +101,7 @@ export const musicBattlePause = () => {
     }
 }
 
-export const battleData = (data: BattleStats)=> {
+export const battleData = (data: BattleDataStats)=> {
     return {
         type: ActionType.BATTLE_DATA,
         payload: data

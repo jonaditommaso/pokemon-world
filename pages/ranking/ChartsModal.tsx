@@ -15,7 +15,7 @@ import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import { charts } from '../../utils/charts';
 
 interface ChartsModalProps {
-    setCharts: void,
+    setCharts: React.Dispatch<React.SetStateAction<string[]>>,
     currentCharts: string[],
     userLogged: any,
 }

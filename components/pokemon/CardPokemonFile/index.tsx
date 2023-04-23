@@ -14,7 +14,7 @@ interface PokemonData {
     pokemonType: string,
     pokemonId: number,
     pokemonImage: string,
-    listenDescription?(): void,
+    listenDescription?: (text: string) => void,
     evolve?: string,
     hasEvolution?: string,
     viewEvolution?(): void,
@@ -23,7 +23,7 @@ interface PokemonData {
 
 const CardPokemonFile = ({
     pokemonImage,
-    review,
+    review = 0,
     hasEvolution,
     viewEvolution,
     pokemonName,

@@ -45,6 +45,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
     }
 
     const notMyTurn = () => {
+        if(!turn) return;
         if (!hisTurn) {
             turn(true);
         }
@@ -52,6 +53,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
     };
 
     const damagePoints = (i: number) => {
+        if(!opponentDamage || !punched) return;
         switch (i) {
             case 0:
                 setAttacksAvailable((prevState) => ({
@@ -59,7 +61,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     [i + 1]: prevState[i + 1] - 1
                   }));
                 setHit(true);
-                opponentDamage(attack * (0.05 * 2)); // sacar el x2 cuando ponga el hp
+                opponentDamage(attack! * (0.05 * 2)); // sacar el x2 cuando ponga el hp
                 punched('fighter');
                 notMyTurn();
                 setTimeout(() => {
@@ -72,7 +74,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     [i + 1]: prevState[i + 1] - 1
                   }));
                 setHit(true);
-                opponentDamage(attack * (0.1 * 2));
+                opponentDamage(attack! * (0.1 * 2));
                 punched('fighter');
                 notMyTurn();
                 setTimeout(() => {
@@ -85,7 +87,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     [i + 1]: prevState[i + 1] - 1
                   }));
                 setHit(true);
-                opponentDamage(attack * (0.12 * 2));
+                opponentDamage(attack! * (0.12 * 2));
                 punched('fighter');
                 notMyTurn();
                 setTimeout(() => {
@@ -98,7 +100,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                     [i + 1]: prevState[i + 1] - 1
                   }));
                 setHit(true);
-                opponentDamage(attack * (0.17 * 2));
+                opponentDamage(attack! * (0.17 * 2));
                 punched('fighter');
                 notMyTurn();
                 setTimeout(() => {

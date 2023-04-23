@@ -1,13 +1,13 @@
 export interface Fighter {
-    setHit: any,
-    punched: any,
-    turn: any,
-    opponentDamage: any,
-    attack: number,
-    hisTurn: boolean,
-    finish: string,
+    attack?: number,
+    finish?: string,
+    hisTurn?: boolean | undefined,
+    opponent?: boolean,
+    opponentDamage?: React.Dispatch<React.SetStateAction<number>>,
+    punched?: React.Dispatch<React.SetStateAction<string>>,
+    setHit: React.Dispatch<React.SetStateAction<boolean>>,
     skills: string[],
-    opponent: boolean | undefined,
+    turn?: React.Dispatch<React.SetStateAction<boolean | undefined>>,
 }
 
 export interface LifePoints {

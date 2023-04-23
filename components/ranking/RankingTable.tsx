@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Table, TableBody, TableCell, tableCellClasses, TableHead, TableRow, styled } from '@mui/material';
+import get from 'lodash/get'
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { connect } from 'react-redux';
 
@@ -64,10 +65,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
               {pokemonRanking?.map((pokemon, index) => (
                 <StyledTableRow key={index} hover>
                   <StyledTableCell align='center'>
-                    {capitalizeFirstLetter(pokemon?.pokemon)}
+                    {capitalizeFirstLetter(get(pokemon, 'pokemon'))}
                   </StyledTableCell>
                   <StyledTableCell align='center'>
-                    <Review review={pokemon?.ranking} readOnly />
+                    <Review review={get(pokemon, 'ranking')} readOnly />
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

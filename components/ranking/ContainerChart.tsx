@@ -1,20 +1,31 @@
 import { useEffect, useState } from 'react';
 
+import { ChartOptions } from 'chart.js';
 import { Bar, Doughnut, Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux';
 
 import Chart from './Chart';
+import { RankingStructure } from '../../interfaces/RankingStructure';
 import { RootState } from '../../redux';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import { countDuplicates } from '../../utils/countDuplicates';
 
-const ContainerChart = ({ chartsSelected = [], ranking }) => {
+interface PropsContainerChart {
+  chartsSelected: string[],
+  ranking: RankingStructure[]
+}
+
+interface ChartType {
+  [key: string]: JSX.Element;
+}
+
+const ContainerChart = ({ chartsSelected = [], ranking }: PropsContainerChart) => {
 
   const [pokemonTypes, setPokemonTypes] = useState({})
 
   useEffect(() => {
     if(ranking.length > 0) {
-      let types: String[] = []
+      let types: string[] = []
       ranking.map(pokemon => {
         pokemon.type.map(type => types.push(type));
       })
@@ -63,7 +74,7 @@ const ContainerChart = ({ chartsSelected = [], ranking }) => {
 
     const insideDonutText = {
       id: 'insideText',
-      beforeDatasetsDraw(chart) {
+      beforeDatasetsDraw(chart: any) {
           const { ctx } = chart;
           ctx.save();
           ctx.font = 'normal 30px sans-serif';
@@ -72,7 +83,7 @@ const ContainerChart = ({ chartsSelected = [], ranking }) => {
       }
     };
 
-    const pieOptions =  {
+    const pieOptions: ChartOptions =  {
       responsive: true,
       plugins: {
         legend: {
@@ -85,7 +96,7 @@ const ContainerChart = ({ chartsSelected = [], ranking }) => {
       }
     }
 
-  const charts = {
+  const charts: ChartType = {
     donut: <Doughnut data={data} plugins={[insideDonutText]} />,
     pie: <Pie data={data} options={pieOptions}/>
   }

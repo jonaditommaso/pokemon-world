@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Tab, Tabs, ThemeProvider } from '@mui/material';
+import { Box, Button, Tab, Tabs, ThemeProvider } from '@mui/material';
 import { GoPlus } from 'react-icons/go';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -59,9 +59,11 @@ const Ranking = ({ ranking, userLogged }: any) => {
                 </Tabs>
             </div>
             <div>
-                <TabPanel value={currentTab} index={0} style={{display: 'flex', justifyContent: 'center'}}>
-                    <RankingTable />
-                </TabPanel>
+                <Box style={{display: 'flex', justifyContent: 'center'}}>
+                    <TabPanel value={currentTab} index={0}>
+                        <RankingTable />
+                    </TabPanel>
+                </Box>
                 <TabPanel value={currentTab} index={1}>
                     <div className={styles['container-add-button']}>
                         <Button
