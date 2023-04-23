@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 
 import { BattleDataStats } from '../../interfaces/Fighter';
-import { RankingStructure } from "../../interfaces/RankingStructure";
+import { RankingStructure, RankingStructureResponse } from "../../interfaces/RankingStructure";
 import { Action } from "../actions";
 import { ActionType } from "../types";
 
@@ -40,7 +40,7 @@ export const signOut = () => {
     }
 }
 
-export const fetchPokeRanking = (document: RankingStructure[]) => {
+export const fetchPokeRanking = (document: RankingStructureResponse[]) => {
     return {
         type: ActionType.INITIAL_DB_RANKING,
         payload: document

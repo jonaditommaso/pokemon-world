@@ -7,6 +7,7 @@ import { useActions } from './useActions';
 import useOriginUser from './useOriginUser';
 import useUser from './useUser';
 import { fetchRanking } from '../firebase/config';
+import { RankingStructureResponse } from '../interfaces/RankingStructure';
 import { RootState } from '../redux';
 
 export const useGetRanked = (ranking: any) => {
@@ -19,7 +20,7 @@ export const useGetRanked = (ranking: any) => {
         if(originUser && ranking.length === 0) {
             fetchRanking(originUser.username)
             .then(response => {
-                if(response.length > 0 ) fetchPokeRanking(response);
+                if(response.length > 0 ) fetchPokeRanking(response as RankingStructureResponse[]);
             })
             .catch((error) => {
                 console.log("Error getting pokemons: ", error);
