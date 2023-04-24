@@ -61,7 +61,7 @@ export const removePokemonRanking = (pokemon: any) => {
     }
 }
 
-export const changeReview = (pokemon:any, type:any, ranking:any) => {
+export const changeReview = (pokemon: string, type: string[], ranking: number) => {
     return {
         type: ActionType.CHANGE_REVIEW,
         payload: {pokemon, type, ranking}

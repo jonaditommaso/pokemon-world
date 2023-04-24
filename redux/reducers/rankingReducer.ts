@@ -1,7 +1,13 @@
 import { Action } from '../actions'
 import { ActionType } from '../types'
 
-const INITIAL_STATE = {pokemonRanked: []};
+interface PokemonRanked {
+    pokemon: string;
+    type: string[];
+    ranking: number;
+  }
+
+const INITIAL_STATE = {pokemonRanked: [] as PokemonRanked[]};
 
 export const rankingReducer = (state = INITIAL_STATE, action: Action): any => {
     switch (action.type) {

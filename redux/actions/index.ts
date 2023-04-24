@@ -39,9 +39,13 @@ interface RemoveToRanking {
     payload: any
 }
 
-interface ChangeReview {
+export interface ChangeReview {
     type: ActionType.CHANGE_REVIEW,
-    payload: any
+    payload: {
+        pokemon: string,
+        type: string[],
+        ranking: number
+    }
 }
 
 interface SetInitialRanking {
