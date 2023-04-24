@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     mode: undefined
 };
 
-export const battleModeReducer = (state = INITIAL_STATE, action: Action): ModeState => {
+export const battleModeReducer = (state: ModeState = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case ActionType.BATTLE_MODE:
             return {...state, mode: action.payload};

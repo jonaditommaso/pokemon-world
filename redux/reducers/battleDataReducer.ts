@@ -15,7 +15,7 @@ const INITIAL_STATE: BattleDataStats = {
     }
 };
 
-export const battleDataReducer = (state = INITIAL_STATE, action: Action) => {
+export const battleDataReducer = (state: any = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case ActionType.BATTLE_DATA:
             return {...state, battlesData: action.payload};
