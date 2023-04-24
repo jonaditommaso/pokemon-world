@@ -26,7 +26,7 @@ interface FormProps {
     mode: string
 }
 
-export const Form = ({ mode } : FormProps) => {
+const Form = ({ mode } : FormProps) => {
     const [openErrorMessage, setOpenErrorMessage] = useState(false);
 
     const handleCloseMessage = () => {
@@ -120,3 +120,5 @@ export const Form = ({ mode } : FormProps) => {
         </>
     );
 };
+
+export default Form;

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 
-import { Form } from './Form';
+import Form from './Form';
 import styles from './signin.module.css'
 import pokeball from '../../public/assets/img/pokeball.png'
 import { RootState } from '../../redux';
