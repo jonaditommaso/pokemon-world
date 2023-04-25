@@ -13,7 +13,7 @@ import pokeball from '../../public/assets/img/pokeball.png'
 import { RootState } from '../../redux';
 import { signIn } from '../../redux/action-creators';
 
-const SignIn = () => {
+const SignIn = ({ thereIsUser }: any) => {
   const [formView, setFormView] = useState('sign_in');
 
   const router = useRouter();
@@ -33,7 +33,7 @@ const SignIn = () => {
         </Typography>
 
        <div style={{marginTop: '15px'}}>
-        <Form mode={formView} />
+        <Form mode={formView} thereIsUser={thereIsUser} />
        </div>
 
        <div style={{display: 'flex', justifyContent: 'center', marginTop: '15px'}}>

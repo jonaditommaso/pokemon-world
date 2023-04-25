@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { ChartOptions } from 'chart.js';
-import { Bar, Doughnut, Pie } from 'react-chartjs-2';
+import { Doughnut, Pie } from 'react-chartjs-2'; //Bar,
 import { connect } from 'react-redux';
 
 import Chart from './Chart';

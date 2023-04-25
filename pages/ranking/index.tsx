@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Button, Tab, Tabs, ThemeProvider } from '@mui/material';
+import { Box, Button, Tab, Tabs } from '@mui/material'; //ThemeProvider
 import { GoPlus } from 'react-icons/go';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -9,13 +9,12 @@ import withReactContent from "sweetalert2-react-content";
 import ChartsModal from './ChartsModal';
 import styles from './ranking.module.css'
 import Battles from '../../components/fight/Battles';
-import Chart from '../../components/ranking/Chart';
+// import Chart from '../../components/ranking/Chart';
 import ContainerChart from '../../components/ranking/ContainerChart';
 import RankingTable from '../../components/ranking/RankingTable';
-import { fetchCharts, fetchRanking } from '../../firebase/config';
-import { useActions } from '../../hooks/useActions';
+import { fetchCharts } from '../../firebase/config';
+// import { useActions } from '../../hooks/useActions';
 import { useGetRanked } from '../../hooks/useGetRanked';
-import useUser from '../../hooks/useUser';
 import { RootState } from '../../redux';
 import { TabPanel } from '../../utils/TabPanel';
 

@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Chip } from '@mui/material';
 import Image from 'next/image';
 import { connect } from 'react-redux';
 
 import styles from './eachPoke.module.css'
-import { useActions } from '../../../hooks/useActions';
+// import { useActions } from '../../../hooks/useActions';
 import { PokemonData } from '../../../interfaces/PokemonData';
 import { RootState } from '../../../redux';
-import { removePokemonRanking } from '../../../redux/action-creators';
+// import { removePokemonRanking } from '../../../redux/action-creators';
 import { colorsByType } from '../../../utils/colorsByType';
 import Review from '../../../utils/Review';
 

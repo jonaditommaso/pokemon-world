@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { Button, ThemeProvider, Typography } from '@mui/material';
 import clsx from 'clsx';
 import Image from 'next/image'
-import { Carousel } from 'react-bootstrap';
-import { BsInfoCircle } from 'react-icons/bs';
-import { GoChevronLeft } from 'react-icons/go';
+// import { Carousel } from 'react-bootstrap';
+// import { BsInfoCircle } from 'react-icons/bs';
+// import { GoChevronLeft } from 'react-icons/go';
 import Swal from 'sweetalert2';
 
 import styles from './ranking.module.css'

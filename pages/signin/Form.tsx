@@ -4,11 +4,45 @@ import { Button, Snackbar, TextField } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
+import { FaGithub } from 'react-icons/fa';
 
-import ContinueWith from './ContinueWith';
-import { loginWithGithub, fetchUsers, createUser } from '../../firebase/config';
+import { fetchUsers, createUser } from '../../firebase/config';
+import { loginWithGithub } from '../../firebase/config';
 import { useActions } from '../../hooks/useActions';
+import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import { validationSchemaSignIn } from '../../utils/validationSchemaSignIn';
+
+interface ContinueProps {
+    account: string,
+    thereIsUser?: boolean
+}
+
+const ContinueWith = ({ account, thereIsUser }: ContinueProps) => {
+
+    const { signIn } = useActions();
+    const router = useRouter();
+
+    const icons = {
+        github: <FaGithub size={23} style={{marginRight: '7px'}} />
+    }
+
+    const handleSignIn = async () => {
+        const { user } = await loginWithGithub();
+        if (user?.displayName) {
+            signIn(user.displayName);
+            localStorage.setItem('USER_NAME_GITHUB', user.displayName)
+            router.push('/pokemons');
+        }
+    }
+
+    return (
+        <div style={{marginTop: '30px', marginBottom: '10px'}}>
+            <Button onClick={handleSignIn} color='secondary' variant='contained' disabled={thereIsUser}>
+                {icons[account as keyof typeof icons]}    Continue with {capitalizeFirstLetter(account)}
+            </Button>
+        </div>
+    );
+}
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -23,10 +57,11 @@ interface FormValues {
 }
 
 interface FormProps {
-    mode: string
+    mode: string,
+    thereIsUser: any
 }
 
-const Form = ({ mode } : FormProps) => {
+const Form = ({ mode, thereIsUser } : FormProps) => {
     const [openErrorMessage, setOpenErrorMessage] = useState(false);
 
     const handleCloseMessage = () => {
@@ -115,7 +150,7 @@ const Form = ({ mode } : FormProps) => {
                     </Button>
                 </div>
 
-                {mode === 'sign_in' && <ContinueWith account='github' />}
+                {mode === 'sign_in' && <ContinueWith account='github' thereIsUser={thereIsUser} />}
             </form>
         </>
     );

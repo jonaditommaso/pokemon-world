@@ -40,7 +40,7 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
                 cancelButtonText: 'Cancel',
                 backdrop: true
             })
-                .then((result) => {
+                .then((result: any) => {
                     if ((result.value) && (go === 'search')) {
                         noBattle(false);
                         router.push('/search');

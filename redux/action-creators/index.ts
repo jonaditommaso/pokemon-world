@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux';
+// import { Dispatch } from 'redux';
 
 import { BattleDataStats } from '../../interfaces/Fighter';
 import { RankingStructure, RankingStructureResponse } from "../../interfaces/RankingStructure";
@@ -26,11 +26,12 @@ export const pauseMusic = () => {
 }
 
 export const signIn = (user: string) => {
-    return (dispatch: Dispatch <Action>) => {
-        dispatch({
+    // return (dispatch: Dispatch <Action>) => {
+        // dispatch({
+            return {
             type: ActionType.SIGN_IN,
             payload: user
-        })
+        // })
     }
 }
 

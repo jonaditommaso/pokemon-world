@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
+import { connect } from 'react-redux'; // MapDispatchToProps, MapStateToProps
 
 import styles from './navbar.module.css'
 import SideDropdown from './SideDropdown';
