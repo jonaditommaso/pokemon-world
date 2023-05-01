@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Divider, FormControl, MenuItem, Select } from '@mui/material';
+import { Divider, FormControl, Select } from '@mui/material';
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
+import MenuPokeItem from './MenuPokeItem';
 import styles from './sideDropdown.module.css'
 import { useActions } from '../../hooks/useActions';
 import pokeball from '../../public/assets/img/pokeballOpen.png'
@@ -92,11 +93,11 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
                             }
                         }}
                     >
-                        <MenuItem onClick={() => warning('search')}>Search Pokemon</MenuItem>
+                        <MenuPokeItem onClick={() => warning('search')} text='Search Pokemon' />
                         <Divider  />
-                        <MenuItem onClick={() => warning('all')}>See all Pokemons</MenuItem>
+                        <MenuPokeItem onClick={() => warning('all')} text='See all Pokemons' />
                         <Divider  />
-                        <MenuItem onClick={() => warning('ranking')}>Statistics Pokemons</MenuItem>
+                        <MenuPokeItem onClick={() => warning('ranking')} text='Statistics Pokemons' />
                     </Select>
                 </FormControl>
         </div>
