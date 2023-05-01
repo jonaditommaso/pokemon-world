@@ -12,7 +12,7 @@ export function countDuplicates(arr: string[]): { [key: string]: number } {
     const duplicates: { [key: string]: number } = {};
 
     Object.keys(counts).forEach((key) => {
-      if (counts[key] > 1) {
+      if (counts[key] > 0) {
         duplicates[key] = counts[key];
       }
     });
