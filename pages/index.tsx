@@ -25,7 +25,7 @@ export default function Home() {
                         </div>
                         <div className={styles.home__text}>
                             <h3>Hi! Welcome to the Pokémon world</h3>
-                            <h6>Here you will can see all the Pokémon, know their data, and listen to them!</h6>
+                            <h6>Here you will be able to see all the Pokémon, know their data, and listen to them!</h6>
                             <h6>(You can turn on and pause the music as you please).</h6>
                         </div>
                     </Carousel.Item>
