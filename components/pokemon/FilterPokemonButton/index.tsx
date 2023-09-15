@@ -5,7 +5,7 @@ import { FormControl, MenuItem, Select } from '@mui/material';
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import { colorsByType } from '../../../utils/colorsByType';
 
-const FilterButton = ({setOptionSelected}: any) => {
+const FilterButton = ({ setTypeSelected }: any) => {
 
     const types = Object.keys(colorsByType)
 
@@ -25,7 +25,9 @@ const FilterButton = ({setOptionSelected}: any) => {
                     }}
                 >
                  {types.map((type: any): any => (
-                     <MenuItem key={type} onClick={() => setOptionSelected(type)}>{capitalizeFirstLetter(type)}</MenuItem>
+                     <MenuItem key={type} onClick={() => setTypeSelected(type)}>
+                        {capitalizeFirstLetter(type)}
+                    </MenuItem>
                  ))}
                 </Select>
             </FormControl>

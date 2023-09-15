@@ -1,1 +1,1 @@
-export const OOPONENT_DATA = ['moves', 'name', 'stats', 'sprites.other.dream_world.front_default'];
+export const OPONENT_DATA = ['moves', 'name', 'stats', 'sprites.other.dream_world.front_default'];

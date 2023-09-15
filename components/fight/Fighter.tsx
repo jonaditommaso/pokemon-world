@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Bar from './Bar';
 import styles from './fight.module.css';
 import FightsData from './FightsData';
-import { OOPONENT_DATA } from '../../constants';
+import { OPONENT_DATA } from '../../constants';
 import pokeapi from '../../helpers/pokeapi';
 import { useActions } from '../../hooks/useActions';
 import { LifePoints, Moves, PokemonFighter } from '../../interfaces/Fighter';
@@ -270,7 +270,7 @@ export async function getStaticProps() {
 
     const { data } = await pokeapi.get(`/pokemon/${OPPONENT}`);
 
-    const pokemonData = extractedData(data, OOPONENT_DATA)
+    const pokemonData = extractedData(data, OPONENT_DATA)
 
     return {
         props: {

@@ -29,7 +29,7 @@
 }
 
 .loading  {
-    display: inline;
+    display: flex;
     height: 65px;
     width: 70px;
     justify-content: center;
