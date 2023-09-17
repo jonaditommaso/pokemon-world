@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Chart from './Chart';
 import { RankingStructure } from '../../interfaces/RankingStructure';
 import { RootState } from '../../redux';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import { capitalize } from '../../utils/capitalize';
 import { countDuplicates } from '../../utils/countDuplicates';
 
 interface PropsContainerChart {
@@ -35,7 +35,7 @@ const ContainerChart = ({ chartsSelected = [], ranking }: PropsContainerChart) =
 
 
   const data = {
-    labels: Object.keys(pokemonTypes).map(label => capitalizeFirstLetter(label)),
+    labels: Object.keys(pokemonTypes).map(label => capitalize(label)),
     datasets: [
       {
         data: Object.values(pokemonTypes),

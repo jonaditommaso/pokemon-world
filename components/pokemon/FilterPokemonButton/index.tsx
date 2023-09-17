@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormControl, MenuItem, Select } from '@mui/material';
 
-import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
+import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
 
 const FilterButton = ({ setTypeSelected }: any) => {
@@ -26,7 +26,7 @@ const FilterButton = ({ setTypeSelected }: any) => {
                 >
                  {types.map((type: any): any => (
                      <MenuItem key={type} onClick={() => setTypeSelected(type)}>
-                        {capitalizeFirstLetter(type)}
+                        {capitalize(type)}
                     </MenuItem>
                  ))}
                 </Select>

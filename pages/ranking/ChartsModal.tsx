@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import styles from './ranking.module.css'
 import { theme } from '../../config/theme.config';
 import { updateCharts } from '../../firebase/config';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import { capitalize } from '../../utils/capitalize';
 import { charts } from '../../utils/charts';
 
 interface ChartsModalProps {
@@ -74,7 +74,7 @@ const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalP
                                     />
                                 </div>
                                 {/* <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}> */}
-                                    <Typography>{capitalizeFirstLetter(chart.name)}</Typography>
+                                    <Typography>{capitalize(chart.name)}</Typography>
                                     {/* &nbsp;
                                     <BsInfoCircle
                                       style={{ cursor: 'pointer' }}

@@ -1,5 +1,5 @@
 import styles from './fight.module.css'
-import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import { capitalize } from "../../utils/capitalize";
 
 interface Section {
     label: string,
@@ -16,7 +16,7 @@ const Register = ({ dataNumber, section }: RegisterProps) => {
     return (
         <div className={styles['register-container']}>
             <p className={styles['register-data']} style={{ color: section.color }}>{dataNumber}</p>
-            <p className={styles['register-section']}>{capitalizeFirstLetter(section.label)}</p>
+            <p className={styles['register-section']}>{capitalize(section.label)}</p>
         </div>
     );
 }

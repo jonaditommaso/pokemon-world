@@ -9,7 +9,7 @@ import { FaGithub } from 'react-icons/fa';
 import { fetchUsers, createUser } from '../../firebase/config';
 import { loginWithGithub } from '../../firebase/config';
 import { useActions } from '../../hooks/useActions';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import { capitalize } from '../../utils/capitalize';
 import { validationSchemaSignIn } from '../../utils/validationSchemaSignIn';
 
 interface ContinueProps {
@@ -38,7 +38,7 @@ const ContinueWith = ({ account, thereIsUser }: ContinueProps) => {
     return (
         <div style={{marginTop: '30px', marginBottom: '10px'}}>
             <Button onClick={handleSignIn} color='secondary' variant='contained' disabled={thereIsUser}>
-                {icons[account as keyof typeof icons]}    Continue with {capitalizeFirstLetter(account)}
+                {icons[account as keyof typeof icons]}    Continue with {capitalize(account)}
             </Button>
         </div>
     );

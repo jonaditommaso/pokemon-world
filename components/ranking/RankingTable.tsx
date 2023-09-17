@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import styles from './ranking.module.css'
 import { themePalette } from '../../config/theme.config';
 import { RootState } from '../../redux';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import { capitalize } from '../../utils/capitalize';
 import Review from '../../utils/Review';
 
 const RankingTable = ({ ranking }: any) => {
@@ -65,7 +65,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
               {pokemonRanking?.map((pokemon, index) => (
                 <StyledTableRow key={index} hover>
                   <StyledTableCell align='center'>
-                    {capitalizeFirstLetter(get(pokemon, 'pokemon'))}
+                    {capitalize(get(pokemon, 'pokemon'))}
                   </StyledTableCell>
                   <StyledTableCell align='center'>
                     <Review review={get(pokemon, 'ranking')} readOnly />

@@ -2,7 +2,7 @@ import PokemonService from "./PokemonHelper";
 
 const getPokemon = async (url: string) => {
     const pokemonService = new PokemonService();
-    const {data} = await pokemonService.getUrlForEachPokemon(url);
+    const { data } = await pokemonService.getUrlForEachPokemon(url);
     return data;
 }
 

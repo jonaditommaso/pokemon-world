@@ -9,6 +9,7 @@ import styles from './eachPoke.module.css'
 import { PokemonData } from '../../../interfaces/PokemonData';
 import { RootState } from '../../../redux';
 // import { removePokemonRanking } from '../../../redux/action-creators';
+import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
 import Review from '../../../utils/Review';
 
@@ -75,7 +76,7 @@ const EachPoke = ({
                 />
                 <div>
                     <h6>
-                        {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                        {capitalize(pokemon.name)}
                     </h6>
                     <p className={styles.eachPoke__id}>
                         {`#${pokemon.id}`}
