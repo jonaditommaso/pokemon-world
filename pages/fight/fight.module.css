@@ -61,3 +61,11 @@
 .type-fight-text-right {
     right: 16px;
 }
+
+.fighter-container {
+    background-image: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.4)), url('../../assets/img/battlefield.jpg');
+    background-size: cover;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 4%;
+}

@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 
 import styles from './fight.module.css'
 import TypeFight from './TypeFight';
-import bgImage from '../../assets/img/battlefield.jpg'
 import Fighter, { getStaticProps as getFighterStaticProps } from '../../components/fight/Fighter';
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
@@ -87,7 +86,7 @@ const Fight = ( { fighter, music, pokemonData }: FightProps) => {
                 <div className={showButton}>
                     <TypeFight typeFight={fightTypeSelected} changeTypeFight={setFightTypeSelected} />
                 </div>
-                <div style={{position: 'absolute', top: '50%'}} className={clsx(styles['fight-button'], !fightTypeSelected && styles['fight-button-disabled'])}>
+                <div className={clsx(styles['fight-button'], !fightTypeSelected && styles['fight-button-disabled'])}>
                     <Button
                         variant="contained"
                         color='error'
@@ -129,12 +128,7 @@ const Fight = ( { fighter, music, pokemonData }: FightProps) => {
                 </div>
             </div>
 
-            <div
-                className={`${showBattle} fighter-container`}
-                style={{
-                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.4)), url(${bgImage.src})`,
-                }}
-            >
+            <div className={clsx(showBattle, styles['fighter-container'])}>
                 <Fighter pokemonData={pokemonData} />
             </div>
         </div>

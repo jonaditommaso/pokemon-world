@@ -20,7 +20,6 @@
     font-style: italic;
 }
 
-
 .fighter {
     animation: golpe 0.1s alternate infinite ease-in-out;
 }
@@ -35,6 +34,8 @@
   }
 
 .fightsData {
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6));
     border-radius: 10px;
     height: 100px;
@@ -107,13 +108,6 @@
     border-radius: 5px;
     box-shadow: 1.5px 1px 1.5px #d0d0d0;
     color: white;
-}
-
-.fighter-container {
-    background-size: cover;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding: 4%;
 }
 
 @media (max-width: 770px) {

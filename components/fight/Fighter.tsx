@@ -25,24 +25,18 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
 
     const [skills, setSkills] = useState <string[]> ([]);
     const [ownSkills, setOwnSkills] = useState <string[]> ([]);
-
     const [opponentPunched, setOpponentPunched] = useState('');
     const [iWasPunched, setIWasPunched] = useState('')
-
     const [damagePointsForTheOpponent, setDamagePointsForTheOpponent] = useState(0);
-
     const [gameOver, setGameOver] = useState('d-none');
-
+    const [opponentsTurn, setOpponentsTurn] = useState <undefined | boolean> (undefined); // this represent if it is the opponent turn 'cause user don't manage him
+    const [thereIsHit, setThereIsHit] = useState(false); // this represent a hit for anyone
+    const [youWin, setYouWin] = useState <undefined | boolean> (undefined);
     const [lifePoints, setLifePoints] = useState <LifePoints> ({
         opponent: 0,
         player: 0
     });
 
-    const [opponentsTurn, setOpponentsTurn] = useState <undefined | boolean> (undefined); // this represent if it is the opponent turn 'cause user don't manage him
-
-    const [thereIsHit, setThereIsHit] = useState(false); // this represent a hit for anyone
-
-    const [youWin, setYouWin] = useState <undefined | boolean> (undefined);
     const setting = useRef(false);
 
     useEffect(() => {
@@ -79,7 +73,7 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
             setOwnSkills(moves.player);
         }
 
-    }, [pokemonData, fighter]);
+    }, [pokemonData, fighter, thereBattle]);
 
 
     useEffect(() => {
@@ -150,29 +144,21 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
 
             {/* OPPONENT */}
             <div className={styles.fighter__opponent}>
-
-                <div style={{display: 'flex', flexDirection: 'column'}} className={styles.fightsData}>
-                    <div style={{display: 'flex', margin: '0'}}>
-                        <Bar
-                            damage={damagePointsForTheOpponent}
-                            setGameOver={setGameOver}
-                            fighter='opponent'
-                            changeLife={setLifePoints}
-                            // hisAccumulate={setIWin}
-                            hit={thereIsHit}
-                            setHit={setThereIsHit}
-                            opponentsTurn={opponentsTurn}
-                            // hp={pokemonData?.stats[0]?.base_stat}
-                            // he
-                        />
-                    </div>
-                    <div style={{display: 'flex', flexDirection: 'column'}} className={styles.opponent}>
-                        <FightsData
-                            skills={skills}
-                            opponent={true}
-                            setHit={setThereIsHit}
-                        />
-                   </div>
+                <div className={styles.fightsData}>
+                    <Bar
+                        damage={damagePointsForTheOpponent}
+                        setGameOver={setGameOver}
+                        fighter='opponent'
+                        changeLife={setLifePoints}
+                        hit={thereIsHit}
+                        setHit={setThereIsHit}
+                        opponentsTurn={opponentsTurn}
+                    />
+                    <FightsData
+                        skills={skills}
+                        opponent={true}
+                        setHit={setThereIsHit}
+                    />
                 </div>
 
                 <div className={styles[opponentPunched]}>
@@ -185,7 +171,6 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
                         height={180}
                     />
                 </div>
-
             </div>
 
             <FinalMessage
@@ -207,36 +192,29 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
                 </div>
 
                 <div style={{display: 'flex', alignItems: 'flex-end', marginBottom: '23px'}}>
+                    <div className={styles.fightsData}>
+                        <FightsData
+                            skills={ownSkills}
+                            opponentDamage={setDamagePointsForTheOpponent}
+                            punched={setOpponentPunched}
+                            finish={gameOver}
+                            setHit={setThereIsHit}
+                            attack={fighter?.pokemon?.stats[1]?.base_stat}
+                            turn={setOpponentsTurn}
+                            hisTurn={opponentsTurn}
+                        />
 
-                    <div style={{display: 'flex', flexDirection: 'column'}} className={styles.fightsData}>
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <FightsData
-                                skills={ownSkills}
-                                opponentDamage={setDamagePointsForTheOpponent}
-                                punched={setOpponentPunched}
-                                finish={gameOver}
-                                setHit={setThereIsHit}
-                                attack={fighter?.pokemon?.stats[1]?.base_stat}
-                                turn={setOpponentsTurn}
-                                hisTurn={opponentsTurn}
-                            />
-
-                        </div>
-
-                        <div style={{display: 'flex'}}>
-                            <Bar
-                                damage={get(pokemonData, 'stats[1].base_stat')}
-                                opponentsTurn={opponentsTurn}
-                                setGameOver={setGameOver}
-                                fighter='player'
-                                changeLife={setLifePoints}
-                                hit={thereIsHit}
-                                setHit={setThereIsHit}
-                            />
-                        </div>
+                        <Bar
+                            damage={get(pokemonData, 'stats[1].base_stat')}
+                            opponentsTurn={opponentsTurn}
+                            setGameOver={setGameOver}
+                            fighter='player'
+                            changeLife={setLifePoints}
+                            hit={thereIsHit}
+                            setHit={setThereIsHit}
+                        />
                     </div>
                 </div>
-
             </div>
 
         </div>

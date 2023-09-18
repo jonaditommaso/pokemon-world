@@ -121,7 +121,7 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
     }
 
     return (
-        <div >
+        <div style={{display: 'flex', flexDirection: 'column'}}>
             <div className={styles.dataButtons}>
                 {skills
                 ? skills?.map((skill, i) => (
