@@ -160,6 +160,7 @@ const SearchPokemon = () => {
                     />
                 </div>
             </div>
+
             {showError && <p className={styles.noMatch}>There are no Pokemon that match your search</p>}
 
             {!pokemonData

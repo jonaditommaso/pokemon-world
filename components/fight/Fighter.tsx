@@ -1,28 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { Button } from '@mui/material';
 import clsx from 'clsx';
 import get from 'lodash/get';
 import Image from 'next/image';
-import Link from 'next/link'
 import { connect } from 'react-redux';
 
 import Bar from './Bar';
 import styles from './fight.module.css';
 import FightsData from './FightsData';
+import FinalMessage from './FinalMessage';
 import { OPONENT_DATA } from '../../constants';
 import pokeapi from '../../helpers/pokeapi';
 import { useActions } from '../../hooks/useActions';
 import { LifePoints, Moves, PokemonFighter } from '../../interfaces/Fighter';
 import { RootState } from '../../redux';
-import { thereBattle, musicBattlePause } from '../../redux/action-creators';
+import { thereBattle } from '../../redux/action-creators';
 import { battleData } from '../../redux/action-creators/index';
 import { extractedData } from '../../utils/extractedData';
 
 
 const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
 
-    const { thereBattle, musicBattlePause, battleData } = useActions();
+    const { thereBattle, battleData } = useActions();
 
     const [skills, setSkills] = useState <string[]> ([]);
     const [ownSkills, setOwnSkills] = useState <string[]> ([]);
@@ -144,6 +143,7 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
     }, [gameOver, battleData, youWin, battlesData, battleMode, pokemonData]);
 
 
+    if(!fighter.pokemon) return null;
 
     return (
         <div>
@@ -188,21 +188,11 @@ const Fighter = ({ fighter, pokemonData, battlesData, battleMode }: any) => {
 
             </div>
 
-            <div className={clsx(styles[gameOver], gameOver)}>
-                <span style={{color:'#d90dde', marginLeft: '20px'}}>{`+${youWin ? '72' : '23'} XP`}</span>
-                <span style={{margin: 'auto'}}>
-                    {youWin
-                        ? fighter.pokemon.name.toUpperCase()
-                        : pokemonData.name.toUpperCase()
-                    } WINS
-                </span>
-                <div className={styles.button__playAgain}>
-                    <Link href='/search' style={{textDecoration: 'none'}}>
-                        <Button variant='contained' onClick={() => musicBattlePause()}>PLAY AGAIN</Button>
-                    </Link>
-                </div>
-
-            </div>
+            <FinalMessage
+              gameOver={gameOver}
+              winnerName={youWin ? fighter.pokemon.name : pokemonData.name}
+              xpGained={youWin ? 72 : 23}
+            />
 
             {/* MYSELF */}
             <div className={styles.fighter__myself}>
@@ -262,7 +252,7 @@ const mapStateToProps = (state: RootState) => {
     }
 }
 
-export default connect(mapStateToProps, { thereBattle, musicBattlePause, battleData })(Fighter);
+export default connect(mapStateToProps, { thereBattle, battleData })(Fighter);
 
 export async function getStaticProps() {
     const OPPONENT = Math.round(Math.random()*100).toString();

@@ -109,6 +109,13 @@
     color: white;
 }
 
+.fighter-container {
+    background-size: cover;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 4%;
+}
+
 @media (max-width: 770px) {
     .showingVideo {
         margin: auto;
