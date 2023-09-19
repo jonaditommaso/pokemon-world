@@ -27,7 +27,7 @@ const ActionButtons = ({ pokemonData, getAdjacentPokemon }: ActionButtonsProps) 
                 text='Prev'
                 onClick={() => getAdjacentPokemon('prev')}
                 style={{width: '4rem', marginRight: '0.5%'}}
-                disabled={pokemonData.id === 1}
+                disabled={pokemonData?.id === 1}
             />
 
             <SecondaryButton
