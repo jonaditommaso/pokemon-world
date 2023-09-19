@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
 
 import ActionButtons from './ActionButtons';
-import { getEvolutions } from './getEvolutions';
 import styles from './search.module.css';
 import PrimaryButton from '../../components/buttons/PrimaryButton';
 import CardPokemonFile from '../../components/pokemon/CardPokemonFile';
@@ -16,6 +15,7 @@ import PokemonService from '../../helpers/PokemonHelper';
 import { PokemonData } from '../../interfaces/PokemonData';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png';
 import { store } from '../../redux';
+import { getEvolutions } from '../../utils/getEvolutions';
 
 const MySwal = withReactContent(Swal);
 

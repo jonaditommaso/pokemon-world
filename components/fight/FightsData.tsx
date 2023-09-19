@@ -47,19 +47,13 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
     }, [changeTurn, hisTurn]);
 
     const colorButton = (i: number) => {
-        switch (i) {
-            case 0:
-                return 'success';
-            case 1:
-                return 'primary';
-            case 2:
-                return 'warning';
-            case 3:
-                return 'error';
-
-            default:
-                break;
-        }
+        const colorMap: { [key: number]: 'success' | 'primary' | 'warning' | 'error' } = {
+            0: 'success',
+            1: 'primary',
+            2: 'warning',
+            3: 'error',
+        };
+        return colorMap[i];
     }
 
     const notMyTurn = () => {
@@ -89,7 +83,7 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
     }
 
     const disableButtons = (index: number) => {
-        if(player === 'opponent' || (finish === 'fighter__win') || changeTurn || attacksAvailable[index] === 0) {
+        if(player === 'opponent' || finish === 'fighter__win' || changeTurn || attacksAvailable[index] === 0) {
             return true
         }
         return false
@@ -98,8 +92,7 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <div className={styles.dataButtons}>
-                {skills
-                ? skills?.map((skill, i) => (
+                {skills?.map((skill, i) => (
                     <div key={i} style={{margin: '3px'}}>
                         <Button
                             size="small"
@@ -113,9 +106,7 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
                             {player === 'player' && <span>{attacksAvailable[i + 1]}</span>}
                         </Button>
                     </div>
-                ))
-                : <></>
-                }
+                ))}
             </div>
         </div>
     );

@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
+
 import { buttonClasses, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
 interface ThemeProp {
-    children: JSX.Element
+    children: ReactNode
 }
 
 export enum themePalette {
