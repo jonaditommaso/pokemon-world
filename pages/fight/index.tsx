@@ -5,23 +5,20 @@ import clsx from 'clsx'
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
-import styles from './fight.module.css'
+import styles from './fight.module.css';
+import FightAnimation from './FightAnimation';
 import TypeFight from './TypeFight';
 import Fighter, { getStaticProps as getFighterStaticProps } from '../../components/fight/Fighter';
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
-import { PokemonData } from '../../interfaces/PokemonData';
 import { battleMode, musicBattle, musicBattlePause } from '../../redux/action-creators';
 
 interface FightProps {
     music: MusicState,
-    pokemonData: any,
-    fighter: {
-        pokemon: PokemonData
-    },
+    opponentData: any,
 }
 
-const Fight = ( { fighter, music, pokemonData }: FightProps) => {
+const Fight = ( { music, opponentData }: FightProps) => {
 
     const { musicBattle, musicBattlePause, battleMode } = useActions();
 
@@ -82,7 +79,10 @@ const Fight = ( { fighter, music, pokemonData }: FightProps) => {
 
     return (
         <div>
-            <div className={preparationWrap} style={{display: 'flex', justifyContent: 'center', marginTop: '4%', position: showVideo === 'd-none' ? 'relative' : 'static'}}>
+            <div
+              className={clsx(preparationWrap, styles['container-type-room'])}
+              style={{ position: showVideo === 'd-none' ? 'relative' : 'static'}}
+            >
                 <div className={showButton}>
                     <TypeFight typeFight={fightTypeSelected} changeTypeFight={setFightTypeSelected} />
                 </div>
@@ -98,38 +98,15 @@ const Fight = ( { fighter, music, pokemonData }: FightProps) => {
                         FIGHT!
                     </Button>
 
-                    <div style={{display: !fightTypeSelected ? 'none' : '', position: 'absolute', top: '50%', left: '50%',transform: 'translate(-50%, -50%)'}}>
-                        <video
-                            src='video/pokeballgo.mp4'
-                            preload="auto"
-                            id="video"
-                            style={{height: '360px', width: '475px', objectFit: 'none'}}
-                            className={showVideo}
-                        >
-                        </video>
-
-                        <audio
-                            src='audio/pokemon-battle.mp3'
-                            preload="auto"
-                            id="pokemon-battle"
-                            controls
-                            style={{display: 'none'}}
-                        >
-                        </audio>
-                        <audio
-                            src={`audio/voices/${fighter?.pokemon.name}.mp3`}
-                            preload="auto"
-                            id="pokemon-name"
-                            controls
-                            style={{display: 'none'}}
-                        >
-                        </audio>
-                    </div>
+                    <FightAnimation
+                        fightTypeSelected={fightTypeSelected}
+                        showVideo={showVideo}
+                    />
                 </div>
             </div>
 
             <div className={clsx(showBattle, styles['fighter-container'])}>
-                <Fighter pokemonData={pokemonData} />
+                <Fighter opponentData={opponentData} />
             </div>
         </div>
     )
@@ -138,7 +115,6 @@ const Fight = ( { fighter, music, pokemonData }: FightProps) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        fighter: state.fight,
         music: state.music,
         battle: state.battle,
     }

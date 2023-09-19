@@ -2,12 +2,12 @@ export interface Fighter {
     attack?: number,
     finish?: string,
     hisTurn?: boolean | undefined,
-    opponent?: boolean,
+    player: 'opponent' | 'player',
     opponentDamage?: React.Dispatch<React.SetStateAction<number>>,
     punched?: React.Dispatch<React.SetStateAction<string>>,
     setHit: React.Dispatch<React.SetStateAction<boolean>>,
-    skills: string[],
     turn?: React.Dispatch<React.SetStateAction<boolean | undefined>>,
+    character: any,
 }
 
 export interface LifePoints {

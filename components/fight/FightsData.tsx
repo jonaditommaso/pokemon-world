@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 
 import { Button } from '@mui/material';
 
-import { Fighter } from '../../interfaces/Fighter';
+import { Fighter, Moves, PokemonFighter } from '../../interfaces/Fighter';
 import styles from '../fight/fight.module.css';
 
 type AttackCount = {
     [key: number]: number;
-  };
+};
 
-function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, hisTurn, setHit, attack }: Fighter) {
+function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, setHit, attack, character }: Fighter) {
 
     const [changeTurn, setChangeTurn] = React.useState(false);
     const [attacksAvailable, setAttacksAvailable] = React.useState<AttackCount>({
@@ -18,6 +18,24 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
         3: 5,
         4: 3
     });
+
+    const getSkills = (character: PokemonFighter) => {
+        let moves: Moves = {
+            opponent: [],
+            player: [],
+        }
+
+        const numberOfMoves = character.moves.length;
+        const movesRange = numberOfMoves >= 20 ? character.moves.slice(16, 20) : character.moves.slice(0, 4);
+
+        movesRange.forEach((move) => {
+            moves[player].push(move.move.name);
+        });
+
+        return moves[player];
+    }
+
+    const skills = getSkills(character);
 
     useEffect(() => {
         if(hisTurn) {
@@ -54,67 +72,24 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
 
     const damagePoints = (i: number) => {
         if(!opponentDamage || !punched) return;
-        switch (i) {
-            case 0:
-                setAttacksAvailable((prevState) => ({
-                    ...prevState,
-                    [i + 1]: prevState[i + 1] - 1
-                  }));
-                setHit(true);
-                opponentDamage(attack! * (0.05 * 2)); // sacar el x2 cuando ponga el hp
-                punched('fighter');
-                notMyTurn();
-                setTimeout(() => {
-                    punched('');
-                }, 800);
-                break;
-            case 1:
-                setAttacksAvailable((prevState) => ({
-                    ...prevState,
-                    [i + 1]: prevState[i + 1] - 1
-                  }));
-                setHit(true);
-                opponentDamage(attack! * (0.1 * 2));
-                punched('fighter');
-                notMyTurn();
-                setTimeout(() => {
-                    punched('');
-                }, 800);
-                break;
-            case 2:
-                setAttacksAvailable((prevState) => ({
-                    ...prevState,
-                    [i + 1]: prevState[i + 1] - 1
-                  }));
-                setHit(true);
-                opponentDamage(attack! * (0.12 * 2));
-                punched('fighter');
-                notMyTurn();
-                setTimeout(() => {
-                    punched('');
-                }, 800);
-                break;
-            case 3:
-                setAttacksAvailable((prevState) => ({
-                    ...prevState,
-                    [i + 1]: prevState[i + 1] - 1
-                  }));
-                setHit(true);
-                opponentDamage(attack! * (0.17 * 2));
-                punched('fighter');
-                notMyTurn();
-                setTimeout(() => {
-                    punched('');
-                }, 800);
-                break;
 
-            default:
-                break;
-        }
+        const damageMultiplier = [0.05, 0.1, 0.12, 0.17][i];
+
+        setAttacksAvailable((prevState) => ({
+            ...prevState,
+            [i + 1]: prevState[i + 1] - 1,
+        }));
+        setHit(true);
+        opponentDamage(attack! * (damageMultiplier * 2)); // sacar el x2 cuando ponga el hp
+        punched('fighter');
+        notMyTurn();
+        setTimeout(() => {
+            punched('');
+        }, 800);
     }
 
     const disableButtons = (index: number) => {
-        if(opponent || (finish === 'fighter__win') || changeTurn || attacksAvailable[index] === 0) {
+        if(player === 'opponent' || (finish === 'fighter__win') || changeTurn || attacksAvailable[index] === 0) {
             return true
         }
         return false
@@ -130,12 +105,12 @@ function FightsData({ skills, opponent, opponentDamage, punched, finish, turn, h
                             size="small"
                             variant='contained'
                             color={colorButton(i)}
-                            style={{width: '10rem', justifyContent: !opponent ? 'space-between' : ''}}
+                            style={{width: '10rem', justifyContent: player === 'player' ? 'space-between' : ''}}
                             disabled={disableButtons(i + 1)}
                             onClick={() => damagePoints(i)}
                         >
                             {skill.toUpperCase()}
-                            {!opponent && <span>{attacksAvailable[i + 1]}</span>}
+                            {player === 'player' && <span>{attacksAvailable[i + 1]}</span>}
                         </Button>
                     </div>
                 ))
