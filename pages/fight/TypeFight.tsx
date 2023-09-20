@@ -41,13 +41,13 @@ const TypeFight = ({ typeFight, changeTypeFight }: any) => {
             {images.map((image, index) => (
                 <div key={index} style={{position: 'relative'}}>
                     <Image
-                    key={image.alt}
-                    src={image.src}
-                    alt={image.alt}
-                    height={200}
-                    width={400}
-                    className={typeFight && typeFight !== image.key ? styles['images-container-not-selected'] : ''}
-                    onClick={() => changeTypeFight(image.key)}
+                        key={image.alt}
+                        src={image.src}
+                        alt={image.alt}
+                        height={200}
+                        width={400}
+                        className={typeFight && typeFight !== image.key ? styles['images-container-not-selected'] : ''}
+                        onClick={() => changeTypeFight(image.key)}
                     />
                     <p className={clsx(styles['type-fight-text'], styles[`type-fight-text-${index === 0 || index === 2 ? 'left': 'right'}`])}>
                         {image.typeLabel}

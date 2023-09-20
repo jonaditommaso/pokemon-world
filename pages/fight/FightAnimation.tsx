@@ -6,26 +6,22 @@ import { PokemonData } from '../../interfaces/PokemonData';
 
 
 interface FightProps {
-    fightTypeSelected: string,
-    showVideo: string,
+    showVideo: boolean,
     fighter: {
         pokemon: PokemonData
     },
 }
 
-const FightAnimation = ({ fighter, fightTypeSelected, showVideo }: FightProps) => {
+const FightAnimation = ({ fighter, showVideo }: FightProps) => {
+
     return (
-        <div
-            className={styles['container-media']}
-            style={{display: !fightTypeSelected ? 'none' : ''}}
-        >
+        <div className={styles['container-media']}>
             <video
                 src='video/pokeballgo.mp4'
                 preload="auto"
                 id="video"
-                className={clsx(showVideo, styles['intro-video'])}
-            >
-            </video>
+                className={clsx(!showVideo && 'd-none', styles['intro-video'])}
+            ></video>
 
             <audio
                 src='audio/pokemon-battle.mp3'
@@ -33,16 +29,14 @@ const FightAnimation = ({ fighter, fightTypeSelected, showVideo }: FightProps) =
                 id="pokemon-battle"
                 controls
                 style={{display: 'none'}}
-            >
-            </audio>
+            ></audio>
             <audio
                 src={`audio/voices/${fighter?.pokemon.name}.mp3`}
                 preload="auto"
                 id="pokemon-name"
                 controls
                 style={{display: 'none'}}
-            >
-            </audio>
+            ></audio>
         </div>
     );
 }

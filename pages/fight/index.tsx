@@ -16,17 +16,17 @@ import { battleMode, musicBattle, musicBattlePause } from '../../redux/action-cr
 interface FightProps {
     music: MusicState,
     opponentData: any,
+    startBattle: any
 }
 
-const Fight = ( { music, opponentData }: FightProps) => {
+const Fight = ( { music, opponentData, startBattle }: FightProps) => {
 
     const { musicBattle, musicBattlePause, battleMode } = useActions();
 
-    const [showButton, setShowButton] = useState('showingButton');
-    const [showVideo, setShowVideo] = useState('d-none');
-    const [showBattle, setShowBattle] = useState('d-none');
+    const [showBattle, setShowBattle] = useState(false);
     const [fightTypeSelected, setFightTypeSelected] = useState('');
-    const [preparationWrap, setPreparationWrap] = useState('');
+
+    const showVideo = startBattle && !showBattle;
 
     useEffect(() => {
         const battleMusic = document.getElementById('pokemon-battle') as HTMLAudioElement;
@@ -48,8 +48,6 @@ const Fight = ( { music, opponentData }: FightProps) => {
             });
             return;
         }
-        setShowButton('d-none');
-        setShowVideo('showingVideo');
         battleMode(fightTypeSelected);
 
         if(music.volume) {
@@ -65,49 +63,42 @@ const Fight = ( { music, opponentData }: FightProps) => {
         video.play();
     }
 
-    if(showVideo === 'showingVideo') {
+    if(showVideo) {
         const video = document.getElementById('video') as HTMLVideoElement;
         const pokemonName = document.getElementById('pokemon-name') as HTMLAudioElement;
 
         video.addEventListener('ended', () => {
-            setShowVideo('d-none');
-            setShowBattle('fight');
-            setPreparationWrap('d-none');
-            pokemonName.play();
+            setShowBattle(true);
+            if(music.volume) pokemonName.play();
         });
     }
 
     return (
         <div>
             <div
-              className={clsx(preparationWrap, styles['container-type-room'])}
-              style={{ position: showVideo === 'd-none' ? 'relative' : 'static'}}
+              className={styles['container-type-room']}
+              style={{ position: !showVideo ? 'relative' : 'static'}}
             >
-                <div className={showButton}>
-                    <TypeFight typeFight={fightTypeSelected} changeTypeFight={setFightTypeSelected} />
-                </div>
+                {!startBattle && <TypeFight typeFight={fightTypeSelected} changeTypeFight={setFightTypeSelected} />}
+
                 <div className={clsx(styles['fight-button'], !fightTypeSelected && styles['fight-button-disabled'])}>
-                    <Button
+                    {!startBattle && <Button
                         variant="contained"
                         color='error'
                         size='large'
-                        onClick={() => handlePlay()}
-                        className={showButton}
+                        onClick={handlePlay}
                         sx={{fontSize: '20px'}}
                     >
                         FIGHT!
-                    </Button>
+                    </Button>}
 
-                    <FightAnimation
-                        fightTypeSelected={fightTypeSelected}
-                        showVideo={showVideo}
-                    />
+                    <FightAnimation showVideo={showVideo} />
                 </div>
             </div>
 
-            <div className={clsx(showBattle, styles['fighter-container'])}>
+            {showBattle && <div className={styles['fighter-container']}>
                 <Fighter opponentData={opponentData} />
-            </div>
+            </div>}
         </div>
     )
 }
@@ -116,7 +107,7 @@ const Fight = ( { music, opponentData }: FightProps) => {
 const mapStateToProps = (state: any) => {
     return {
         music: state.music,
-        battle: state.battle,
+        startBattle: state.battleMode.mode,
     }
 }
 
