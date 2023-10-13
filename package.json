@@ -1,13 +1,4 @@
 {
-  "name": "pokemon-world",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -42,5 +33,14 @@
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.27.5"
-  }
+  },
+  "name": "pokemon-world",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
+  },
+  "version": "0.1.0"
 }

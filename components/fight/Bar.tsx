@@ -3,25 +3,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { LinearProgress } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles'
 
+import { barStyles } from './barStyles';
 import { BarSettings } from '../../interfaces/BarSettings';
 import { LifePoints } from '../../interfaces/Fighter';
 
-const BorderLinearProgress = withStyles((theme) => ({
-  root: {
-    height: 7,
-    borderRadius: 10,
-    width: '18rem',
-    margin: 'auto',
-    marginTop: 4,
-  },
-  colorPrimary: {
-    backgroundColor: '#00ff70'
-  },
-  bar: {
-    borderRadius: 0,
-    backgroundColor: 'red'
-  },
-}))(LinearProgress);
+const BorderLinearProgress = withStyles((theme) => (barStyles))(LinearProgress);
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +28,6 @@ export default function Bar ({
   const classes = useStyles();
 
   const [damageCount, setDamageCount] = useState(0);
-
 
   const notPassTheLine = (result: number) => {
     if(result >= 100) {
@@ -71,13 +56,13 @@ export default function Bar ({
 
   }, [hit])
 
-
   useEffect(() => {
 
     if(damageCount >= 100 ) {
       setTimeout(() => {
         setGameOver('fighter__win');
       }, 500);
+
       changeLife((prevLifePoints: LifePoints) => ({
         ...prevLifePoints,
         [fighter]: damageCount

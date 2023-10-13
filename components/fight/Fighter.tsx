@@ -38,15 +38,12 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
     const setting = useRef(false);
 
     useEffect(() => {
-        if(opponentData) {
-            thereBattle(opponentData);
-        }
+        if(opponentData) thereBattle(opponentData);
     }, [opponentData]);
 
 
     useEffect(() => {
         if(opponentsTurn === true) {
-
             setTimeout(() => {
                 if(lifePoints.opponent === 100) {
                     setIWasPunched('');
@@ -56,7 +53,6 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                 }
             }, 5000);
 
-
             setTimeout(() => {
                 setThereIsHit(true);
                 setIWasPunched('');
@@ -64,7 +60,6 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
             }, 5800);
         }
     }, [opponentsTurn, gameOver, lifePoints]);
-
 
     useEffect(() => {
         const setWinner = () => {
@@ -89,11 +84,11 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
         let result = {...battlesData}
         result.spotted = spotted;
         if(youWin) {
-            result.won = result.won + 1
-            result.points = result.points + 72
+            result.won += 1;
+            result.points += 72;
         } else {
-            result.lost = result.lost + 1
-            result.points = result.points + 23
+            result.lost += 1;
+            result.points += 23
         }
         result.battles = result.battles + 1
 
@@ -116,13 +111,13 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
             <div className={styles.fighter__opponent}>
                 <div className={styles.fightsData}>
                     <Bar
-                        damage={damagePointsForTheOpponent}
-                        setGameOver={setGameOver}
-                        fighter='opponent'
                         changeLife={setLifePoints}
+                        damage={damagePointsForTheOpponent}
+                        fighter='opponent'
                         hit={thereIsHit}
-                        setHit={setThereIsHit}
                         opponentsTurn={opponentsTurn}
+                        setGameOver={setGameOver}
+                        setHit={setThereIsHit}
                     />
                     <FightsData
                         player={'opponent'}
@@ -176,12 +171,12 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                         />
 
                         <Bar
+                            changeLife={setLifePoints}
                             damage={get(opponentData, 'stats[1].base_stat')}
+                            fighter='player'
+                            hit={thereIsHit}
                             opponentsTurn={opponentsTurn}
                             setGameOver={setGameOver}
-                            fighter='player'
-                            changeLife={setLifePoints}
-                            hit={thereIsHit}
                             setHit={setThereIsHit}
                         />
                     </div>
