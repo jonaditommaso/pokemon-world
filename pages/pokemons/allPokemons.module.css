@@ -27,27 +27,3 @@
     display: flex;
     justify-content: center;
 }
-
-.loading  {
-    display: flex;
-    height: 65px;
-    width: 70px;
-    justify-content: center;
-    margin: auto;
-    margin-top: 15%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .loading {
-      animation: pokeball infinite 2s linear;
-    }
-}
-
-@keyframes pokeball {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-}

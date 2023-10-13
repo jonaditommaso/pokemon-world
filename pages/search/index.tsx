@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
+import { redirect } from 'next/navigation'
 import { useRouter } from 'next/router';
+import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
@@ -10,11 +12,13 @@ import ActionButtons from './ActionButtons';
 import styles from './search.module.css';
 import PrimaryButton from '../../components/buttons/PrimaryButton';
 import CardPokemonFile from '../../components/pokemon/CardPokemonFile';
+import PokemonSpinner from '../../components/spinner/PokemonSpinner';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
+import { useRedirect } from '../../hooks/useRedirect';
 import { PokemonData } from '../../interfaces/PokemonData';
 import initialPikachu from '../../public/assets/img/pikachusleeping.png';
-import { store } from '../../redux';
+import { RootState, store } from '../../redux';
 import { getEvolutions } from '../../utils/getEvolutions';
 
 const MySwal = withReactContent(Swal);
@@ -31,7 +35,11 @@ const INITIAL_EVOLUTIONS = {
     third: ''
 }
 
-const SearchPokemon = () => {
+interface SearchPokemonProps {
+    thereIsUser: string | boolean
+}
+
+const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
 
     const [pokemonSearched, setPokemonSearched] = useState('');
     const [pokemonData, setPokemonData] = useState <PokemonData | undefined> ();
@@ -44,6 +52,8 @@ const SearchPokemon = () => {
     const router = useRouter();
     const pokemonService = new PokemonService();
     const { first, second, third } = evolutions;
+
+    useRedirect(thereIsUser);
 
 
     useEffect(() => {
@@ -140,6 +150,8 @@ const SearchPokemon = () => {
         });
     }
 
+    if(!thereIsUser) return <PokemonSpinner />;
+
     return (
         <div className={styles.searchPokemon}>
             <div className={styles.searchPokemon__button}>
@@ -187,4 +199,8 @@ const SearchPokemon = () => {
     );
 }
 
-export default SearchPokemon;
+const mapStateToProps = (state: RootState) => {
+    return { thereIsUser: state.login.user }
+}
+
+export default connect(mapStateToProps, null)(SearchPokemon);

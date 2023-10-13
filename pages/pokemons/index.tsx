@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import Image from 'next/image';
 import { connect } from 'react-redux';
 
 import ActionButtons from './ActionButtons';
 import styles from './allPokemons.module.css'
 import EachPoke from '../../components/pokemon/EachPoke';
+import PokemonSpinner from '../../components/spinner/PokemonSpinner';
 import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
 import { useGetRanked } from '../../hooks/useGetRanked';
 import { PokemonData } from '../../interfaces/PokemonData';
-import pokeball from '../../public/assets/img/pokeball.png'
 
 interface AllPokemonsView {
     pokemons: any,
@@ -73,9 +72,7 @@ const ShowAllPokemons = ({
 
     return (
         loading ? (
-            <div className={styles.loading}>
-                <Image src={pokeball} width={70} alt="loading" />
-            </div>
+            <PokemonSpinner />
         ) : (
             <div className={styles.showAllPokemons}>
                 <ActionButtons
