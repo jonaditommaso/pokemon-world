@@ -14,12 +14,19 @@
     margin: auto;
     border-radius: 7px;
     text-align: center;
-    margin-top: 100px;
-    margin-bottom: 130px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.container footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 .sign-in-text {
     font-family: pokemon !important;
+    margin-bottom: 15px;
 }
 
 .login__title {
@@ -36,7 +43,6 @@
 .image {
     width: 70px;
     height: 65px;
-
 }
 
 .copyClipboard {

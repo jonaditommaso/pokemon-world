@@ -37,7 +37,14 @@ export const theme = createTheme({
                 },
               }
             }
-          }
+        },
+        MuiMenu: {
+            styleOverrides: {
+                root: {
+                    maxHeight: '50vh'
+                }
+            }
+        }
     },
     typography: {
         button: {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button } from '@mui/material';
+import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -10,27 +11,31 @@ import styles from '../styles/Home.module.css';
 function NotFound() {
     const router = useRouter()
     return (
-        <div className={styles.home} style={{backgroundColor: '#EB2D0C', borderRadius: '15px', opacity: '0.9', margin: 'auto'}}>
-            <div className={styles.notFound__container}>
-                <div className={styles.notFound__text}>
-                    <h1>Oops!</h1>
-                    <h4>Page not found.</h4>
-                </div>
+        <article className={clsx(styles['home'], styles['home-container'])}>
+            <header className={styles['not-found-text']}>
+                <h1>Oops!</h1>
+                <h4>Page not found.</h4>
+            </header>
 
-                <Image src={pikachuNotFound} alt="404" className={styles.notFound__img} width={300} height={300} />
+            <Image
+              src={pikachuNotFound}
+              alt="404"
+              style={{ marginBottom: '2%' }}
+              width={270}
+              height={270}
+            />
 
-                <div>
-                    <Button
-                        style={{marginBottom: '3%'}}
-                        variant="outlined"
-                        color='info'
-                        onClick={()=> router.push('/')}
-                    >
-                        Go home
-                    </Button>
-                </div>
-            </div>
-        </div>
+            <footer>
+                <Button
+                    style={{marginBottom: '2%'}}
+                    variant="outlined"
+                    color='info'
+                    onClick={() => router.push('/')}
+                >
+                    Go home
+                </Button>
+            </footer>
+        </article>
     );
 }
 

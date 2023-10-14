@@ -1,16 +1,8 @@
-.searchPokemon {
+.search-pokemon {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.searchPokemon__button {
-    margin: auto;
-}
-
-.inputSearch {
-    display: flex;
 }
 
 .input {
@@ -19,9 +11,10 @@
     justify-content: center;
     margin: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.noMatch {
+.no-match {
     display: flex;
     justify-content: center;
     background-color: rgb(235, 45, 12, 0.8);
@@ -31,18 +24,18 @@
     text-align: center;
 }
 
-.topButtons {
+.top-buttons {
     display: flex;
     align-items: center;
     margin-bottom: 0.5%;
 }
 
 @media (max-width: 415px) {
-    .searchPokemon {
+    .search-pokemon {
         margin-top: 3px;
     }
 
-    .noMatch {
+    .no-match {
         width: 90%;
     }
 }

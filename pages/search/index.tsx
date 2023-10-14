@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import clsx from 'clsx'
 import Image from 'next/image';
-import { redirect } from 'next/navigation'
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
@@ -53,8 +53,7 @@ const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
     const pokemonService = new PokemonService();
     const { first, second, third } = evolutions;
 
-    useRedirect(thereIsUser);
-
+    useRedirect();
 
     useEffect(() => {
         const getPokemon = async () => {
@@ -153,27 +152,20 @@ const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
     if(!thereIsUser) return <PokemonSpinner />;
 
     return (
-        <div className={styles.searchPokemon}>
-            <div className={styles.searchPokemon__button}>
-                <PrimaryButton
-                  onClick={() => router.push('/')}
-                  text='Return to home'
-                />
-            </div>
+        <div className={styles['search-pokemon']}>
+            <PrimaryButton
+                onClick={() => router.push('/')}
+                text='Return to home'
+            />
 
-            <div className={styles.input}>
-                <div className="input-group mb-3">
-                    <input
-                        style={{display: 'flex'}}
-                        onChange={(e) => setPokemonSearched(e.target.value.toLowerCase())}
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter Pokemon name or Pokemon number"
-                    />
-                </div>
-            </div>
+            <input
+                onChange={(e) => setPokemonSearched(e.target.value.toLowerCase())}
+                type="text"
+                className={clsx('form-control', styles['input'])}
+                placeholder="Enter Pokemon name or Pokemon number"
+            />
 
-            {showError && <p className={styles.noMatch}>There are no Pokemon that match your search</p>}
+            {showError && <p className={styles['no-match']}>There are no Pokemon that match your search</p>}
 
             {!pokemonData
                 ? <Image
@@ -184,17 +176,18 @@ const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
                     width={400}
                 />
                 :  <>
-                <ActionButtons
-                    pokemonData={pokemonData}
-                    getAdjacentPokemon={getAdjacentPokemon}
-                />
+                    <ActionButtons
+                        pokemonData={pokemonData}
+                        getAdjacentPokemon={getAdjacentPokemon}
+                    />
 
-                <CardPokemonFile
-                    hasEvolution={hasEvolution}
-                    showEvolution={showEvolution}
-                    pokemonData={pokemonData}
-                />
-            </>}
+                    <CardPokemonFile
+                        hasEvolution={hasEvolution}
+                        showEvolution={showEvolution}
+                        pokemonData={pokemonData}
+                    />
+                </>
+            }
         </div>
     );
 }

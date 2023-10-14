@@ -114,41 +114,38 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
                 </Alert>
             </Snackbar>
             <form onSubmit={formik.handleSubmit}>
-                <div>
-                    <TextField
-                        id="username"
-                        name="username"
-                        label="Username"
-                        size='small'
-                        value={formik.values.username}
-                        onChange={formik.handleChange}
-                        error={formik.touched.username && Boolean(formik.errors.username) || openErrorMessage}
-                        helperText={formik.touched.username && formik.errors.username}
-                        sx={{ width: '80%', margin: '7px'}}
-                    />
-                    <TextField
-                        id="password"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        size='small'
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        error={formik.touched.password && Boolean(formik.errors.password) || openErrorMessage}
-                        helperText={formik.touched.password && formik.errors.password}
-                        sx={{ width: '80%', margin: '7px'}}
-                    />
-                </div>
-                <div style={{margin: '7px'}}>
-                    <Button
-                      color="error"
-                      variant="contained"
-                      type="submit"
-                      disabled={!formik.values.username || !formik.values.password}
-                    >
-                        {mode === 'sign_in' ? 'Sign in' : 'Sign up'}
-                    </Button>
-                </div>
+                <TextField
+                    id="username"
+                    name="username"
+                    label="Username"
+                    size='small'
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    error={formik.touched.username && Boolean(formik.errors.username) || openErrorMessage}
+                    helperText={formik.touched.username && formik.errors.username}
+                    sx={{ width: '80%', margin: '7px'}}
+                />
+                <TextField
+                    id="password"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    size='small'
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password) || openErrorMessage}
+                    helperText={formik.touched.password && formik.errors.password}
+                    sx={{ width: '80%', margin: '7px'}}
+                />
+                <Button
+                    color="error"
+                    variant="contained"
+                    type="submit"
+                    disabled={!formik.values.username || !formik.values.password}
+                    style={{ margin: '7px' }}
+                >
+                    {mode === 'sign_in' ? 'Sign in' : 'Sign up'}
+                </Button>
 
                 {mode === 'sign_in' && <ContinueWith account='github' thereIsUser={thereIsUser} />}
             </form>

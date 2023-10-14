@@ -22,7 +22,7 @@ const ActionButtons = ({ pokemonData, getAdjacentPokemon }: ActionButtonsProps) 
     }
 
     return (
-        <div className={styles.topButtons}>
+        <div className={styles['top-buttons']}>
             <PrimaryButton
                 text='Prev'
                 onClick={() => getAdjacentPokemon('prev')}

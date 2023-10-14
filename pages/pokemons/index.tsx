@@ -27,7 +27,7 @@ const ShowAllPokemons = ({
     thereIsUser,
 }: AllPokemonsView) => {
 
-    useRedirect(thereIsUser);
+    useRedirect();
 
     const INITIAL_PAGINATION = {
         nextUrl: initialNextUrl,
@@ -81,7 +81,7 @@ const ShowAllPokemons = ({
         loading ? (
             <PokemonSpinner />
         ) : (
-            <div className={styles.showAllPokemons}>
+            <div className={styles['container-pokemons']}>
                 <ActionButtons
                     disablePrev={!pagination.prevUrl}
                     pokemonList={pokemonList}

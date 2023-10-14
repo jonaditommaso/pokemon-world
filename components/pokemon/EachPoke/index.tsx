@@ -97,27 +97,25 @@ const EachPoke = ({
                     ))}
                 </div>
 
-                    <Review
-                      review={review}
-                      pokemon={pokemon}
-                      getReview={setReview}
-                      checkRank={checkingRank}
-                    />
+                <Review
+                    review={review}
+                    pokemon={pokemon}
+                    getReview={setReview}
+                    checkRank={checkingRank}
+                />
 
-                <p className={styles.eachPoke__abilities}>
+                <p style={{ margin: 0 }}>
                     Weight: <span style={{color: '#d98218'}}>{pokemon.weight}</span>
                 </p>
             </div>
             <div className={styles.eachPoke__attackDefense}>
-                <div>
-                    <p className={styles.attackAndDefense}>Attack</p>
-                    <span style={{color: 'red'}}>{pokemon.stats[1].base_stat}</span>
-                </div>
+                <p className={styles.attackAndDefense}>Attack</p>
+                <span style={{color: 'red'}}>{pokemon.stats[1].base_stat}</span>
+
                 <hr style={{margin: '0'}} />
-                <div>
-                    <p className={styles.attackAndDefense}>Defense</p>
-                    <span style={{color: '#0052c7'}}>{pokemon.stats[2].base_stat}</span>
-                </div>
+
+                <p className={styles.attackAndDefense}>Defense</p>
+                <span style={{color: '#0052c7'}}>{pokemon.stats[2].base_stat}</span>
             </div>
 
         </div>

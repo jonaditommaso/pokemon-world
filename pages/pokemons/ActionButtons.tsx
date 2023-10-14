@@ -54,10 +54,10 @@ const ActionButtons = ({
     const navButtons = showButtons();
 
     return (
-        <div className={styles.showAllPokemons__buttons}>
+        <nav className={styles['nav-pokemons']}>
             {navButtons}
             <FilterButton setTypeSelected={setTypeSelected} />
-        </div>
+        </nav>
     );
 }
 

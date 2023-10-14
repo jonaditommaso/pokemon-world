@@ -39,14 +39,6 @@
     margin: 5px;
   }
 
-  .eachPoke__abilities {
-    display: block;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    margin: 0;
-  }
-
   .eachPoke__attackDefense {
     background-color: #e7e5e5a6;
     padding: 3px;
