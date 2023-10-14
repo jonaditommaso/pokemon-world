@@ -13,7 +13,11 @@ import pokeball from '../../public/assets/img/pokeball.png'
 import { RootState } from '../../redux';
 import { signIn } from '../../redux/action-creators';
 
-const SignIn = ({ thereIsUser }: any) => {
+interface SignInProps {
+  thereIsUser : string | boolean
+}
+
+const SignIn = ({ thereIsUser }: SignInProps) => {
   const [formView, setFormView] = useState('sign_in');
 
   const router = useRouter();

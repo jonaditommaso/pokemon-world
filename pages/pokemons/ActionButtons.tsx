@@ -42,7 +42,7 @@ const ActionButtons = ({
         } else {
             return (
                 <>
-                    <Button variant="contained" color='error' onClick={()=> router.push('/')}>Go Home</Button>
+                    <Button variant="contained" color='error' onClick={()=> router.push('/')} className={styles['go-home-button']}>Go Home</Button>
                     <Button variant="contained" onClick={() => pokemonList('prev')} disabled={disablePrev}>Prev</Button>
                     <Button variant="contained" onClick={() => pokemonList('next')}>Next</Button>
                 </>

@@ -5,6 +5,7 @@ import get from 'lodash/get'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux';
 
+import styles from './styles.module.css'
 import { useActions } from '../../hooks/useActions';
 import useUser from '../../hooks/useUser';
 import { RootState } from '../../redux';
@@ -54,15 +55,14 @@ const StateLogin = ({ thereIsUser }: User) => {
 
 
     return (
-        <div className="stateLogin">
-            <Button
-                onClick={() => handleClick()}
-                variant={buttonColor}
-                color='error'
-            >
-                {!thereIsUser ? 'Sign In' : 'Sign Out'}
-            </Button>
-        </div>
+        <Button
+            onClick={() => handleClick()}
+            variant={buttonColor}
+            color='error'
+            className={styles['login-button']}
+        >
+            {!thereIsUser ? 'Sign In' : 'Sign Out'}
+        </Button>
     );
 
 }

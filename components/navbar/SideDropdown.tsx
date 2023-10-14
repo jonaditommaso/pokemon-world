@@ -75,31 +75,32 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
 
     return (
         <div className={styles.sideDropdown}>
-            <div className={styles.sideDropdown__userName}>{`Catch them, ${user}!`}
+            <div className={styles.sideDropdown__userName}>
+                {`Catch them, ${user}!`}
                 <Image src={pokeball} alt="pokeball" width={20}/>
             </div>
-                <FormControl sx={{ minWidth: 120, background: '#22577a', borderRadius: '5px' }}>
-                    <Select
-                        size='small'
-                        open={open}
-                        onOpen={() => setOpen(true)}
-                        onClose={() => setOpen(false)}
-                        displayEmpty
-                        renderValue={() => <em>POKEDEX</em>}
-                        sx={{
-                            color: 'white',
-                            '.MuiSvgIcon-root ': {
-                                fill: "white !important",
-                            }
-                        }}
-                    >
-                        <MenuPokeItem onClick={() => warning('search')} text='Search Pokemon' />
-                        <Divider  />
-                        <MenuPokeItem onClick={() => warning('all')} text='See all Pokemons' />
-                        <Divider  />
-                        <MenuPokeItem onClick={() => warning('ranking')} text='Statistics Pokemons' />
-                    </Select>
-                </FormControl>
+            <FormControl sx={{ minWidth: 120, background: '#22577a', borderRadius: '5px', height: 'fit-content' }}>
+                <Select
+                    size='small'
+                    open={open}
+                    onOpen={() => setOpen(true)}
+                    onClose={() => setOpen(false)}
+                    displayEmpty
+                    renderValue={() => <em>POKEDEX</em>}
+                    sx={{
+                        color: 'white',
+                        '.MuiSvgIcon-root ': {
+                            fill: "white !important",
+                        }
+                    }}
+                >
+                    <MenuPokeItem onClick={() => warning('search')} text='Search Pokemon' />
+                    <Divider  />
+                    <MenuPokeItem onClick={() => warning('all')} text='See all Pokemons' />
+                    <Divider  />
+                    <MenuPokeItem onClick={() => warning('ranking')} text='Statistics Pokemons' />
+                </Select>
+            </FormControl>
         </div>
     );
 }

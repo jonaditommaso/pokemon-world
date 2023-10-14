@@ -10,19 +10,24 @@ import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
 import { useGetRanked } from '../../hooks/useGetRanked';
+import { useRedirect } from '../../hooks/useRedirect';
 import { PokemonData } from '../../interfaces/PokemonData';
 
 interface AllPokemonsView {
     pokemons: any,
     initialNextUrl: string,
-    ranking: any
+    ranking: any,
+    thereIsUser: string | boolean,
 }
 
 const ShowAllPokemons = ({
     pokemons,
     initialNextUrl,
     ranking,
+    thereIsUser,
 }: AllPokemonsView) => {
+
+    useRedirect(thereIsUser);
 
     const INITIAL_PAGINATION = {
         nextUrl: initialNextUrl,
@@ -70,6 +75,8 @@ const ShowAllPokemons = ({
         setPagination(INITIAL_PAGINATION);
     }
 
+    if(!thereIsUser) return <PokemonSpinner />;
+
     return (
         loading ? (
             <PokemonSpinner />
@@ -82,7 +89,7 @@ const ShowAllPokemons = ({
                     setTypeSelected={setTypeSelected}
                     typeSelected={typeSelected}
                 />
-                <div>
+                <div className={styles['container-poke-cards']}>
                     {pokemonData?.map(pokemon => (
                         <EachPoke pokemon={pokemon} key={pokemon.id} />
                     ))}
@@ -94,7 +101,8 @@ const ShowAllPokemons = ({
 
 const mapStateToProps = (state: any) => {
     return {
-        ranking: state.ranking.pokemonRanked
+        ranking: state.ranking.pokemonRanked,
+        thereIsUser: state.login.user,
     }
 }
 

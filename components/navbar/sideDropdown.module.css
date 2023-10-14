@@ -9,6 +9,9 @@
     padding: 6px;
     border-radius: 5px;
     margin-right: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .sideDropdown__userName > img {
@@ -30,5 +33,11 @@
 
     .sideDropdown > :last-child {
         margin-top: 5px;
+    }
+}
+
+@media (max-width: 700px) {
+    .sideDropdown__userName {
+        display: none;
     }
 }

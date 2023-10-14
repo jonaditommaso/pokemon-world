@@ -1,13 +1,23 @@
 .showAllPokemons {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     text-align: center;
     background-color: rgba(234, 237, 237, 0.5);
     margin: auto 5px ;
     margin-bottom: 20px;
     margin-top: 20px;
     border-radius: 5px;
+    height: 80vh;
+    overflow-y: scroll;
+}
+.showAllPokemons::-webkit-scrollbar {
+    scrollbar-width: thin;
+    color: transparent;
+    width: 7px;
+    background: #F7F7FF;
+    height: 7px;
+}
+.showAllPokemons::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
 }
 
 .showAllPokemons__buttons {
@@ -15,7 +25,9 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-
+    position: fixed;
+    width: 90%;
+    background-color: rgba(234, 237, 237, 0.5);
 }
 
 .showAllPokemons__buttons > button {
@@ -23,7 +35,26 @@
     height: fit-content;
 }
 
-.spinner {
-    display: flex;
-    justify-content: center;
+.go-home-button {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (min-width: 1200px) {
+    .container-poke-cards {
+        margin: auto 7rem;
+    }
+}
+
+@media (max-width: 1281px) {
+    .showAllPokemons {
+        height: 78vh;
+    }
+}
+
+@media (max-width: 1171px) {
+    .showAllPokemons {
+        height: 72vh;
+    }
 }
