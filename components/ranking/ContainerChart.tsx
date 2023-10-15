@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { ChartOptions } from 'chart.js';
-import { Pie } from 'react-chartjs-2'; //Bar, Doughnut,
+import { Pie, Doughnut } from 'react-chartjs-2'; //Bar, Doughnut,
 import { connect } from 'react-redux';
 
 import Chart from './Chart';
@@ -97,18 +97,18 @@ const ContainerChart = ({ chartsSelected = [], ranking }: PropsContainerChart) =
     }
 
   const charts: ChartType = {
-    // donut: <Doughnut data={data} plugins={[insideDonutText]} />,
+    donut: <Doughnut data={data} plugins={[insideDonutText]} />,
     pie: <Pie data={data} options={pieOptions}/>
   }
 
   return (
     <div style={{maxWidth: '1000px', display: 'flex', justifyContent: ranking.length === 0 ? 'center' : ''}}>
       <Chart />
-        {chartsSelected.length > 0 && chartsSelected?.map(chart => (
-            <div key={chart} style={{ maxWidth: '400px' }}>
-                {charts[chart]}
-            </div>
-        ))}
+      {chartsSelected.length > 0 && chartsSelected?.map(chart => (
+        <div key={chart} style={{ maxWidth: '400px' }}>
+          {charts[chart]}
+        </div>
+      ))}
     </div>
   );
 }

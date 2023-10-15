@@ -72,6 +72,7 @@ const Ranking = ({ ranking, userLogged }: any) => {
                             Add chart &nbsp; <GoPlus />
                         </Button>
                     </div>
+                    <hr />
                     <ContainerChart chartsSelected={charts} />
                 </TabPanel>
                 <TabPanel value={currentTab} index={2}>

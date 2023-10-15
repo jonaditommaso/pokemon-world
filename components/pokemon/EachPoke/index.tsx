@@ -21,7 +21,7 @@ interface Ranking {
 
 interface Pokemon {
     pokemon: PokemonData,
-    ranking: Ranking[]
+    ranking: Ranking[],
 }
 
 // interface PokemonRankingState {
@@ -33,7 +33,7 @@ interface Pokemon {
 
 const EachPoke = ({
     pokemon,
-    ranking
+    ranking,
 }: Pokemon) => {
 
     const [pokemonRanking, setPokemonRanking] = useState <any>(undefined);
