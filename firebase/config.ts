@@ -75,11 +75,39 @@ export const fetchUsers = async (user: FirebaseUser) => {
   })
 }
 
-export const createUser = (username: string, password: string) => {
+export const fetchProvidedUsers = async (id: string) => {
+  return db.collection('users')
+  .where('id', '==', id)
+  .get()
+  .then(snapshot => {
+    return snapshot.docs.map(doc => {
+      const data = doc.data()
+      return {...data}
+    })
+  })
+}
 
-  return db.collection('users').add({
-    username, password
-  });
+export const createRegisteredUser = (username: string, password: string) => {
+
+  const userData = {
+    username,
+    password,
+    id: crypto.randomUUID()
+  }
+
+  return db.collection('users').add(userData);
+
+}
+
+export const createProvidedUser = (username: string, source: string, id: string) => {
+
+  const userData = {
+    username,
+    source,
+    id
+  }
+
+  return db.collection('users').add(userData);
 }
 
 export const updateCharts = (user: string, charts: string[]) => {

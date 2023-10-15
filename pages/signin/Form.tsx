@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { FaGithub } from 'react-icons/fa';
 
-import { fetchUsers, createUser } from '../../firebase/config';
+import { fetchUsers, createRegisteredUser, fetchProvidedUsers, createProvidedUser } from '../../firebase/config';
 import { loginWithGithub } from '../../firebase/config';
 import { useActions } from '../../hooks/useActions';
 import { capitalize } from '../../utils/capitalize';
@@ -28,6 +28,11 @@ const ContinueWith = ({ account, thereIsUser }: ContinueProps) => {
 
     const handleSignIn = async () => {
         const { user } = await loginWithGithub();
+        const response = await fetchProvidedUsers(user?.uid || '').then(res => res);
+        if(response.length === 0 && user) {
+            createProvidedUser(user.displayName!, 'github', user.uid);
+        }
+
         if (user?.displayName) {
             signIn(user.displayName);
             localStorage.setItem('USER_NAME_GITHUB', user.displayName)
@@ -87,7 +92,7 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
         }
 
         if(mode === 'sign_up') {
-            createUser(values.username, values.password);
+            createRegisteredUser(values.username, values.password);
             signIn(values.username)
             localStorage.setItem('USER_NAME', values.username);
             router.push('/pokemons');

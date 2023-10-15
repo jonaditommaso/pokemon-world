@@ -21,7 +21,7 @@ interface NavbarProps {
     music: MusicConfig,
 }
 
-const Navbar = ({thereIsUser, music = {volume: true, other: false, paused: false}}: NavbarProps) => {
+const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: false}}: NavbarProps) => {
 
     const [showSideDropDown, setShowSideDropDown] = useState(false);
 
