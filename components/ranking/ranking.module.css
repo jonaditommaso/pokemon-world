@@ -10,10 +10,8 @@
 
 .rankingTable {
     width: 400px;
-    background-color: white;
     border-radius: 5px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 1%;
     text-align: center;
 }
 
@@ -23,11 +21,38 @@
 
 .chartRanking {
     width: 400px;
-    max-width: 400px;
     background-color: white;
-    margin-top: 5%;
-    margin-bottom: 5%;
     text-align: center;
+}
+
+.container-chart {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 50vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.container-chart::-webkit-scrollbar {
+    scrollbar-width: thin;
+    color: transparent;
+    width: 7px;
+    background: #F7F7FF;
+    height: 7px;
+}
+
+.container-chart::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.container-donut {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 400px;
 }
 
 @media (max-width: 1100px) {

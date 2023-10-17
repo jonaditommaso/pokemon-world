@@ -8,6 +8,7 @@
     height: 80vh;
     overflow-y: scroll;
 }
+
 .container-pokemons::-webkit-scrollbar {
     scrollbar-width: thin;
     color: transparent;
@@ -15,6 +16,7 @@
     background: #F7F7FF;
     height: 7px;
 }
+
 .container-pokemons::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 4px;

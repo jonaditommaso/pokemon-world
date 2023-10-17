@@ -10,6 +10,6 @@ export const charts = [
     {
         name: 'donut',
         src: donutChart,
-        description: '',
+        description: 'To see which Pokémon are ranked with respect to the selected type',
     },
 ];

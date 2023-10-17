@@ -9,11 +9,9 @@ import withReactContent from "sweetalert2-react-content";
 import ChartsModal from './ChartsModal';
 import styles from './ranking.module.css'
 import Battles from '../../components/fight/Battles';
-// import Chart from '../../components/ranking/Chart';
 import ContainerChart from '../../components/ranking/ContainerChart';
 import RankingTable from '../../components/ranking/RankingTable';
 import { fetchCharts } from '../../firebase/config';
-// import { useActions } from '../../hooks/useActions';
 import { useGetRanked } from '../../hooks/useGetRanked';
 import { RootState } from '../../redux';
 import { TabPanel } from '../../utils/TabPanel';
@@ -39,7 +37,7 @@ const Ranking = ({ ranking, userLogged }: any) => {
     const showModal = () => {
         MySwal.fire({
           html: (
-            <ChartsModal setCharts={setCharts} currentCharts={charts} userLogged={userLogged}/>
+            <ChartsModal setCharts={setCharts} currentCharts={charts} userLogged={userLogged} />
           ),
           showCancelButton: false,
           showConfirmButton: false,

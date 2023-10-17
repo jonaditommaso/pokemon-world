@@ -118,9 +118,13 @@ export const updateCharts = (user: string, charts: string[]) => {
       // Use the document ID to get a reference to the document
       var docRef = db.collection("users").doc(doc.id);
 
+      docRef.get().then((doc) => {
+        const currentCharts = doc?.data()?.charts || [];
+        const updatedCharts = currentCharts.concat(charts.filter(chart => !currentCharts.includes(chart)));
+
       // Update the data for the user document
       docRef.update({
-        charts: charts
+        charts: updatedCharts
       })
         .then(() => {
           console.log("Document successfully updated!");
@@ -128,6 +132,7 @@ export const updateCharts = (user: string, charts: string[]) => {
         .catch((error) => {
           console.error("Error updating document: ", error);
         });
+      })
     });
   });
 }
