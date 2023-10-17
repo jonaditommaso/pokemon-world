@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { LinearProgress } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
+import { styled } from '@mui/material/styles';
 
-// import { barStyles } from './barStyles';
+import { barStyles } from './barStyles';
 import { BarSettings } from '../../interfaces/BarSettings';
 import { LifePoints } from '../../interfaces/Fighter';
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => (barStyles));
 
 export default function Bar ({
   hit,
@@ -62,7 +65,7 @@ export default function Bar ({
 
   return (
     <div>
-      <LinearProgress variant="determinate" value={damageCount}/>
+      <BorderLinearProgress variant="determinate" value={damageCount}/>
     </div>
   );
 }
