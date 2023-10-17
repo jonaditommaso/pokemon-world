@@ -1,19 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { LinearProgress } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles'
 
-import { barStyles } from './barStyles';
+// import { barStyles } from './barStyles';
 import { BarSettings } from '../../interfaces/BarSettings';
 import { LifePoints } from '../../interfaces/Fighter';
-
-const BorderLinearProgress = withStyles((theme) => (barStyles))(LinearProgress);
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1
-  },
-});
 
 export default function Bar ({
   hit,
@@ -24,8 +15,6 @@ export default function Bar ({
   damage,
   opponentsTurn,
 }: BarSettings) {
-
-  const classes = useStyles();
 
   const [damageCount, setDamageCount] = useState(0);
 
@@ -72,8 +61,8 @@ export default function Bar ({
 
 
   return (
-    <div className={classes.root}>
-      <BorderLinearProgress variant="determinate" value={damageCount}/>
+    <div>
+      <LinearProgress variant="determinate" value={damageCount}/>
     </div>
   );
 }

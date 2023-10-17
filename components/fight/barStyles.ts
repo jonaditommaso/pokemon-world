@@ -6,10 +6,10 @@ export const barStyles = {
         margin: 'auto',
         marginTop: 4,
     },
-        colorPrimary: {
+    colorPrimary: {
         backgroundColor: '#00ff70'
     },
-        bar: {
+    bar: {
         borderRadius: 0,
         backgroundColor: 'red'
     },
