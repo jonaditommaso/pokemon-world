@@ -28,9 +28,11 @@
 .container-chart {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    height: 50vh;
-    overflow-y: scroll;
+    justify-content: space-between;
+    height: 55vh;
+    padding-left: 3%;
+    padding-right: 3%;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 

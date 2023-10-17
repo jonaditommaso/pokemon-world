@@ -19,8 +19,8 @@ interface ChartType {
 const ContainerChart = ({ chartsSelected = [], ranking }: PropsContainerChart) => {
 
   const charts: ChartType = {
+    pie: <PieChart />,
     donut: <DonutChart />,
-    pie: <PieChart />
   }
 
   return (

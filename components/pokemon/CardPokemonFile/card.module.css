@@ -7,6 +7,7 @@
 .pokemonFile__info {
     text-align: center;
     padding: 10px;
+    font-family: pokemon;
 }
 
 .review-container {
@@ -19,6 +20,13 @@
 .pokemonFile__title {
     display: flex;
     justify-content: center;
+    font-family: pokemon;
+}
+
+.pokemon-file-description {
+    font-size: 16px;
+    font-family: monospace;
+    font-weight: bold;
 }
 
 .searchPokemon__card {

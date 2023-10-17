@@ -28,8 +28,8 @@
     align-items: center;
     margin: auto;
     position: fixed;
-    width: 90%;
-    background-color: rgba(234, 237, 237, 0.5);
+    width: 99%;
+    background: linear-gradient(to right, rgba(234, 237, 237, 0), rgba(234, 237, 237, 1), rgba(234, 237, 237, 0));
 }
 
 .nav-pokemons > button {

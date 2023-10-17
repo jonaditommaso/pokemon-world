@@ -9,7 +9,7 @@ const FilterButton = ({ setTypeSelected, customTypes }: any) => {
     const types = customTypes ? customTypes : Object.keys(colorsByType);
 
     return (
-        <FormControl sx={{ background: '#22577a', margin: '10px', borderRadius: '5px' }}>
+        <FormControl sx={{ background: '#22577a', margin: customTypes ? 0 : '10px', borderRadius: '5px' }}>
             <Select
                 size='small'
                 displayEmpty

@@ -94,7 +94,7 @@ const CardPokemonFile = ({
                         {!modal &&
                             <>
                                 <hr />
-                                <Typography align='center'>
+                                <Typography align='center' className={styles['pokemon-file-description']}>
                                     {DESCRIPTION}
                                 </Typography>
                             </>
