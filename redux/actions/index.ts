@@ -29,6 +29,11 @@ interface SignOut {
     type: ActionType.SIGN_OUT,
 }
 
+interface SignInWithoutAccount {
+    type: ActionType.SIGN_IN_WITHOUT_ACCOUNT,
+    payload: string
+}
+
 interface AddToRanking {
     type: ActionType.ADD_POKEMON_RANKING,
     payload: any
@@ -99,3 +104,4 @@ export type Action =
     | BattleMode
     | NoBattleMode
     | BattleData
+    | SignInWithoutAccount

@@ -76,7 +76,7 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
     return (
         <div className={styles.sideDropdown}>
             <div className={styles.sideDropdown__userName}>
-                {`Catch them, ${user}!`}
+                {`Catch them ${user === 'ALLOW_NOT_ACCOUNT' ? '' : user}!`}
                 <Image src={pokeball} alt="pokeball" width={20}/>
             </div>
             <FormControl sx={{ minWidth: 120, background: '#22577a', borderRadius: '5px', height: 'fit-content' }}>

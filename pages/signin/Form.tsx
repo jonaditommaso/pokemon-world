@@ -41,8 +41,8 @@ const ContinueWith = ({ account, thereIsUser }: ContinueProps) => {
     }
 
     return (
-        <div style={{marginTop: '30px', marginBottom: '10px'}}>
-            <Button onClick={handleSignIn} color='secondary' variant='contained' disabled={thereIsUser}>
+        <div style={{marginTop: '10px', marginBottom: '10px'}}>
+            <Button onClick={handleSignIn} color='secondary' variant='contained' disabled={thereIsUser} sx={{ minWidth: '15rem' }}>
                 {icons[account as keyof typeof icons]}    Continue with {capitalize(account)}
             </Button>
         </div>
@@ -73,7 +73,7 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
         setOpenErrorMessage(false);
     }
 
-    const { signIn } = useActions();
+    const { signIn, signInWithoutAccount } = useActions();
     const router = useRouter();
 
     const login = async (values: FormValues) => {
@@ -97,6 +97,12 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
             localStorage.setItem('USER_NAME', values.username);
             router.push('/pokemons');
         }
+    }
+
+    const handleSignInWithoutAccount = () => {
+        localStorage.setItem('USER_NAME', 'ALLOW_NOT_ACCOUNT');
+        signInWithoutAccount(true)
+        router.push('/pokemons');
     }
 
 
@@ -152,7 +158,16 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
                     {mode === 'sign_in' ? 'Sign in' : 'Sign up'}
                 </Button>
 
-                {mode === 'sign_in' && <ContinueWith account='github' thereIsUser={thereIsUser} />}
+                {mode === 'sign_in' && (
+                    <div>
+                        <ContinueWith account='github' thereIsUser={thereIsUser} />
+                        <div style={{marginTop: '10px', marginBottom: '10px'}}>
+                            <Button onClick={handleSignInWithoutAccount} color='info' variant='contained' sx={{ minWidth: '15rem' }}>
+                                Continue without registering
+                            </Button>
+                        </div>
+                    </div>
+                )}
             </form>
         </>
     );

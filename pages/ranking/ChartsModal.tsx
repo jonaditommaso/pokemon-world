@@ -9,6 +9,7 @@ import styles from './ranking.module.css'
 import InfoIcon from '../../components/info/InfoIcon';
 import { theme } from '../../config/theme.config';
 import { updateCharts } from '../../firebase/config';
+import useOriginUser from '../../hooks/useOriginUser';
 import { capitalize } from '../../utils/capitalize';
 import { charts } from '../../utils/charts';
 
@@ -21,6 +22,7 @@ interface ChartsModalProps {
 const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalProps) => {
 
     const [chartsSelected, setChartsSelected] = useState <string[]> ([]);
+    const originUser = useOriginUser()
 
     const handleChartSelection = (chart: string) => {
         let currentCharts = [...chartsSelected];
@@ -35,7 +37,9 @@ const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalP
 
     const handleOk = () => {
         setCharts([...chartsSelected, ...currentCharts]);
-        updateCharts(userLogged, chartsSelected)
+        if (originUser.username !== 'ALLOW_NOT_ACCOUNT') {
+            updateCharts(userLogged, chartsSelected)
+        }
         Swal.close()
     }
 

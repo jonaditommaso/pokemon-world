@@ -9,6 +9,7 @@ export enum ActionType {
     //session
     SIGN_IN = 'SIGN_IN',
     SIGN_OUT = 'SIGN_OUT',
+    SIGN_IN_WITHOUT_ACCOUNT = 'SIGN_IN_WITHOUT_ACCOUNT',
 
     //ranking
     ADD_POKEMON_RANKING = 'ADD_POKEMON_RANKING',

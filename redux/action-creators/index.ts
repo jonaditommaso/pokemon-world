@@ -37,7 +37,15 @@ export const signIn = (user: string) => {
 
 export const signOut = () => {
     return {
-            type: ActionType.SIGN_OUT,
+        type: ActionType.SIGN_OUT,
+    }
+}
+
+export const signInWithoutAccount = (user: boolean) => {
+    return {
+        type: ActionType.SIGN_IN_WITHOUT_ACCOUNT,
+        payload: user
+
     }
 }
 

@@ -32,7 +32,7 @@ const SignIn = ({ thereIsUser }: SignInProps) => {
   return (
     <div className={styles['container']}>
 
-      <Image src={pokeball} alt="login" width={70} height={65} style={{marginTop: '20px'}}  />
+      <Image src={pokeball} alt="login" width={70} height={65} style={{marginTop: '10px'}}  />
 
       <Typography variant='h4' className={styles['sign-in-text']}>
           {formView === 'sign_in' ? 'SIGN IN' : 'SIGN UP'}

@@ -13,6 +13,9 @@ export const loginReducer = (state: LoginState = INITIAL_STATE, action: Action):
         case ActionType.SIGN_IN:
             return {...state, user: action.payload};
 
+        case ActionType.SIGN_IN_WITHOUT_ACCOUNT:
+            return {...state, user: 'ALLOW_NOT_ACCOUNT'};
+
         case ActionType.SIGN_OUT:
             return {...state, user: false};
 

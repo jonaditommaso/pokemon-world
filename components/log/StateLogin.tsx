@@ -61,7 +61,7 @@ const StateLogin = ({ thereIsUser }: User) => {
             color='error'
             className={styles['login-button']}
         >
-            {!thereIsUser ? 'Sign In' : 'Sign Out'}
+            {!thereIsUser ? "Let's go!" : 'Sign Out'}
         </Button>
     );
 

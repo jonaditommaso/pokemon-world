@@ -17,7 +17,7 @@ export const useGetRanked = (ranking: any) => {
     const originUser = useOriginUser()
 
     useEffect(() => {
-        if(originUser && ranking.length === 0) {
+        if(originUser && originUser.username !== 'ALLOW_NOT_ACCOUNT' && ranking.length === 0) {
             fetchRanking(originUser.username)
             .then(response => {
                 if(response.length > 0 ) fetchPokeRanking(response as RankingStructureResponse[]);

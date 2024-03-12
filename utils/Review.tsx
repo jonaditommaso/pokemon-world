@@ -29,7 +29,9 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank = [], readOnly 
         if(!readOnly) {
             if(checkRank && pokemon && !checkRank?.includes(pokemon.name)) { //set a new pokemon ranked
                 addPokeToRanking(pokemon.name, typePokemon, review + 1);
-                rankPokemonDB(pokemon.name, typePokemon, review + 1, originUser.username)
+                if (originUser.username !== 'ALLOW_NOT_ACCOUNT') {
+                    rankPokemonDB(pokemon.name, typePokemon, review + 1, originUser.username)
+                }
                 getReview(review + 1);
             }
             else { // update review
