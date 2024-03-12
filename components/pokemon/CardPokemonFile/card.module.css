@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('../../../assets/fonts/Pokemon-Solid.ttf');
+}
+
 .pokemonFile {
     display: flex;
     justify-content: center;
@@ -7,7 +12,7 @@
 .pokemonFile__info {
     text-align: center;
     padding: 10px;
-    font-family: pokemon;
+    font-family: pokemon !important;
 }
 
 .review-container {
@@ -20,13 +25,13 @@
 .pokemonFile__title {
     display: flex;
     justify-content: center;
-    font-family: pokemon;
+    font-family: pokemon !important;
 }
 
 .pokemon-file-description {
     font-size: 16px;
-    font-family: monospace;
-    font-weight: bold;
+    font-family: monospace !important;
+    font-weight: bold !important;
 }
 
 .searchPokemon__card {
