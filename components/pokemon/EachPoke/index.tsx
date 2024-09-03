@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { Chip } from '@mui/material';
 import Image from 'next/image';
+import { GiCrossedSwords } from "react-icons/gi";
+import { GiPointySword } from "react-icons/gi";
+import { GiWeight } from "react-icons/gi";
 import { connect } from 'react-redux';
 
 import styles from './eachPoke.module.css'
@@ -11,6 +14,7 @@ import { RootState } from '../../../redux';
 // import { removePokemonRanking } from '../../../redux/action-creators';
 import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
+import { generateGradient } from '../../../utils/generateGradient';
 import Review from '../../../utils/Review';
 
 
@@ -62,10 +66,18 @@ const EachPoke = ({
         }
     }, [ranking, checkingRank, pokemon, review]);
 
-    if(!pokemon?.sprites?.other?.dream_world?.front_default) return <></>;
+    if(!pokemon?.sprites?.other?.dream_world?.front_default) return null;
+
+    const pokemonColor = colorsByType[pokemon.types[0].type.name as keyof typeof colorsByType]
 
     return (
-        <div className={styles.eachPoke}>
+        <div
+            className={styles.eachPoke}
+            style={{
+                backgroundImage: generateGradient(pokemonColor),
+                boxShadow: `1px 1px 2px ${pokemonColor}`
+            }}
+        >
             <div className={styles.eachPoke__File}>
                 <Image
                     src={pokemon?.sprites?.other?.dream_world?.front_default}
@@ -78,9 +90,9 @@ const EachPoke = ({
                     <h6>
                         {capitalize(pokemon.name)}
                     </h6>
-                    <p className={styles.eachPoke__id}>
+                    <h6 className={styles.eachPoke__id}>
                         {`#${pokemon.id}`}
-                    </p>
+                    </h6>
                 </div>
             </div>
 
@@ -92,7 +104,7 @@ const EachPoke = ({
                             key={i}
                             className={styles.eachPoke__type}
                             sx={{backgroundColor: colorsByType[type.type.name as keyof typeof colorsByType]}}
-                            label={type.type.name}
+                            label={capitalize(type.type.name)}
                         />
                     ))}
                 </div>
@@ -103,19 +115,21 @@ const EachPoke = ({
                     getReview={setReview}
                     checkRank={checkingRank}
                 />
-
-                <p style={{ margin: 0 }}>
-                    Weight: <span style={{color: '#d98218'}}>{pokemon.weight}</span>
-                </p>
             </div>
+
             <div className={styles.eachPoke__attackDefense}>
                 <p className={styles.attackAndDefense}>Attack</p>
-                <span style={{color: 'red'}}>{pokemon.stats[1].base_stat}</span>
+                <span style={{color: 'red'}}><GiPointySword /> {pokemon.stats[1].base_stat}</span>
 
                 <hr style={{margin: '0'}} />
 
                 <p className={styles.attackAndDefense}>Defense</p>
-                <span style={{color: '#0052c7'}}>{pokemon.stats[2].base_stat}</span>
+                <span style={{color: '#0052c7'}}><GiCrossedSwords /> {pokemon.stats[2].base_stat}</span>
+
+                <hr style={{margin: '0'}} />
+
+                <p className={styles.attackAndDefense}>Weight</p>
+                <span style={{color: '#d98218'}}><GiWeight /> {pokemon.weight}</span>
             </div>
 
         </div>

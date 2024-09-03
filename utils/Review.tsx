@@ -46,7 +46,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank = [], readOnly 
     }
 
     return (
-        <>
+        <div>
             {review === 0 && <i style={{display: 'inline-flex'}}>Without review</i>}
             {(review > 0 && currentView && currentView?.includes('/pokemons')) &&
                 <MdOutlineCancel
@@ -70,7 +70,7 @@ const Review = ({ review, pokemon, getReview, ranking, checkRank = [], readOnly 
 
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 

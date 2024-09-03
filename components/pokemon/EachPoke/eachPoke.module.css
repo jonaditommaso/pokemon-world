@@ -1,82 +1,95 @@
+@font-face {
+  font-family: 'pokemon';
+  src: url('../../../assets/fonts/Pokemon-Solid.ttf');
+}
+
 .eachPoke {
-    background-color: #f2f2f3;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+  background-color: #f2f2f3;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 70px;
+  margin-bottom: 40px;
+  width: 380px;
+}
+
+.eachPoke h6 {
+  font-family: pokemon !important;
+}
+
+.eachPoke__types {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.eachPoke__type {
+  text-align: center;
+  font-size: 16px;
+  /* padding: 7px; */
+  margin: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 5px 2px #9f9e9ec6;
+  box-shadow: 1px 1px 5px 2px #9f9e9ec6;
+  color: #f2f2f3;
+}
+
+.eachPoke__description {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.eachPoke__attackDefense {
+  background-color: #e7e5e5a6;
+  padding: 3px;
+  border-radius: 7px;
+}
+
+.eachPoke__attackDefense span {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.eachPoke__img {
+  width: 100px;
+  height: 100px;
+}
+
+@media (max-width: 420px) {
+  .eachPoke {
     padding: 15px;
-    border-radius: 5px;
-    -webkit-box-shadow: 1.5px 1px 2px 2px #d0d0d0;
-    box-shadow: 1.5px 1px 2px 2px #d0d0d0;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 70px;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
+    margin-top: 30px;
   }
-
-  .eachPoke__types {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-
-  .eachPoke__type {
-    text-align: center;
-    font-size: 16px;
-    /* padding: 7px; */
-    margin: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 1.5px 1px 2px 2px #d0d0d0;
-            box-shadow: 1.5px 1px 2px 2px #d0d0d0;
-  }
-
-  .eachPoke__description {
-    margin: 5px;
-  }
-
-  .eachPoke__attackDefense {
-    background-color: #e7e5e5a6;
-    padding: 3px;
-    border-radius: 7px;
-  }
-
   .eachPoke__img {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
   }
-
   .eachPoke__File {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
-
-  @media (max-width: 420px) {
-    .eachPoke {
-      padding: 15px;
-      margin-bottom: 15px;
-      margin-top: 30px;
-    }
-    .eachPoke__img {
-      width: 70px;
-      height: 70px;
-    }
-    .eachPoke__File {
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-    }
-    .eachPoke__attackDefense {
-      margin: auto;
-      margin-bottom: 25px;
-    }
+  .eachPoke__attackDefense {
+    margin: auto;
+    margin-bottom: 25px;
   }
+}
 
 .attackAndDefense {
   margin: 0;
