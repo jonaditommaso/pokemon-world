@@ -53,7 +53,7 @@ const WhoIsThatPokemon = ({ music }: any) => {
                 className={discoveredPikachu ? styles['fade-in-pikachu'] : ''}
             />
             <Typography align='center' className={styles['pokemon-file-description']}>
-                {showImage ? 'Is Pikachu!' : 'Who is that Pokémon?'}
+                {showImage ? "It's Pikachu!" : "Who's that Pokémon?"}
             </Typography>
 
             <Button
