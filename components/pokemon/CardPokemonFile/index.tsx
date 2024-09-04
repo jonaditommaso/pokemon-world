@@ -4,6 +4,7 @@ import { Button, Card, CardContent, CardMedia , Typography} from '@mui/material'
 import { connect } from 'react-redux';
 
 import styles from './card.module.css';
+import WhoIsThatPokemon from './WhoIsThatPokemon';
 import { useActions } from '../../../hooks/useActions';
 import { useGetRanked } from '../../../hooks/useGetRanked';
 import { RootState } from '../../../redux';
@@ -12,7 +13,6 @@ import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
 import Review from '../../../utils/Review';
 import VolumeFill from '../../../utils/svg/VolumeFill';
-
 
 interface PokemonData {
     hasEvolution?: boolean,
@@ -38,7 +38,7 @@ const CardPokemonFile = ({
     const initial_state_to_review = ranking.find((poke: any) => poke.pokemon === pokemonData?.name);
     const review = initial_state_to_review ? initial_state_to_review.ranking : 0;
 
-    const pokemonImage = pokemonData.sprites?.other['official-artwork']?.front_default;
+    const pokemonImage = pokemonData?.sprites?.other['official-artwork']?.front_default;
     const pokemonType = pokemonData?.types[0]?.type?.name || '';
     const pokemonMove = pokemonData?.moves[4]?.move?.name || '';
 
@@ -72,58 +72,67 @@ const CardPokemonFile = ({
             <Card className={styles.searchPokemon__card}>
                 <div className={styles.searchPokemon__pokemon}>
 
-                    {Number.isInteger(review) && review >= 0 ? (
-                        <div className={''} style={{margin: '10px'}}>
-                            <div className={styles['review-container']}>
-                                <Review review={review} readOnly />
-                            </div>
-                        </div>
-                    ) : null}
+                    {!pokemonData
+                        ? <WhoIsThatPokemon />
+                        : <>
 
-                    <CardMedia
-                        className={styles.searchPokemon__img}
-                        image={pokemonImage}
-                        title={POKEMON}
-                        sx={{ height: '18rem', transition: 'opacity 1.3s ease-in-out' }}
-                    />
+                            {Number.isInteger(review) && review >= 0 ? (
+                                <div className={''} style={{margin: '10px'}}>
+                                    <div className={styles['review-container']}>
+                                        <Review review={review} readOnly />
+                                    </div>
+                                </div>
+                            ) : null}
 
-                    <CardContent>
-                        <Typography className={styles.pokemonFile__title} variant='h5'>
-                            {POKEMON} #{pokemonData.id}
-                        </Typography>
-                        {!modal &&
-                            <>
-                                <hr />
-                                <Typography align='center' className={styles['pokemon-file-description']}>
-                                    {DESCRIPTION}
+                            <CardMedia
+                                className={styles.searchPokemon__img}
+                                image={pokemonImage}
+                                title={POKEMON}
+                                sx={{ height: '18rem', transition: 'opacity 1.3s ease-in-out' }}
+                            />
+
+                            <CardContent>
+                                <Typography className={styles.pokemonFile__title} variant='h5'>
+                                    {POKEMON} #{pokemonData?.id}
                                 </Typography>
-                            </>
+                                {!modal &&
+                                    <>
+                                        <hr />
+                                        <Typography align='center' className={styles['pokemon-file-description']}>
+                                            {DESCRIPTION}
+                                        </Typography>
+                                    </>
+                                }
+                            </CardContent>
+                        </>
+                    }
+                </div>
+
+                {pokemonData &&
+                    <>
+                        {!modal &&
+                            <Button onClick={() => listenDescription(DESCRIPTION)} variant='contained' sx={{width: '100%'}}>
+                                Listen
+                                <VolumeFill width={16} height={16} style={{margin: '5px'}} />
+                            </Button>
                         }
-                    </CardContent>
 
-                </div>
+                        <div className={styles.pokemonFile__info}>
+                            Type: <strong style={{color: colorsByType[pokemonType as keyof typeof colorsByType]}}>{pokemonType}</strong>
+                        </div>
 
-                {!modal &&
-                    <Button onClick={() => listenDescription(DESCRIPTION)} variant='contained' sx={{width: '100%'}}>
-                        Listen
-                        <VolumeFill width={16} height={16} style={{margin: '5px'}} />
-                    </Button>
+                        {!modal && (
+                            <Button
+                                onClick={showEvolution}
+                                disabled={hasEvolution ? false : true}
+                                variant='contained'
+                                sx={{width: '100%'}}
+                            >
+                                {hasEvolution ? CAN_EVOLVE : CANT_EVOLVE}
+                            </Button>
+                        )}
+                    </>
                 }
-
-                <div className={styles.pokemonFile__info}>
-                    Type: <strong style={{color: colorsByType[pokemonType as keyof typeof colorsByType]}}>{pokemonType}</strong>
-                </div>
-
-                {!modal && (
-                    <Button
-                        onClick={showEvolution}
-                        disabled={hasEvolution ? false : true}
-                        variant='contained'
-                        sx={{width: '100%'}}
-                    >
-                        {hasEvolution ? CAN_EVOLVE : CANT_EVOLVE}
-                    </Button>
-                )}
             </Card>
         </div>
     );

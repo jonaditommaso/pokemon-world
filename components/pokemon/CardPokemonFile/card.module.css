@@ -38,6 +38,22 @@
     width: 18rem;
 }
 
+.fade-in-pikachu {
+    animation: fadeIn 1s ease-in-out;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        filter: brightness(0);
+    }
+    to {
+        opacity: 1;
+        filter: brightness(1);
+    }
+}
+
 @media (max-width: 415px) {
     .searchPokemon__card {
         width: 18rem;

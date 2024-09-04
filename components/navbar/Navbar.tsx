@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux'; // MapDispatchToProps, MapStateToProps
 
 import styles from './navbar.module.css'
@@ -26,16 +27,48 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
     const [showSideDropDown, setShowSideDropDown] = useState(false);
 
     const { playMusic, pauseMusic } = useActions();
+    const audio = typeof window !== 'undefined' && document.getElementById('music') as HTMLAudioElement;
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const router = useRouter();
 
 
     useEffect(() => {
+        if (!audio) return;
+
+        const handleAudioEnded = () => {
+            audio.play();
+            playMusic();
+        };
+
+      const handleRouteChange = (url: string) => {
+        if (url === '/search' && audioRef.current && music) {
+            audio.pause();
+            pauseMusic();
+            audioRef.current.play();
+        }
+      };
+
+      router.events.on('routeChangeComplete', handleRouteChange);
+
+      const audioElement = audioRef.current;
+      if (audioElement) {
+        audioElement.addEventListener('ended', handleAudioEnded);
+      }
+
+      return () => {
+        router.events.off('routeChangeComplete', handleRouteChange);
+      };
+    }, [router.events]);
+
+
+    useEffect(() => {
+        if (!audio) return;
         if(thereIsUser && !showSideDropDown) {
             setTimeout(() => {
                 setShowSideDropDown(true);
             }, 2500);
         }
 
-        const audio = document.getElementById('music') as HTMLAudioElement;
 
         if(music.other === true) {
             audio.pause();
@@ -45,7 +78,7 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
             audio.play();
         }
 
-    }, [showSideDropDown, music, thereIsUser]);
+    }, [showSideDropDown, music, thereIsUser, audio]);
 
     const showMenu = () => {
         return (
@@ -101,7 +134,16 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
                 style={{display: 'none'}}
             >
             </audio>
-                    {/* Your browser does not support the audio tag.  */}
+            {/* Your browser does not support the audio tag.  */}
+            <audio
+                src={'audio/whos-that-pokemon.mp3'}
+                preload="auto"
+                id={'whos-that-pokemon'}
+                ref={audioRef}
+                controls
+                autoPlay
+                style={{display: 'none'}}
+            ></audio>
 
              <span className={styles.volume} onClick={() => handleMusic ()}>
                 {showVolumeIcon()}

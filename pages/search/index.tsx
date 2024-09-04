@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import clsx from 'clsx'
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
@@ -167,27 +166,17 @@ const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
 
             {showError && <p className={styles['no-match']}>There are no Pokemon that match your search</p>}
 
-            {!pokemonData
-                ? <Image
-                    src={initialPikachu}
-                    alt="pikachu"
-                    style={{marginTop: '5%'}}
-                    height={300}
-                    width={400}
-                />
-                :  <>
-                    <ActionButtons
-                        pokemonData={pokemonData}
-                        getAdjacentPokemon={getAdjacentPokemon}
-                    />
+            <ActionButtons
+                pokemonData={pokemonData}
+                getAdjacentPokemon={getAdjacentPokemon}
+            />
 
-                    <CardPokemonFile
-                        hasEvolution={hasEvolution}
-                        showEvolution={showEvolution}
-                        pokemonData={pokemonData}
-                    />
-                </>
-            }
+            <CardPokemonFile
+                hasEvolution={hasEvolution}
+                showEvolution={showEvolution}
+                pokemonData={pokemonData}
+            />
+
         </div>
     );
 }
