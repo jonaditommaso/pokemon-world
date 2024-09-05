@@ -92,9 +92,3 @@
 
     }
 }
-
-@media (max-width: 500px) {
-    .ranking {
-        background-color: transparent;
-    }
-}

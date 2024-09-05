@@ -44,11 +44,35 @@ export const onAuthStateChanged = (onChange: any) => {
 
 const db = firebase.firestore();
 
-export const rankPokemonDB = (pokemon: string, type: string[], ranking: number, user: string) => {
+export const rankPokemonDB = (pokemon: string, type: string[], ranking: number, user: string, action: string) => {
 
-  return db.collection('ranking').add({
-    pokemon, type, ranking, user
-  });
+  if (action === 'add') {
+    return db.collection('ranking').add({
+      pokemon, type, ranking, user
+    });
+  } else if (action === 'delete') {
+    return db.collection('ranking')
+      .where('pokemon', '==', pokemon)
+      .where('user', '==', user)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          db.collection('ranking').doc(doc.id).delete();
+        });
+      });
+  } else if (action === 'update') {
+    return db.collection('ranking')
+    .where('pokemon', '==', pokemon)
+    .where('user', '==', user)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        db.collection('ranking').doc(doc.id).update({
+          ranking: ranking
+        });
+      });
+    })
+  }
 }
 
 export const fetchRanking = async (user: string) => {

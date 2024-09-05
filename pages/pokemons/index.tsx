@@ -90,8 +90,8 @@ const ShowAllPokemons = ({
                     typeSelected={typeSelected}
                 />
                 <div className={styles['container-poke-cards']}>
-                    {pokemonData?.map(pokemon => (
-                        <EachPoke pokemon={pokemon} key={pokemon.id} />
+                    {pokemonData?.map((pokemon, index) => (
+                        <EachPoke pokemon={pokemon} key={pokemon.id} index={index} />
                     ))}
                 </div>
             </div>

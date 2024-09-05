@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useDeferredValue, useEffect, useState } from 'react';
 
 import { Box, Button, Tab, Tabs } from '@mui/material'; //ThemeProvider
 import { GoPlus } from 'react-icons/go';
+import { RiErrorWarningLine } from 'react-icons/ri';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
@@ -22,10 +23,12 @@ const Ranking = ({ ranking, userLogged }: any) => {
 
     const [currentTab, setCurrentTab] = useState(0);
     const [charts, setCharts] = useState <string[]>([]);
+    const chartsSelected = useDeferredValue(charts)
 
     useGetRanked(ranking);
 
     useEffect(() => {
+        if(!userLogged) return;
         (async function getCharts () {
             const response = await fetchCharts(userLogged).then(res => {
                 return res.map((chart, index) => Object.values(chart)[index])
@@ -61,18 +64,28 @@ const Ranking = ({ ranking, userLogged }: any) => {
                         <RankingTable />
                     </TabPanel>
                 </Box>
-                <TabPanel value={currentTab} index={1}>
-                    <div className={styles['container-add-button']}>
-                        <Button
-                            onClick={showModal}
-                            variant='contained'
-                        >
-                            Add chart &nbsp; <GoPlus />
-                        </Button>
-                    </div>
-                    <hr />
-                    <ContainerChart chartsSelected={charts} />
-                </TabPanel>
+                <Box style={{display: 'flex', justifyContent: 'center'}}>
+                    <TabPanel value={currentTab} index={1}>
+                        { ranking.length === 0
+                        ? <div style={{ marginTop: '1%', width: '400px', textAlign: 'center', borderRadius: '5px' }}>
+                            <div>
+                                No pokemons ranked <RiErrorWarningLine color="red" />
+                            </div>
+                        </div>
+                        : <>
+                            <div className={styles['container-add-button']}>
+                                <Button
+                                    onClick={showModal}
+                                    variant='contained'
+                                >
+                                    Add chart &nbsp; <GoPlus />
+                                </Button>
+                            </div>
+                            <hr />
+                            <ContainerChart chartsSelected={chartsSelected} />
+                        </>}
+                    </TabPanel>
+                </Box>
                 <TabPanel value={currentTab} index={2}>
                     <Battles />
                 </TabPanel>

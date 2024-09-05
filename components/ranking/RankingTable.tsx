@@ -68,7 +68,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
                     {capitalize(get(pokemon, 'pokemon'))}
                   </StyledTableCell>
                   <StyledTableCell align='center'>
-                    <Review review={get(pokemon, 'ranking')} readOnly />
+                    <Review pokemonName={get(pokemon, 'pokemon')} readOnly />
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

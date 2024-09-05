@@ -1,70 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { Chip } from '@mui/material';
 import Image from 'next/image';
 import { GiCrossedSwords } from "react-icons/gi";
 import { GiPointySword } from "react-icons/gi";
 import { GiWeight } from "react-icons/gi";
-import { connect } from 'react-redux';
 
-import styles from './eachPoke.module.css'
-// import { useActions } from '../../../hooks/useActions';
+import styles from './eachPoke.module.css';
 import { PokemonData } from '../../../interfaces/PokemonData';
-import { RootState } from '../../../redux';
-// import { removePokemonRanking } from '../../../redux/action-creators';
 import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
 import { generateGradient } from '../../../utils/generateGradient';
 import Review from '../../../utils/Review';
 
-
-interface Ranking {
-    pokemon: string,
-    ranking: number
-}
-
 interface Pokemon {
     pokemon: PokemonData,
-    ranking: Ranking[],
+    index: number,
 }
-
-// interface PokemonRankingState {
-//     pokemon: string,
-//     ranking: number,
-//     type: string[]
-//     user: string,
-// }
 
 const EachPoke = ({
     pokemon,
-    ranking,
+    index,
 }: Pokemon) => {
-
-    const [pokemonRanking, setPokemonRanking] = useState <any>(undefined);
-    const [review, setReview] = useState(pokemonRanking ? pokemonRanking.ranking : 0);
-
-    const checkingRank = ranking.map((poke) => poke.pokemon);
-
-    const updatePokemonRanking = () => {
-        const initialRankingState = ranking.find((poke) => poke.pokemon === pokemon.name);
-        setPokemonRanking(initialRankingState);
-      }
-
-    useEffect(() => {
-        if (pokemonRanking) {
-          setReview(pokemonRanking.ranking);
-        }
-      }, [pokemonRanking]);
-
-    useEffect(() => {
-        updatePokemonRanking();
-      }, [ranking, pokemon]);
-
-    useEffect(() => {
-        if(checkingRank && !checkingRank?.includes(pokemon.name)) {
-            setReview(0);
-        }
-    }, [ranking, checkingRank, pokemon, review]);
 
     if(!pokemon?.sprites?.other?.dream_world?.front_default) return null;
 
@@ -85,6 +42,7 @@ const EachPoke = ({
                     className={styles.eachPoke__img}
                     width={120}
                     height={70}
+                    priority={index < 2}
                 />
                 <div>
                     <h6>
@@ -95,7 +53,6 @@ const EachPoke = ({
                     </h6>
                 </div>
             </div>
-
 
             <div className={styles.eachPoke__description}>
                 <div className={styles.eachPoke__types}>
@@ -109,12 +66,7 @@ const EachPoke = ({
                     ))}
                 </div>
 
-                <Review
-                    review={review}
-                    pokemon={pokemon}
-                    getReview={setReview}
-                    checkRank={checkingRank}
-                />
+                <Review pokemonName={pokemon.name} pokemonTypes={pokemon.types} />
             </div>
 
             <div className={styles.eachPoke__attackDefense}>
@@ -136,8 +88,4 @@ const EachPoke = ({
     );
 }
 
-const mapStateToProps = (state: RootState) => ({
-    ranking: state.ranking.pokemonRanked
-})
-
-export default connect(mapStateToProps, null)(EachPoke);
+export default EachPoke;
