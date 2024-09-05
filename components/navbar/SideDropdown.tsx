@@ -42,33 +42,15 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
                 backdrop: true
             })
                 .then((result: any) => {
-                    if ((result.value) && (go === 'search')) {
+                    if (result.value) {
                         noBattle(false);
-                        router.push('/search');
-                        musicBattlePause();
-                    }
-                    if ((result.value) && (go === 'all')) {
-                        noBattle(false);
-                        router.push('/pokemons');
-                        musicBattlePause();
-                    }
-                    if ((result.value) && (go === 'ranking')) {
-                        noBattle(false);
-                        router.push('/ranking');
+                        router.push(go);
                         musicBattlePause();
                     }
                 });
         }
         else {
-            if(go === 'search') {
-                router.push('/search');
-            }
-            else if(go === 'all') {
-                router.push('/pokemons');
-            }
-            else if(go === 'ranking') {
-                router.push('/ranking');
-            }
+            router.push(go);
         }
     }
 
@@ -94,11 +76,11 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
                         }
                     }}
                 >
-                    <MenuPokeItem onClick={() => warning('search')} text='Search Pokemon' />
+                    <MenuPokeItem onClick={() => warning('/search')} text='Search Pokemon' />
                     <Divider  />
-                    <MenuPokeItem onClick={() => warning('all')} text='See all Pokemons' />
+                    <MenuPokeItem onClick={() => warning('/pokemons')} text='See all Pokemons' />
                     <Divider  />
-                    <MenuPokeItem onClick={() => warning('ranking')} text='Statistics Pokemons' />
+                    <MenuPokeItem onClick={() => warning('/ranking')} text='Statistics Pokemons' />
                 </Select>
             </FormControl>
         </div>
