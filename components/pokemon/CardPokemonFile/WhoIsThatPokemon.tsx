@@ -26,8 +26,9 @@ const WhoIsThatPokemon = ({ music }: any) => {
             playMusic();
         }
 
-        if(discoveredPikachu && music) {
-            setDiscoveredPikachu(false)
+        if(discoveredPikachu) {
+            setDiscoveredPikachu(false);
+            if(!music) return;
             audio.pause();
             pauseMusic();
             const isPikachu = document.getElementById('is-pikachu') as HTMLAudioElement;

@@ -24,8 +24,6 @@ interface NavbarProps {
 
 const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: false}}: NavbarProps) => {
 
-    const [showSideDropDown, setShowSideDropDown] = useState(false);
-
     const { playMusic, pauseMusic } = useActions();
     const audio = typeof window !== 'undefined' && document.getElementById('music') as HTMLAudioElement;
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -40,8 +38,8 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
             playMusic();
         };
 
-      const handleRouteChange = (url: string) => {
-        if (url === '/search' && audioRef.current && music) {
+        const handleRouteChange = (url: string) => {
+        if (url === '/search' && audioRef.current && music.volume) {
             audio.pause();
             pauseMusic();
             audioRef.current.play();
@@ -58,16 +56,11 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange);
       };
-    }, [router.events]);
+    }, [router.events, music.volume, audio, pauseMusic, playMusic]);
 
 
     useEffect(() => {
         if (!audio) return;
-        if(thereIsUser && !showSideDropDown) {
-            setTimeout(() => {
-                setShowSideDropDown(true);
-            }, 2500);
-        }
 
 
         if(music.other === true) {
@@ -78,11 +71,11 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
             audio.play();
         }
 
-    }, [showSideDropDown, music, thereIsUser, audio]);
+    }, [music, thereIsUser, audio]);
 
     const showMenu = () => {
         return (
-            thereIsUser && showSideDropDown && <SideDropdown />
+            thereIsUser && !window.location.pathname.includes('/signin') && <SideDropdown />
         )
     }
 
@@ -138,7 +131,6 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
             <audio
                 src={'audio/whos-that-pokemon.mp3'}
                 preload="auto"
-                id={'whos-that-pokemon'}
                 ref={audioRef}
                 controls
                 autoPlay
