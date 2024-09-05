@@ -134,7 +134,7 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
                     onChange={formik.handleChange}
                     error={formik.touched.username && Boolean(formik.errors.username) || openErrorMessage}
                     helperText={formik.touched.username && formik.errors.username}
-                    sx={{ width: '80%', margin: '7px'}}
+                    sx={{ width: '80%', margin: '7px', pointerEvents: thereIsUser ? 'none' : 'all'}}
                 />
                 <TextField
                     id="password"
@@ -146,7 +146,7 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
                     onChange={formik.handleChange}
                     error={formik.touched.password && Boolean(formik.errors.password) || openErrorMessage}
                     helperText={formik.touched.password && formik.errors.password}
-                    sx={{ width: '80%', margin: '7px'}}
+                    sx={{ width: '80%', margin: '7px', pointerEvents: thereIsUser ? 'none' : 'all'}}
                 />
                 <Button
                     color="error"
