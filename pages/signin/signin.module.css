@@ -18,6 +18,12 @@
     margin-bottom: 30px;
 }
 
+.container-spinner {
+    position: absolute;
+    top: 35%;
+    z-index: 2;
+}
+
 .container footer {
     display: flex;
     justify-content: center;

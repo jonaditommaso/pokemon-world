@@ -12,6 +12,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    user-select: none;
+    pointer-events: none;
 }
 
 .sideDropdown__userName > img {

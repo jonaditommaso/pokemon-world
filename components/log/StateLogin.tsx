@@ -23,6 +23,8 @@ const StateLogin = ({ thereIsUser }: User) => {
     const [buttonColor, setButtonColor] = useState<'contained' | 'outlined' | 'text'> ('contained');
     const router = useRouter();
 
+    const pathnameIsNotSignIn = typeof window !== 'undefined' && !window.location.pathname.includes('/signin')
+
     useEffect(() => {
         const user = localStorage.getItem('USER_NAME');
         if(!localStorage.getItem('USER_NAME') && !localStorage.getItem('USER_NAME_GITHUB')) return;
@@ -33,13 +35,13 @@ const StateLogin = ({ thereIsUser }: User) => {
     }, [githubUser]);
 
     useEffect(() => {
-        if(thereIsUser) {
+        if(thereIsUser && pathnameIsNotSignIn) {
             setButtonColor('outlined');
         }
         else {
             setButtonColor('contained');
         }
-    }, [thereIsUser]);
+    }, [thereIsUser, pathnameIsNotSignIn]);
 
     const handleClick = () => {
         if(!thereIsUser) {
@@ -61,7 +63,7 @@ const StateLogin = ({ thereIsUser }: User) => {
             color='error'
             className={styles['login-button']}
         >
-            {!thereIsUser ? "Let's go!" : 'Sign Out'}
+            {thereIsUser && pathnameIsNotSignIn ? 'Sign Out' : "Let's go!"}
         </Button>
     );
 

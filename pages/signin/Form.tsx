@@ -124,7 +124,7 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
                     User does not exist!
                 </Alert>
             </Snackbar>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit} style={{ opacity: thereIsUser ? '0.6' : '1' }}>
                 <TextField
                     id="username"
                     name="username"
@@ -162,7 +162,13 @@ const Form = ({ mode, thereIsUser } : FormProps) => {
                     <div>
                         <ContinueWith account='github' thereIsUser={thereIsUser} />
                         <div style={{marginTop: '10px', marginBottom: '10px'}}>
-                            <Button onClick={handleSignInWithoutAccount} color='info' variant='contained' sx={{ minWidth: '15rem' }}>
+                            <Button
+                                onClick={handleSignInWithoutAccount}
+                                color='info'
+                                variant='contained'
+                                sx={{ minWidth: '15rem' }}
+                                disabled={thereIsUser}
+                            >
                                 Continue without registering
                             </Button>
                         </div>

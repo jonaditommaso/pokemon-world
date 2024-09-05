@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 
 import Form from './Form';
 import styles from './signin.module.css'
+import PokemonSpinner from '../../components/spinner/PokemonSpinner';
 import pokeball from '../../public/assets/img/pokeball.png'
 import { RootState } from '../../redux';
 import { signIn } from '../../redux/action-creators';
@@ -31,6 +32,9 @@ const SignIn = ({ thereIsUser }: SignInProps) => {
 
   return (
     <div className={styles['container']}>
+      {thereIsUser && <div className={styles['container-spinner']}>
+        <PokemonSpinner />
+      </div>}
 
       <Image src={pokeball} alt="login" width={70} height={65} style={{marginTop: '10px'}}  />
 
