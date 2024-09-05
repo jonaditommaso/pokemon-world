@@ -9,21 +9,18 @@ import PokemonSpinner from '../../components/spinner/PokemonSpinner';
 import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
-import { useGetRanked } from '../../hooks/useGetRanked';
 import { useRedirect } from '../../hooks/useRedirect';
 import { PokemonData } from '../../interfaces/PokemonData';
 
 interface AllPokemonsView {
     pokemons: any,
     initialNextUrl: string,
-    ranking: any,
     thereIsUser: string | boolean,
 }
 
 const ShowAllPokemons = ({
     pokemons,
     initialNextUrl,
-    ranking,
     thereIsUser,
 }: AllPokemonsView) => {
 
@@ -39,7 +36,6 @@ const ShowAllPokemons = ({
     const [typeSelected, setTypeSelected] = useState <boolean | string> (false);
     const [pagination, setPagination] = useState(INITIAL_PAGINATION);
 
-    useGetRanked(ranking);
     const pokemonService = new PokemonService();
 
     useEffect(() => {
@@ -101,7 +97,6 @@ const ShowAllPokemons = ({
 
 const mapStateToProps = (state: any) => {
     return {
-        ranking: state.ranking.pokemonRanked,
         thereIsUser: state.login.user,
     }
 }

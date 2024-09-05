@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Star from './svg/Star';
 import { rankPokemonDB } from '../firebase/config';
 import { useActions } from '../hooks/useActions';
+import { useGetRanked } from '../hooks/useGetRanked';
 import useOriginUser from '../hooks/useOriginUser';
 import { RootState } from '../redux';
 import { addPokeToRanking, changeReview } from '../redux/action-creators';
@@ -18,6 +19,7 @@ const Review = ({ pokemonName, ranking, readOnly, pokemonTypes = [] }: any) => {
     const { addPokeToRanking, changeReview, removePokemonRanking } = useActions();
     const currentView = typeof window !== 'undefined' ? window.location.pathname.split(' ') : [''];
     const originUser = useOriginUser()
+    useGetRanked(ranking);
 
     useEffect(() => {
         const updatePokemonRanking = () => {
