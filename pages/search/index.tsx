@@ -16,7 +16,6 @@ import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
 import { useRedirect } from '../../hooks/useRedirect';
 import { PokemonData } from '../../interfaces/PokemonData';
-import initialPikachu from '../../public/assets/img/pikachusleeping.png';
 import { RootState, store } from '../../redux';
 import { getEvolutions } from '../../utils/getEvolutions';
 

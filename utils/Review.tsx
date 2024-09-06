@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { MdOutlineCancel } from 'react-icons/md';
 import { connect } from 'react-redux';
 
+import RemoveCross from './svg/RemoveCross';
 import Star from './svg/Star';
 import { rankPokemonDB } from '../firebase/config';
 import { useActions } from '../hooks/useActions';
@@ -70,7 +70,7 @@ const Review = ({ pokemonName, ranking, readOnly, pokemonTypes = [] }: any) => {
             <div>
                 {review === 0 && <i style={{display: 'inline-flex'}}>Without review</i>}
                 {(review > 0 && currentView && currentView?.includes('/pokemons')) &&
-                    <MdOutlineCancel
+                    <RemoveCross
                         color="red"
                         style={{cursor: 'pointer'}}
                         onClick={deletePokemonRanking}
