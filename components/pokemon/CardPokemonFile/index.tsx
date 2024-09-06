@@ -75,7 +75,6 @@ const CardPokemonFile = ({
                     {!pokemonData
                         ? <WhoIsThatPokemon />
                         : <>
-
                             {Number.isInteger(review) && review >= 0 ? (
                                 <div className={''} style={{margin: '10px'}}>
                                     <div className={styles['review-container']}>

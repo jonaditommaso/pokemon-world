@@ -13,7 +13,14 @@ import { addPokeToRanking, changeReview } from '../redux/action-creators';
 import { removePokemonRanking } from '../redux/action-creators/index';
 import styles from '../styles/review.module.css'
 
-const Review = ({ pokemonName, ranking, readOnly, pokemonTypes = [] }: any) => {
+interface ReviewProps {
+    pokemonName: string,
+    readOnly?: boolean,
+    pokemonTypes?: any,
+    ranking?: any
+}
+
+const Review = ({ pokemonName, ranking, readOnly, pokemonTypes = [] }: ReviewProps) => {
     const [review, setReview] = useState<number | null>(null);
 
     const { addPokeToRanking, changeReview, removePokemonRanking } = useActions();
@@ -66,7 +73,7 @@ const Review = ({ pokemonName, ranking, readOnly, pokemonTypes = [] }: any) => {
     }
 
     return (
-        review !== null && (
+        review !== null ? (
             <div>
                 {review === 0 && <i style={{display: 'inline-flex'}}>Without review</i>}
                 {(review > 0 && currentView && currentView?.includes('/pokemons')) &&
@@ -93,6 +100,7 @@ const Review = ({ pokemonName, ranking, readOnly, pokemonTypes = [] }: any) => {
                 </div>
             </div>
         )
+        : null
     );
 }
 
