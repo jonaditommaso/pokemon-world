@@ -1,4 +1,4 @@
-export const generateGradient = (hexColor: string): string => {
+export const generateGradient = (hexColor: string, orientation: string = 'top'): string => {
     const opacities: number[] = [1, 0.8, 0.6, 0.4, 0.2, 0];
     const gradientStops: string[] = [];
 
@@ -7,5 +7,5 @@ export const generateGradient = (hexColor: string): string => {
         gradientStops.push(`${hexColor}${alphaHex}`);
     });
 
-    return `linear-gradient(to top left, ${gradientStops.join(', ')})`;
+    return `linear-gradient(to ${orientation} left, ${gradientStops.join(', ')})`;
 }
