@@ -14,9 +14,9 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
     const [changeTurn, setChangeTurn] = React.useState(false);
     const [attacksAvailable, setAttacksAvailable] = React.useState<AttackCount>({
         1: 10,
-        2: 7,
-        3: 5,
-        4: 3
+        2: 5,
+        3: 3,
+        4: 1
     });
 
     const getSkills = (character: PokemonFighter) => {
