@@ -38,6 +38,11 @@
     width: 18rem;
 }
 
+.searchPokemon__background {
+    border-bottom-left-radius: 7.7rem;
+    border-bottom-right-radius: 7.7rem;
+}
+
 .fade-in-pikachu {
     animation: fadeIn 1s ease-in-out;
     opacity: 1;

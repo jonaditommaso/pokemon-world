@@ -11,6 +11,8 @@ import { RootState } from '../../../redux';
 import { pauseMusic, playMusic } from '../../../redux/action-creators/index';
 import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
+import { formatNumber } from '../../../utils/formatNumber';
+import { generateGradient } from '../../../utils/generateGradient';
 import Review from '../../../utils/Review';
 import VolumeFill from '../../../utils/svg/VolumeFill';
 
@@ -47,6 +49,8 @@ const CardPokemonFile = ({
     const CAN_EVOLVE = `See ${POKEMON}'s evolution`;
     const CANT_EVOLVE = `${POKEMON} has no evolution`;
 
+    const pokemonColor = colorsByType[pokemonData?.types[0].type.name as keyof typeof colorsByType]
+
     const listenDescription = (text: string) => {
         const audio = document.getElementById('music') as HTMLAudioElement;
 
@@ -67,43 +71,49 @@ const CardPokemonFile = ({
     }
 
     return (
-        <div className={styles.pokemonFile}>
+        <div className={styles.pokemonFile} style={{ margin: modal ? 0 : '' }}>
 
-            <Card className={styles.searchPokemon__card}>
+            <Card className={styles.searchPokemon__card} style={{ boxShadow: modal ? 'none' : '' }}>
                 <div className={styles.searchPokemon__pokemon}>
 
                     {!pokemonData
                         ? <WhoIsThatPokemon />
-                        : <>
-                            {Number.isInteger(review) && review >= 0 ? (
-                                <div className={''} style={{margin: '10px'}}>
-                                    <div className={styles['review-container']}>
-                                        <Review pokemonName={pokemonData.name} readOnly />
+                        : <div>
+                            <div
+                                className={styles.searchPokemon__background}
+                                style={{ backgroundImage: modal ? '' : generateGradient(pokemonColor, 'bottom') }}
+                            >
+                                {Number.isInteger(review) && review >= 0 ? (
+                                    <div className={''} style={{padding: '10px'}}>
+                                        <div className={styles['review-container']}>
+                                            <Review pokemonName={pokemonData.name} readOnly />
+                                        </div>
                                     </div>
-                                </div>
-                            ) : null}
+                                ) : null}
 
-                            <CardMedia
-                                className={styles.searchPokemon__img}
-                                image={pokemonImage}
-                                title={POKEMON}
-                                sx={{ height: '18rem', transition: 'opacity 1.3s ease-in-out' }}
-                            />
+                                <CardMedia
+                                    className={styles.searchPokemon__img}
+                                    image={pokemonImage}
+                                    title={POKEMON}
+                                    sx={{ height: '18rem', transition: 'opacity 1.3s ease-in-out' }}
+                                />
 
-                            <CardContent>
-                                <Typography className={styles.pokemonFile__title} variant='h5'>
-                                    {POKEMON} #{pokemonData?.id}
-                                </Typography>
-                                {!modal &&
-                                    <>
-                                        <hr />
-                                        <Typography align='center' className={styles['pokemon-file-description']}>
-                                            {DESCRIPTION}
-                                        </Typography>
-                                    </>
-                                }
-                            </CardContent>
-                        </>
+                                <CardContent sx={{ p: '0 !important' }}>
+                                    <Typography className={styles.pokemonFile__title} variant='h5'>
+                                        {POKEMON} #{formatNumber(pokemonData.id)}
+                                    </Typography>
+                                </CardContent>
+                            </div>
+
+                            {!modal &&
+                                <CardContent>
+                                    <hr />
+                                    <Typography align='center' className={styles['pokemon-file-description']}>
+                                        {DESCRIPTION}
+                                    </Typography>
+                                </CardContent>
+                            }
+                        </div>
                     }
                 </div>
 
