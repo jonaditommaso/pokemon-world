@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import { Button } from '@mui/material';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux'; // MapDispatchToProps, MapStateToProps
 
 import styles from './navbar.module.css'
 import SideDropdown from './SideDropdown';
 import { useActions } from '../../hooks/useActions';
+import pokemonWorldLogo from '../../public/assets/img/pokemon-world-logo.png'
 import { playMusic, pauseMusic } from '../../redux/action-creators';
 import VolumeFill from '../../utils/svg/VolumeFill';
 import VolumeMute from '../../utils/svg/VolumeMute';
@@ -73,12 +76,6 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
 
     }, [music, thereIsUser, audio]);
 
-    const showMenu = () => {
-        return (
-            thereIsUser && !window.location.pathname.includes('/signin') && <SideDropdown />
-        )
-    }
-
     const handleMusic = () => {
         const audio = document.getElementById('music') as HTMLAudioElement;
         if(!music.volume && music.other) {
@@ -104,18 +101,19 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
         }
     }
 
-    const showVolumeIcon = () => {
-        if(music.volume) {
-            return <VolumeFill />
-        }
-        else return <VolumeMute />
-    }
-
     return (
         <>
+            <div style={{ position: 'absolute', right: '45%' }}>
+                <Image
+                    alt='pokemon-logo image'
+                    src={pokemonWorldLogo}
+                    priority
+                    width={160}
+                />
+            </div>
             <div className={styles.navbar}>
                 <StateLogin />
-                {showMenu()}
+                {thereIsUser && !window.location.pathname.includes('/signin') && <SideDropdown />}
             </div>
             <audio
                 src='audio/pokemusic.mp3'
@@ -137,9 +135,9 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
                 style={{display: 'none'}}
             ></audio>
 
-             <span className={styles.volume} onClick={() => handleMusic ()}>
-                {showVolumeIcon()}
-            </span>
+            <Button color='info' variant='outlined' sx={{ m: '5px' }} onClick={handleMusic}>
+                {music.volume ? <VolumeFill /> : <VolumeMute />}
+            </Button>
         </>
     );
 }
