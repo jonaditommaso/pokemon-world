@@ -7,6 +7,7 @@ import styles from './eachPoke.module.css';
 import { PokemonData } from '../../../interfaces/PokemonData';
 import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
+import { formatNumber } from '../../../utils/formatNumber';
 import { generateGradient } from '../../../utils/generateGradient';
 import Attack from '../../../utils/svg/Attack';
 import Defense from '../../../utils/svg/Defense';
@@ -49,7 +50,7 @@ const EachPoke = ({
                         {capitalize(pokemon.name)}
                     </h6>
                     <h6 className={styles.eachPoke__id}>
-                        {`#${pokemon.id}`}
+                        {`#${formatNumber(pokemon.id)}`}
                     </h6>
                 </div>
             </div>
