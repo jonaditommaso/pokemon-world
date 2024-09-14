@@ -142,7 +142,7 @@ const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
             ),
             showCancelButton: false,
             showConfirmButton: false,
-            backdrop: false,
+            backdrop: true,
             showCloseButton: true,
         });
     }

@@ -87,4 +87,31 @@
     height: 360px;
     width: 475px;
     object-fit: none;
+    box-sizing: content-box;
+    border: solid 12px #88b9eb;
+}
+
+.corner-pokeball {
+    position: absolute;
+    z-index: 1;
+}
+
+.corner-pokeball-0 {
+    top: -10px;
+    left: -20px;
+}
+
+.corner-pokeball-1 {
+    bottom: -10px;
+    left: -20px;
+}
+
+.corner-pokeball-2 {
+    bottom: -10px;
+    right: -20px;
+}
+
+.corner-pokeball-3 {
+    top: -10px;
+    right: -20px;
 }

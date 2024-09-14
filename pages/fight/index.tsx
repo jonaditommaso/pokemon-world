@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Button } from '@mui/material';
 import clsx from 'clsx'
+import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,13 @@ import Fighter, { getStaticProps as getFighterStaticProps } from '../../componen
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { battleMode, musicBattle, musicBattlePause } from '../../redux/action-creators';
+
+const Overlay = () => {
+    return createPortal(
+      <div className="overlay"></div>,
+      document.body
+    );
+  };
 
 interface FightProps {
     music: MusicState,
@@ -25,6 +33,7 @@ const Fight = ( { music, opponentData, startBattle }: FightProps) => {
 
     const [showBattle, setShowBattle] = useState(false);
     const [fightTypeSelected, setFightTypeSelected] = useState('');
+    const [showOverlay, setShowOverlay] = useState(false);
 
     const showVideo = startBattle && !showBattle;
 
@@ -59,6 +68,14 @@ const Fight = ( { music, opponentData, startBattle }: FightProps) => {
                 musicBattlePause();
             })
         }
+
+        if (!showOverlay) {
+            setShowOverlay(true);
+            setTimeout(() => {
+              setShowOverlay(false);
+            }, 8000);
+        }
+
         const video = document.getElementById('video') as HTMLVideoElement;
         video.play();
     }
@@ -95,6 +112,8 @@ const Fight = ( { music, opponentData, startBattle }: FightProps) => {
                     <FightAnimation showVideo={showVideo} />
                 </div>
             </div>
+
+            {showOverlay && <Overlay />}
 
             {showBattle && <div className={styles['fighter-container']}>
                 <Fighter opponentData={opponentData} />

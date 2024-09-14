@@ -134,6 +134,7 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                         style={{height: '180px'}}
                         width={180}
                         height={180}
+                        priority
                     />
                 </div>
             </div>
@@ -153,6 +154,7 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                         className={clsx(styles.fighter__img, styles.fighter__imgMyself)}
                         width={180}
                         height={180}
+                        priority
                     />
                 </div>
 

@@ -48,6 +48,7 @@ const TypeFight = ({ typeFight, changeTypeFight }: any) => {
                         width={400}
                         className={typeFight && typeFight !== image.key ? styles['images-container-not-selected'] : ''}
                         onClick={() => changeTypeFight(image.key)}
+                        priority={true}
                     />
                     <p className={clsx(styles['type-fight-text'], styles[`type-fight-text-${index === 0 || index === 2 ? 'left': 'right'}`])}>
                         {image.typeLabel}
