@@ -1,6 +1,5 @@
 .container-pokemons {
     text-align: center;
-    background-color: rgba(234, 237, 237, 0.5);
     margin: auto 5px ;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -13,7 +12,7 @@
     scrollbar-width: thin;
     color: transparent;
     width: 7px;
-    background: #F7F7FF;
+    background: transparent;
     height: 7px;
 }
 
