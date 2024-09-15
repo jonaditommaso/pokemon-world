@@ -10,6 +10,7 @@ import styles from './fight.module.css';
 import FightAnimation from './FightAnimation';
 import TypeFight from './TypeFight';
 import Fighter, { getStaticProps as getFighterStaticProps } from '../../components/fight/Fighter';
+import Frame from '../../components/frame';
 import { useActions } from '../../hooks/useActions';
 import { MusicState } from '../../interfaces/Music';
 import { battleMode, musicBattle, musicBattlePause } from '../../redux/action-creators';
@@ -115,9 +116,16 @@ const Fight = ( { music, opponentData, startBattle }: FightProps) => {
 
             {showOverlay && <Overlay />}
 
-            {showBattle && <div className={styles['fighter-container']}>
-                <Fighter opponentData={opponentData} />
-            </div>}
+            {showBattle && (
+                <div className={styles['container-fighter-frame']}>
+                    <div className={styles['frame-container']}>
+                        <Frame />
+                    </div>
+                    <div className={styles['fighter-container']}>
+                        <Fighter opponentData={opponentData} />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

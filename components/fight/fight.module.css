@@ -24,6 +24,16 @@
     animation: golpe 0.1s alternate infinite ease-in-out;
 }
 
+.pokemon-area {
+    background-image: url('../../public/assets/img/grass.jpg');
+    clip-path: ellipse(50% 19% at 50% 50%);
+    width: 300px;
+    height: 278px;
+    position: relative;
+    top: -45%;
+    right: 15%;
+}
+
 @keyframes golpe {
     0% {
       transform: translateX(0%);
@@ -36,7 +46,7 @@
 .fightsData {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.6));
+    background: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,0.8));
     border-radius: 10px;
     height: 100px;
     width: 350px;
@@ -83,6 +93,8 @@
 .fighter__img {
     width: 200px;
     height: 200px;
+    position: relative;
+    z-index: 1;
 }
 
 .button__playAgain {
@@ -90,14 +102,23 @@
 }
 
 .fighter__myself {
-    margin-left: 20%;
+    /* margin-left: 0%; */
     display: flex;
+    height: 300px;
+    position: absolute;
+    bottom: 5%;
+    left: 15%;
 }
 
 .fighter__opponent {
     display: flex;
     justify-content: flex-end;
-    margin-right: 20%;
+    /* margin-right: 20%; */
+    height: 300px;
+    position: absolute;
+    /* top: 20%; */
+    top: 10%;
+    right: 10%;
 }
 
 .fighter__type {

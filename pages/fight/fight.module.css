@@ -63,11 +63,51 @@
 }
 
 .fighter-container {
-    background-image: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.4)), url('../../assets/img/battlefield.jpg');
-    background-size: cover;
+  background-image: linear-gradient(
+    0deg,
+    hsl(181, 59%, 42%)  0%,
+    hsl(138, 89%, 18%)  6%,
+    hsl(152, 69%, 39%) 13%,
+    hsl(182, 77%, 38%) 19%,
+    hsl(197, 81%, 34%) 26%,
+    hsl(193, 62%, 36%) 32%,
+    hsl(188, 55%, 38%) 38%,
+    hsl(184, 49%, 74%) 45%,
+    hsl(180, 17%, 87%) 51%,
+    hsl(171, 27%, 67%) 57%,
+    hsl(160, 31%, 54%) 64%,
+    hsl(151, 45%, 44%) 70%,
+    hsl(141, 65%, 40%) 76%,
+    hsl(151, 66%, 40%) 82%,
+    hsl(161, 64%, 39%) 88%,
+    hsl(171, 61%, 37%) 94%,
+    hsl(181, 59%, 42%) 100%
+  );
+    background-position: center;
     margin-left: 10%;
     margin-right: 10%;
-    padding: 4%;
+    height: 75vh;
+    border: solid 12px #88b9eb;
+}
+
+.container-fighter-frame {
+    position: relative;
+}
+
+.frame-container span:nth-of-type(1) {
+    margin-left: 10%;
+}
+
+.frame-container span:nth-of-type(2) {
+    margin-left: 10%;
+}
+
+.frame-container span:nth-of-type(3) {
+    margin-right: 10%;
+}
+
+.frame-container span:nth-of-type(4) {
+    margin-right: 10%;
 }
 
 .container-type-room {
@@ -89,29 +129,4 @@
     object-fit: none;
     box-sizing: content-box;
     border: solid 12px #88b9eb;
-}
-
-.corner-pokeball {
-    position: absolute;
-    z-index: 1;
-}
-
-.corner-pokeball-0 {
-    top: -10px;
-    left: -20px;
-}
-
-.corner-pokeball-1 {
-    bottom: -10px;
-    left: -20px;
-}
-
-.corner-pokeball-2 {
-    bottom: -10px;
-    right: -20px;
-}
-
-.corner-pokeball-3 {
-    top: -10px;
-    right: -20px;
 }

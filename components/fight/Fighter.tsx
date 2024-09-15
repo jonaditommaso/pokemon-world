@@ -136,6 +136,7 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                         height={180}
                         priority
                     />
+                    <div className={styles['pokemon-area']}></div>
                 </div>
             </div>
 
@@ -156,6 +157,7 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                         height={180}
                         priority
                     />
+                    <div className={styles['pokemon-area']}></div>
                 </div>
 
                 <div style={{display: 'flex', alignItems: 'flex-end', marginBottom: '23px'}}>

@@ -1,10 +1,9 @@
 import clsx from 'clsx'
-import Image from 'next/image';
 import { connect } from 'react-redux';
 
 import styles from './fight.module.css';
+import Frame from '../../components/frame';
 import { PokemonData } from '../../interfaces/PokemonData';
-import pokeball from '../../public/assets/img/pokeball.png'
 
 
 interface FightProps {
@@ -19,12 +18,7 @@ const FightAnimation = ({ fighter, showVideo }: FightProps) => {
     return (
         <div className={styles['container-media']}>
             <div>
-                {[...Array(4)].map((_, index) => (
-                    <span key={index} className={clsx(!showVideo && 'd-none', styles[`corner-pokeball-${index}`],styles['corner-pokeball'])}>
-                        <Image src={pokeball} alt='pokeball' width={50}  />
-                    </span>
-                    ))
-                }
+                {<Frame condition={!showVideo ? true : false} />}
                 <video
                     src='video/pokeballgo.mp4'
                     preload="auto"
