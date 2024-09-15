@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button } from '@mui/material';
+import clsx from 'clsx';
 import get from 'lodash/get'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux';
@@ -61,7 +62,7 @@ const StateLogin = ({ thereIsUser }: User) => {
             onClick={() => handleClick()}
             variant={buttonColor}
             color='error'
-            className={styles['login-button']}
+            className={clsx(styles['login-button'], buttonColor === 'outlined' && styles['outlined-button'])}
         >
             {thereIsUser && pathnameIsNotSignIn ? 'Sign Out' : "Let's go!"}
         </Button>

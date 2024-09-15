@@ -135,7 +135,7 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
                 style={{display: 'none'}}
             ></audio>
 
-            <Button color='info' variant='outlined' sx={{ m: '5px' }} onClick={handleMusic}>
+            <Button color='info' variant='outlined' className={styles['music-button']} onClick={handleMusic}>
                 {music.volume ? <VolumeFill /> : <VolumeMute />}
             </Button>
         </>

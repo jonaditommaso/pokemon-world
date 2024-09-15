@@ -6,3 +6,12 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.music-button {
+    margin: 5px;
+    background-color: #c3c3c39d;
+}
+
+.music-button:hover {
+    background-color: #c3c3c3ce;
+}

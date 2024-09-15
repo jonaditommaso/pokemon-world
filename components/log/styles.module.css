@@ -3,3 +3,11 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.outlined-button {
+    background-color: #f8b7b1d9;
+}
+
+.outlined-button:hover {
+    background-color: #f7938a;
+}
