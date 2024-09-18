@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 
 import { Chip } from '@mui/material';
-import Image from 'next/image';
 
 import styles from './eachPoke.module.css';
 import { PokemonData } from '../../../interfaces/PokemonData';
@@ -12,6 +11,7 @@ import { generateGradient } from '../../../utils/generateGradient';
 import Attack from '../../../utils/svg/Attack';
 import Defense from '../../../utils/svg/Defense';
 import Weight from '../../../utils/svg/Weight';
+import ImageWithTransition from './ImageWithTransition';
 const Review = lazy(() => import('../../../utils/Review'))
 
 interface Pokemon {
@@ -37,13 +37,10 @@ const EachPoke = ({
             }}
         >
             <div className={styles.eachPoke__File}>
-                <Image
+                <ImageWithTransition
+                    priority={index < 2}
                     src={pokemon?.sprites?.other?.dream_world?.front_default}
                     alt={pokemon.name}
-                    className={styles.eachPoke__img}
-                    width={120}
-                    height={70}
-                    priority={index < 2}
                 />
                 <div>
                     <h6>
