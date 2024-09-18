@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -10,12 +10,18 @@ import pokeapi from '../../helpers/pokeapi';
 import PokemonService from '../../helpers/PokemonHelper';
 import { PokemonData } from '../../interfaces/PokemonData';
 
+type Pagination = {
+    nextUrl: string | null
+    prevUrl: string | null
+};
 
 interface ActionButtonsProps {
-    initialNextUrl: React.MutableRefObject<string>,
+    initialNextUrl: string,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     setPokemonData: React.Dispatch<React.SetStateAction<PokemonData[] | undefined>>
-    firstPokemonsRef:  React.MutableRefObject<PokemonData[] | null>
+    firstPokemons:  PokemonData[] | null
+    pagination: Pagination
+    setPagination: React.Dispatch<React.SetStateAction<Pagination>>
 }
 
 const pokemonService = new PokemonService();
@@ -24,17 +30,20 @@ const ActionButtons = ({
     initialNextUrl,
     setLoading,
     setPokemonData,
-    firstPokemonsRef
+    firstPokemons,
+    pagination,
+    setPagination
 }: ActionButtonsProps) => {
 
     const router = useRouter();
 
-    const INITIAL_PAGINATION = {
-        nextUrl: initialNextUrl,
-        prevUrl: '',
-    }
+    const INITIAL_PAGINATION = useMemo(() => {
+        return ({
+            nextUrl: initialNextUrl,
+            prevUrl: '',
+        })
+    }, []);
 
-    const [pagination, setPagination] = useState(INITIAL_PAGINATION);
     const [typeSelected, setTypeSelected] = useState <boolean | string> (false);
 
     useEffect(() => {
@@ -55,18 +64,20 @@ const ActionButtons = ({
 
         const url = typeList === 'prev' ? pagination.prevUrl : pagination.nextUrl
         const { data } = await pokemonService.getUrlForEachPokemon(url as string);
-        setPagination({
+        const newPokemons = await loadPokemons(data.results);
+
+        setPagination((prevPagination: Pagination) => ({
+            ...prevPagination,
             nextUrl: data.next,
             prevUrl: data.previous,
-        });
-        const newPokemons = await loadPokemons(data.results);
+        }));
         setPokemonData(newPokemons);
         setLoading(false);
     }
 
     const resetPokemons = () => {
-        if (firstPokemonsRef.current) {
-            setPokemonData(firstPokemonsRef.current);
+        if (firstPokemons) {
+            setPokemonData(firstPokemons);
         }
         setPagination(INITIAL_PAGINATION);
     }

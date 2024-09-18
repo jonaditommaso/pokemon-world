@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useDeferredValue } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -10,11 +10,17 @@ import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import pokeapi from '../../helpers/pokeapi';
 import { useRedirect } from '../../hooks/useRedirect';
 import { PokemonData } from '../../interfaces/PokemonData';
+import clsx from 'clsx';
 
 interface AllPokemonsView {
     thereIsUser: string | boolean,
     results: any,
 }
+
+type Pagination = {
+    nextUrl: string | null
+    prevUrl: string | null
+};
 
 const ShowAllPokemons = ({
     thereIsUser,
@@ -25,7 +31,10 @@ const ShowAllPokemons = ({
     const [loading, setLoading] = useState(false);
     const [pokemonData, setPokemonData] = useState <PokemonData[] | undefined> (undefined);
     const firstPokemonsRef = useRef<PokemonData[] | null>(null);
+    const [pagination, setPagination] = useState<Pagination>({nextUrl: null, prevUrl: null});
     const initialNextUrl = useRef<string>('')
+
+    const pokemons = useDeferredValue(pokemonData);
 
     useEffect(() => {
         const getFirstPokemons = async () => {
@@ -35,28 +44,33 @@ const ShowAllPokemons = ({
             if (firstPokemonsRef.current === null) {
                 firstPokemonsRef.current = pokemons;
             }
+            setPagination(prevPagination => ({
+                ...prevPagination,
+                nextUrl: data.next
+            }))
             if (initialNextUrl.current === '') {
                 initialNextUrl.current = data.next;
             }
         }
-        getFirstPokemons()
+        getFirstPokemons();
     }, [])
 
-
-
     return (
-        !thereIsUser || loading || !pokemonData ? (
+        !thereIsUser || !pokemonData ? (
             <PokemonSpinner />
         ) : (
             <div className={styles['container-pokemons']}>
-                    <ActionButtons
-                        initialNextUrl={initialNextUrl}
-                        setLoading={setLoading}
-                        setPokemonData={setPokemonData}
-                        firstPokemonsRef={firstPokemonsRef}
-                    />
-                <div className={styles['container-poke-cards']}>
-                    {pokemonData?.map((pokemon, index) => (
+                <ActionButtons
+                    initialNextUrl={initialNextUrl.current}
+                    setLoading={setLoading}
+                    setPokemonData={setPokemonData}
+                    firstPokemons={firstPokemonsRef.current}
+                    pagination={pagination}
+                    setPagination={setPagination}
+                />
+                {loading && <div className={styles['container-spinner']}><PokemonSpinner /></div>}
+                <div className={clsx(styles['container-poke-cards'], loading && styles['container-poke-cards-loading'])}>
+                    {pokemons?.map((pokemon, index) => (
                         <EachPoke pokemon={pokemon} key={pokemon.id} index={index} />
                     ))}
                 </div>
