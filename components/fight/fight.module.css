@@ -24,6 +24,10 @@
     animation: golpe 0.1s alternate infinite ease-in-out;
 }
 
+.punched-effect {
+    animation: golpe 0.1s alternate infinite ease-in-out;
+}
+
 .pokemon-area {
     background-image: url('../../public/assets/img/grass.jpg');
     clip-path: ellipse(50% 19% at 50% 50%);
@@ -88,6 +92,12 @@
     font-style: italic;
     font-weight: 500;
     border-radius: 4px;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    margin-right: 10.9%;
+    width: -webkit-fill-available;
+    z-index: 2;
 }
 
 .fighter__img {
@@ -106,7 +116,7 @@
     display: flex;
     height: 300px;
     position: absolute;
-    bottom: 5%;
+    bottom: 0%;
     left: 15%;
 }
 
@@ -117,7 +127,7 @@
     height: 300px;
     position: absolute;
     /* top: 20%; */
-    top: 10%;
+    top: 5%;
     right: 10%;
 }
 

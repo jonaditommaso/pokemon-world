@@ -9,44 +9,36 @@ import { LifePoints } from '../../interfaces/Fighter';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => (barStyles));
 
+const notPassTheLine = (result: number) => result >= 100 ? 100 : result
+
 export default function Bar ({
-  hit,
-  setHit,
   setGameOver,
-  fighter,
-  changeLife,
-  damage,
-  opponentsTurn,
+  player,
+  setLifePoints,
+  damagePoints,
 }: BarSettings) {
 
   const [damageCount, setDamageCount] = useState(0);
 
-  const notPassTheLine = (result: number) => {
-    if(result >= 100) {
-      return 100
-    }
-    return result
-  }
+  const changeDamage = useCallback((damage: number) => {
+    setDamageCount((prevDamageCount) => {
+      let barRise = [0];
+      barRise.push(damage);
+      const result = barRise.reduce((plus, value) => value + plus, prevDamageCount);
+      return notPassTheLine(result);
+    });
+  }, []);
 
-  const changeDamage = useCallback((damagePoints: number) => {
-
-    let barRise = [0];
-    barRise.push(damagePoints);
-    const result = barRise.reduce((plus, value) => value + plus, damageCount);
-    setDamageCount(notPassTheLine(result));
-    setHit(false);
-  }, [opponentsTurn]);
-
-  useEffect(() => {
-    if(hit && opponentsTurn && fighter === 'opponent') {
-      changeDamage(damage * 1.5)
+   useEffect(() => {
+    if(player === 'opponent') {
+      changeDamage(damagePoints.opponent * 1.5)
     }
 
-    if(hit && opponentsTurn === false && fighter === 'player') {
-      changeDamage(damage * ((Math.random() / 3 )))
+    if(player === 'me') {
+      changeDamage(damagePoints.me * (Math.random() / 3 ))
     }
 
-  }, [hit])
+  }, [damagePoints, player])
 
   useEffect(() => {
 
@@ -54,18 +46,18 @@ export default function Bar ({
       setTimeout(() => {
         setGameOver('fighter__win');
       }, 500);
-
-      changeLife((prevLifePoints: LifePoints) => ({
-        ...prevLifePoints,
-        [fighter]: damageCount
-      }));
     }
-  }, [damage, hit, damageCount, fighter, opponentsTurn]);
+
+    setLifePoints((prevLifePoints: LifePoints) => ({
+      ...prevLifePoints,
+      [player]: damageCount
+    }));
+  }, [damagePoints, damageCount, player, ]);
 
 
   return (
     <div>
-      <BorderLinearProgress variant="determinate" value={damageCount}/>
+      <BorderLinearProgress variant="determinate" value={damageCount} />
     </div>
   );
 }

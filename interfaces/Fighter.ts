@@ -1,23 +1,23 @@
+import { DamagePoints } from "./DamagePoints";
+
 export interface Fighter {
-    attack?: number,
-    finish?: string,
-    hisTurn?: boolean | undefined,
-    player: 'opponent' | 'player',
-    opponentDamage?: React.Dispatch<React.SetStateAction<number>>,
-    punched?: React.Dispatch<React.SetStateAction<string>>,
-    setHit: React.Dispatch<React.SetStateAction<boolean>>,
-    turn?: React.Dispatch<React.SetStateAction<boolean | undefined>>,
+    attack?: Attack,
+    finishedBattle?: boolean,
+    player: 'opponent' | 'me',
+    setDamagePoints?: React.Dispatch<React.SetStateAction<DamagePoints>>,
     character: any,
+    setPunchedClass?:any,
+    lifePoints?: any
 }
 
 export interface LifePoints {
     opponent: number;
-    player: number;
+    me: number;
 }
 
 export interface Moves {
     opponent: string[];
-    player: string[];
+    me: string[];
 }
 
 export interface PokemonFighter {
@@ -40,4 +40,9 @@ interface BattleStats {
 
 export interface BattleDataStats {
     battlesData: BattleStats
+}
+
+interface Attack {
+    me: number,
+    opponent: number
 }

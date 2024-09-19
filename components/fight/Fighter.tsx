@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 import clsx from 'clsx';
 import get from 'lodash/get';
@@ -12,6 +12,7 @@ import FinalMessage from './FinalMessage';
 import { OPONENT_DATA } from '../../constants';
 import pokeapi from '../../helpers/pokeapi';
 import { useActions } from '../../hooks/useActions';
+import { DamagePoints } from '../../interfaces/DamagePoints';
 import { LifePoints } from '../../interfaces/Fighter';
 import { RootState } from '../../redux';
 import { thereBattle } from '../../redux/action-creators';
@@ -23,16 +24,15 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
 
     const { thereBattle, battleData } = useActions();
 
-    const [opponentPunched, setOpponentPunched] = useState('');
-    const [iWasPunched, setIWasPunched] = useState('')
-    const [damagePointsForTheOpponent, setDamagePointsForTheOpponent] = useState(0);
+    const [punchedClass, setPunchedClass] = useState('');
     const [gameOver, setGameOver] = useState('d-none');
-    const [opponentsTurn, setOpponentsTurn] = useState <undefined | boolean> (undefined); // this represent if it is the opponent turn 'cause user don't manage him
-    const [thereIsHit, setThereIsHit] = useState(false); // this represent a hit for anyone
-    const [youWin, setYouWin] = useState <undefined | boolean> (undefined);
+    const [damagePoints, setDamagePoints] = useState<DamagePoints>({
+        opponent: 0,
+        me: 0
+    })
     const [lifePoints, setLifePoints] = useState <LifePoints> ({
         opponent: 0,
-        player: 0
+        me: 0
     });
 
     const setting = useRef(false);
@@ -41,41 +41,6 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
         if(opponentData) thereBattle(opponentData);
     }, [opponentData]);
 
-
-    useEffect(() => {
-        if(opponentsTurn === true) {
-            setTimeout(() => {
-                if(lifePoints.opponent === 100) {
-                    setIWasPunched('');
-                }
-                else {
-                    setIWasPunched('fighter');
-                }
-            }, 5000);
-
-            setTimeout(() => {
-                setThereIsHit(true);
-                setIWasPunched('');
-                setOpponentsTurn(false);
-            }, 5800);
-        }
-    }, [opponentsTurn, gameOver, lifePoints]);
-
-    useEffect(() => {
-        const setWinner = () => {
-            if(lifePoints.opponent >= 100) {
-                setYouWin(true);
-            }
-            if(lifePoints.player >= 100) {
-                setYouWin(false);
-            }
-        };
-
-      if(gameOver === 'fighter__win') {
-        setWinner();
-      }
-    }, [gameOver, lifePoints]);
-
     useEffect(() => {
       const sendResultData = () => {
         setting.current = true;
@@ -83,7 +48,7 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
         if (spotted && !spotted?.includes(opponentData.name)) spotted.push(opponentData.name);
         let result = {...battlesData}
         result.spotted = spotted;
-        if(youWin) {
+        if(lifePoints.opponent >= 100) {
             result.won += 1;
             result.points += 72;
         } else {
@@ -95,12 +60,19 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
         battleData(result);
       }
 
-      if (gameOver === 'fighter__win' && battleMode.mode !== 'training' && !setting.current && youWin !== undefined) {
+      if (gameOver === 'fighter__win' && battleMode.mode !== 'training' && !setting.current && lifePoints.opponent >= 100 !== undefined) {
         sendResultData();
       }
 
-    }, [gameOver, battleData, youWin, battlesData, battleMode, opponentData]);
+    }, [gameOver, battleData, battlesData, battleMode, opponentData, lifePoints]);
 
+
+    const attack = useMemo(() => (
+        {
+            me: fighter?.pokemon?.stats[1]?.base_stat,
+            opponent: get(opponentData, 'stats[1].base_stat')
+        }
+    ), [fighter, opponentData]);
 
     if(!fighter.pokemon || !opponentData) return null;
 
@@ -111,26 +83,22 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
             <div className={styles.fighter__opponent}>
                 <div className={styles.fightsData}>
                     <Bar
-                        changeLife={setLifePoints}
-                        damage={damagePointsForTheOpponent}
-                        fighter='opponent'
-                        hit={thereIsHit}
-                        opponentsTurn={opponentsTurn}
+                        setLifePoints={setLifePoints}
+                        damagePoints={damagePoints}
+                        player='opponent'
                         setGameOver={setGameOver}
-                        setHit={setThereIsHit}
                     />
                     <FightsData
-                        player={'opponent'}
-                        setHit={setThereIsHit}
+                        player='opponent'
                         character={opponentData}
                     />
                 </div>
 
-                <div className={styles[opponentPunched]}>
+                <div>
                     <Image
                         src={opponentData.front_default}
                         alt="opponent"
-                        className={clsx(styles.fighter__img, styles.fighter__imgOpponent)}
+                        className={clsx(styles.fighter__img, styles.fighter__imgOpponent, punchedClass === 'opponent' ? styles['punched-effect'] : '')}
                         style={{height: '180px'}}
                         width={180}
                         height={180}
@@ -142,17 +110,17 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
 
             <FinalMessage
               gameOver={gameOver}
-              winnerName={youWin ? fighter.pokemon.name : opponentData.name}
-              xpGained={youWin ? 72 : 23}
+              winnerName={lifePoints.opponent >= 100 ? fighter.pokemon.name : opponentData.name}
+              xpGained={lifePoints.opponent >= 100 ? 72 : 23}
             />
 
             {/* MYSELF */}
             <div className={styles.fighter__myself}>
-                <div className={styles[iWasPunched]}>
+                <div>
                     <Image
                         src={fighter?.pokemon.sprites?.other?.dream_world?.front_default}
                         alt="fighter"
-                        className={clsx(styles.fighter__img, styles.fighter__imgMyself)}
+                        className={clsx(styles.fighter__img, styles.fighter__imgMyself, punchedClass === 'me' ? styles['punched-effect'] : '' )}
                         width={180}
                         height={180}
                         priority
@@ -163,25 +131,20 @@ const Fighter = ({ fighter, opponentData, battlesData, battleMode }: any) => {
                 <div style={{display: 'flex', alignItems: 'flex-end', marginBottom: '23px'}}>
                     <div className={styles.fightsData}>
                         <FightsData
-                            opponentDamage={setDamagePointsForTheOpponent}
-                            punched={setOpponentPunched}
-                            finish={gameOver}
-                            setHit={setThereIsHit}
-                            attack={fighter?.pokemon?.stats[1]?.base_stat}
-                            turn={setOpponentsTurn}
-                            hisTurn={opponentsTurn}
+                            setDamagePoints={setDamagePoints}
+                            setPunchedClass={setPunchedClass}
+                            finishedBattle={lifePoints.opponent >= 100 || lifePoints.me >= 100}
+                            attack={attack}
                             character={fighter.pokemon}
-                            player='player'
+                            player='me'
+                            lifePoints={lifePoints}
                         />
 
                         <Bar
-                            changeLife={setLifePoints}
-                            damage={get(opponentData, 'stats[1].base_stat')}
-                            fighter='player'
-                            hit={thereIsHit}
-                            opponentsTurn={opponentsTurn}
+                            setLifePoints={setLifePoints}
+                            damagePoints={damagePoints}
+                            player='me'
                             setGameOver={setGameOver}
-                            setHit={setThereIsHit}
                         />
                     </div>
                 </div>

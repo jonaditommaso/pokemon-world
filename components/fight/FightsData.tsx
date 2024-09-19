@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 
 import { Button } from '@mui/material';
 
-import { Fighter, Moves, PokemonFighter } from '../../interfaces/Fighter';
+import { defineSkillColorButton } from './defineColorButton';
+import { getSkills } from './getSkills';
+import { Fighter } from '../../interfaces/Fighter';
 import styles from '../fight/fight.module.css';
 
 type AttackCount = {
     [key: number]: number;
 };
 
-function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, setHit, attack, character }: Fighter) {
+function FightsData({ setPunchedClass, lifePoints, player, setDamagePoints, finishedBattle, attack, character }: Fighter) {
 
-    const [changeTurn, setChangeTurn] = React.useState(false);
+    const [buttonsDisabled, setButtonsDisabled] = React.useState<boolean>(false);
     const [attacksAvailable, setAttacksAvailable] = React.useState<AttackCount>({
         1: 10,
         2: 5,
@@ -19,75 +21,56 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
         4: 1
     });
 
-    const getSkills = (character: PokemonFighter) => {
-        let moves: Moves = {
-            opponent: [],
-            player: [],
-        }
+    const skills = useMemo(() => getSkills(character, player), [character, player]);
 
-        const numberOfMoves = character.moves.length;
-        const movesRange = numberOfMoves >= 20 ? character.moves.slice(16, 20) : character.moves.slice(0, 4);
-
-        movesRange.forEach((move) => {
-            moves[player].push(move.move.name);
-        });
-
-        return moves[player];
-    }
-
-    const skills = getSkills(character);
-
-    useEffect(() => {
-        if(hisTurn) {
-            setChangeTurn(true);
-        }
-        if(!hisTurn) {
-            setChangeTurn(false);
-        }
-    }, [changeTurn, hisTurn]);
-
-    const colorButton = (i: number) => {
-        const colorMap: { [key: number]: 'success' | 'primary' | 'warning' | 'error' } = {
-            0: 'success',
-            1: 'primary',
-            2: 'warning',
-            3: 'error',
-        };
-        return colorMap[i];
-    }
-
-    const notMyTurn = () => {
-        if(!turn) return;
-        if (!hisTurn) {
-            turn(true);
-        }
-        return
-    };
-
-    const damagePoints = (i: number) => {
-        if(!opponentDamage || !punched) return;
+    const calculateDamagePoints = (i: number) => {
+        setButtonsDisabled(true);
 
         const damageMultiplier = [0.05, 0.1, 0.12, 0.17][i];
 
-        setAttacksAvailable((prevState) => ({
+        setAttacksAvailable((prevState) => ({ // rest attack number
             ...prevState,
             [i + 1]: prevState[i + 1] - 1,
         }));
-        setHit(true);
-        opponentDamage(attack! * (damageMultiplier * 2)); // sacar el x2 cuando ponga el hp
-        punched('fighter');
-        notMyTurn();
-        setTimeout(() => {
-            punched('');
+
+        setDamagePoints!(prevDamagePoints => ({
+            ...prevDamagePoints,
+            me: 0,
+            opponent: attack!.me * (damageMultiplier * 2) // sacar el x2 cuando ponga el hp // pass points of damage to Bar
+        }))
+
+        setPunchedClass('opponent'); // set new class to opponent shaking
+
+        setTimeout(() => { // after 800 ms, set new class to restore opponent state
+            setPunchedClass('');
         }, 800);
+
+        setTimeout(() => { // opponent punch to me
+            if(lifePoints.opponent === 100) {
+                setPunchedClass('');
+            }
+            else {
+                setPunchedClass('me');
+            }
+        }, 4000);
+
+        setTimeout(() => { // restore me
+            setPunchedClass('');
+            setButtonsDisabled(false);
+            setDamagePoints!(prevDamagePoints => ({
+                ...prevDamagePoints,
+                me: attack!.opponent,
+                opponent: 0
+            }));
+        }, 4800);
     }
 
-    const disableButtons = (index: number) => {
-        if(player === 'opponent' || finish === 'fighter__win' || changeTurn || attacksAvailable[index] === 0) {
-            return true
-        }
-        return false
-    }
+    const disableButtons = (index: number) => (
+        player === 'opponent'
+        || finishedBattle
+        || attacksAvailable[index] === 0
+        || buttonsDisabled
+    )
 
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -97,13 +80,13 @@ function FightsData({ player, opponentDamage, punched, finish, turn, hisTurn, se
                         <Button
                             size="small"
                             variant='contained'
-                            color={colorButton(i)}
-                            style={{width: '10rem', justifyContent: player === 'player' ? 'space-between' : ''}}
+                            color={defineSkillColorButton(i)}
+                            style={{width: '10rem', justifyContent: player === 'me' ? 'space-between' : ''}}
                             disabled={disableButtons(i + 1)}
-                            onClick={() => damagePoints(i)}
+                            onClick={() => calculateDamagePoints(i)}
                         >
                             {skill.toUpperCase()}
-                            {player === 'player' && <span>{attacksAvailable[i + 1]}</span>}
+                            {player === 'me' && <span>{attacksAvailable[i + 1]}</span>}
                         </Button>
                     </div>
                 ))}

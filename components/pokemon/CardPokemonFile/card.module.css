@@ -57,7 +57,7 @@
     position: relative;
 }
 
-  .sliding-div {
+.sliding-div {
     position: absolute;
     top: 10%;
     left: -150px;
