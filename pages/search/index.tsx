@@ -130,7 +130,7 @@ const SearchPokemon = ({ thereIsUser }: SearchPokemonProps) => {
     }
 
     const showEvolution = () => {
-        if(!evolutionData) return;
+        if(!evolutionData || !hasEvolution) return;
         MySwal.fire({
             html: (
                 <Provider store={store}>

@@ -36,6 +36,7 @@
 
 .searchPokemon__card {
     width: 18rem;
+    z-index: 2;
 }
 
 .searchPokemon__background {
@@ -43,9 +44,82 @@
     border-bottom-right-radius: 7.7rem;
 }
 
+.pokemon-type {
+    display: flex;
+    margin-top: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+}
+
+.pokemon-type-container {
+    position: relative;
+}
+
+  .sliding-div {
+    position: absolute;
+    top: 10%;
+    left: -150px;
+    width: 145px;
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    transition: left 0.5s ease;
+    justify-content: center;
+    padding: 5px;
+    font-family: pokemon !important;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    padding-bottom: 10px;
+    opacity: 1;
+    transition: left 0.2s ease, opacity 0.1s ease;
+}
+
+.sliding-div.pressed {
+    opacity: 0;
+    left: 0;
+}
+
+.pokemon-option {
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 8px;
+    margin-left: 5px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.disabled-pokemon-option {
+    opacity: 0.4;
+}
+
 .fade-in-pikachu {
     animation: fadeIn 1s ease-in-out;
     opacity: 1;
+}
+
+.grow-text {
+    display: block;
+    animation: growText 0.5s ease-out;
+}
+
+@keyframes growText {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
