@@ -18,6 +18,7 @@ import { generateGradient } from '../../../utils/generateGradient';
 import { iconsByType } from '../../../utils/iconsByType';
 import Review from '../../../utils/Review';
 import RotateContent from './RotateContent';
+import MaterialTooltip from './MaterialTooltip';
 
 type IconName = 'listen-pokemon' | 'listen-description' | 'see-evolution';
 
@@ -152,22 +153,19 @@ const CardPokemonFile = ({
             {!modal && pokemonData && <div>
                 {pokemonData?.types.map(({type}: { type: { name: string; url: string } }) => (
                     <div key={type.name} className={styles['pokemon-type-container']}>
-                    <Tooltip
-                        placement="left"
-                        title="Check type"
-                    >
-                      <span
-                        className={styles['pokemon-type']}
-                        onClick={() => handleClick(type.name)}
-                      >
-                        {iconsByType[type.name as keyof typeof iconsByType]}
-                      </span>
-                    </Tooltip>
+                        <MaterialTooltip placement='left' title='Check type'>
+                            <span
+                                className={styles['pokemon-type']}
+                                onClick={() => handleClick(type.name)}
+                            >
+                                {iconsByType[type.name as keyof typeof iconsByType]}
+                            </span>
+                        </MaterialTooltip>
 
-                    <div className={`${styles['sliding-div']} ${openTypes.includes(type.name) ? styles.pressed : ''}`}>
-                        Type: <span style={{color: colorsByType[type.name as keyof typeof colorsByType]}}>{type.name}</span>
+                        <div className={clsx(styles['sliding-div'], !openTypes.includes(type.name) ? styles.pressed : '')}>
+                            Type: <span style={{color: colorsByType[type.name as keyof typeof colorsByType]}}>{type.name}</span>
+                        </div>
                     </div>
-                  </div>
                 ))}
             </div>}
 
@@ -185,7 +183,11 @@ const CardPokemonFile = ({
                                 {Number.isInteger(review) && review >= 0 ? (
                                     <div className={''} style={{padding: '10px'}}>
                                         <div className={styles['review-container']}>
-                                            <Review pokemonName={pokemonData.name} readOnly />
+                                            <Tooltip title='Read only here' placement='bottom'>
+                                                <div>
+                                                    <Review pokemonName={pokemonData.name} readOnly />
+                                                </div>
+                                            </Tooltip>
                                         </div>
                                     </div>
                                 ) : null}
