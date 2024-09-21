@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useDeferredValue } from 'react';
 
+import clsx from 'clsx';
 import { connect } from 'react-redux';
 
 import ActionButtons from './ActionButtons';
@@ -10,7 +11,6 @@ import { loadPokemons } from '../../helpers/getAndLoadPokemons';
 import pokeapi from '../../helpers/pokeapi';
 import { useRedirect } from '../../hooks/useRedirect';
 import { PokemonData } from '../../interfaces/PokemonData';
-import clsx from 'clsx';
 
 interface AllPokemonsView {
     thereIsUser: string | boolean,

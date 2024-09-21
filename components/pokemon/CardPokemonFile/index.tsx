@@ -5,7 +5,9 @@ import clsx from 'clsx';
 import { connect } from 'react-redux';
 
 import styles from './card.module.css';
+import MaterialTooltip from './MaterialTooltip';
 import { pokemonOptions } from './pokemonOptions';
+import RotateContent from './RotateContent';
 import WhoIsThatPokemon from './WhoIsThatPokemon';
 import { useActions } from '../../../hooks/useActions';
 import { useGetRanked } from '../../../hooks/useGetRanked';
@@ -17,8 +19,6 @@ import { formatNumber } from '../../../utils/formatNumber';
 import { generateGradient } from '../../../utils/generateGradient';
 import { iconsByType } from '../../../utils/iconsByType';
 import Review from '../../../utils/Review';
-import RotateContent from './RotateContent';
-import MaterialTooltip from './MaterialTooltip';
 
 type IconName = 'listen-pokemon' | 'listen-description' | 'see-evolution';
 

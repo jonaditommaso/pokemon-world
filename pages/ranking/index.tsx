@@ -1,6 +1,8 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react';
 
 import { Box, Button, Tab, Tabs } from '@mui/material'; //ThemeProvider
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { GoPlus } from 'react-icons/go';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { connect } from 'react-redux';
@@ -10,16 +12,14 @@ import withReactContent from "sweetalert2-react-content";
 import ChartsModal from './ChartsModal';
 import styles from './ranking.module.css'
 import Battles from '../../components/fight/Battles';
+import Frame from '../../components/frame';
 import ContainerChart from '../../components/ranking/ContainerChart';
 import RankingTable from '../../components/ranking/RankingTable';
 import { fetchCharts } from '../../firebase/config';
 import { useGetRanked } from '../../hooks/useGetRanked';
+import pikachuImage from '../../public/assets/img/pikachusleeping.png'
 import { RootState } from '../../redux';
 import { TabPanel } from '../../utils/TabPanel';
-import Image from 'next/image';
-import pikachuImage from '../../public/assets/img/pikachusleeping.png'
-import { useRouter } from 'next/router';
-import Frame from '../../components/frame';
 
 const MySwal = withReactContent(Swal);
 
@@ -68,7 +68,7 @@ const Ranking = ({ ranking, userLogged, battlesData }: any) => {
             <div className={styles.backdrop} style={{ backgroundColor: noData ? '#00000066' : '' }}>
                 {noData
                 ? <div className={styles['not-explored-container']}>
-                    <h3>Haven't you explored Pokémon World yet?</h3>
+                    <h3>{"Haven't you explored Pokémon World yet?"}</h3>
                     <p>Rank pokemons in <span onClick={() => router.push('/pokemons')}>See all Pokemons</span></p>
                     <p>Search and choose a Pokémon in <span onClick={() => router.push('/search')}>Search Pokémon</span> to battle with it</p>
                     <Image

@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import Image from 'next/image'; // Si usas Next.js
-import styles from './eachPoke.module.css';
+
 import clsx from 'clsx';
+import Image from 'next/image'; // Si usas Next.js
+
+import styles from './eachPoke.module.css';
 
 interface ImageWithTransitionProps {
     src: string,

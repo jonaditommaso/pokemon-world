@@ -3,6 +3,7 @@ import React, { Suspense, lazy } from 'react';
 import { Chip } from '@mui/material';
 
 import styles from './eachPoke.module.css';
+import ImageWithTransition from './ImageWithTransition';
 import { PokemonData } from '../../../interfaces/PokemonData';
 import { capitalize } from '../../../utils/capitalize';
 import { colorsByType } from '../../../utils/colorsByType';
@@ -11,7 +12,6 @@ import { generateGradient } from '../../../utils/generateGradient';
 import Attack from '../../../utils/svg/Attack';
 import Defense from '../../../utils/svg/Defense';
 import Weight from '../../../utils/svg/Weight';
-import ImageWithTransition from './ImageWithTransition';
 const Review = lazy(() => import('../../../utils/Review'))
 
 interface Pokemon {
