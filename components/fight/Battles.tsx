@@ -27,7 +27,7 @@ const Battles = ({ battlesData }: any) => {
         <div>
             {get(battlesData, 'battles', 0) === 0 && (
                 <div
-                  style={{display: 'flex', justifyContent: 'center', marginBottom: '15px', alignItems: 'center'}}>
+                  style={{display: 'flex', justifyContent: 'center', marginBottom: '50px', alignItems: 'center'}}>
                     {`You don't battle yet`}&nbsp;<RiErrorWarningLine color="red" />
                 </div>
                 )}

@@ -45,7 +45,7 @@ const ChartsModal = ({ setCharts, currentCharts = [], userLogged }: ChartsModalP
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', padding: '40px'}}>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
                 {charts.map((chart, index) => (
                     <div key={chart.name}>
                         <div

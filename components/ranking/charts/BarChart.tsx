@@ -35,7 +35,8 @@ const BarChart = ({ ranking }: any) => {
       textStyle: {
         fontFamily: 'pokemon',
         color: 'black'
-      }
+      },
+      right: 'center'
     },
     yAxis: {
       type: 'category',

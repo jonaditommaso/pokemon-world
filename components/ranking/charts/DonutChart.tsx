@@ -84,6 +84,7 @@ const DonutChart = ({ ranking }: PropsPieChart) => {
 
     return (
         <div className={styles['container-donut']}>
+            <hr style={{ width: '70%', margin: 'auto', marginTop: '10px' }} />
             <ReactEcharts option={option} />
             <FilterButton setTypeSelected={setTypeSelected} customTypes={pokemonTypes} options={{ typeSelected: typeSelected }} />
         </div>

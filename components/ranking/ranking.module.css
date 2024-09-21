@@ -10,9 +10,13 @@
 
 .rankingTable {
     width: 400px;
+    margin: auto;
     border-radius: 5px;
     margin-top: 1%;
     text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 58vh;
 }
 
 .rankingTable td {
@@ -20,15 +24,29 @@
 }
 
 .chartRanking {
-    width: 400px;
-    background-color: white;
+    width: 500px;
     text-align: center;
+    height: 275px;
+    padding: 15px;
+}
+
+.rankingTable::-webkit-scrollbar {
+    scrollbar-width: thin;
+    color: transparent;
+    width: 7px;
+    background-color: transparent;
+    height: 7px;
+}
+
+.rankingTable::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
 }
 
 .container-chart {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     height: 55vh;
     padding-left: 3%;
     padding-right: 3%;
@@ -40,7 +58,7 @@
     scrollbar-width: thin;
     color: transparent;
     width: 7px;
-    background: #F7F7FF;
+    background-color: transparent;
     height: 7px;
 }
 

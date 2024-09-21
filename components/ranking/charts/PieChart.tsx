@@ -74,7 +74,8 @@ const PieChart = ({ ranking }: PropsPieChart) => {
   };
 
   return (
-    <div style={{ width: '400px' }}>
+    <div style={{ width: '400px', marginTop: '10px' }}>
+      <hr style={{ width: '70%', margin: 'auto', marginTop: '10px' }} />
       <ReactEcharts option={option} />
     </div>
   );
