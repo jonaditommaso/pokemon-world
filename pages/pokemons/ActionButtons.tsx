@@ -42,7 +42,7 @@ const ActionButtons = ({
             nextUrl: initialNextUrl,
             prevUrl: '',
         })
-    }, []);
+    }, [initialNextUrl]);
 
     const [typeSelected, setTypeSelected] = useState <boolean | string> (false);
 
@@ -87,34 +87,22 @@ const ActionButtons = ({
         resetPokemons();
     }
 
-    const showButtons = () => {
-        if(typeSelected) {
-            return (
-                <Button
+    return (
+        <nav className={styles['nav-pokemons']}>
+            {typeSelected
+                ? <Button
                     variant="contained"
                     color='error'
                     onClick={handleGoBack}
                 >
                     Go Back
                 </Button>
-            )
-        } else {
-            return (
-                <>
+                : <>
                     <Button variant="contained" color='error' onClick={()=> router.push('/')} className={styles['go-home-button']}>Go Home</Button>
-                    <Button variant="contained" onClick={() => pokemonList('prev')} disabled={!pagination.prevUrl}>Prev</Button>
+                    <Button variant="contained" onClick={() => pokemonList('prev')} disabled={!pagination?.prevUrl}>Prev</Button>
                     <Button variant="contained" onClick={() => pokemonList('next')}>Next</Button>
                 </>
-
-            );
-        }
-    }
-
-    const navButtons = showButtons();
-
-    return (
-        <nav className={styles['nav-pokemons']}>
-            {navButtons}
+            }
             <FilterButton setTypeSelected={setTypeSelected} />
         </nav>
     );
