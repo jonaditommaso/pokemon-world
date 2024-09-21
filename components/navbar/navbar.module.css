@@ -8,10 +8,10 @@
 }
 
 .music-button {
-    margin: 5px;
-    background-color: #c3c3c39d;
+    margin: 5px !important;
+    background-color: #c3c3c39d !important;
 }
 
 .music-button:hover {
-    background-color: #c3c3c3ce;
+    background-color: #c3c3c3ce !important;
 }

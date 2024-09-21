@@ -5,9 +5,9 @@
 }
 
 .outlined-button {
-    background-color: #f8b7b1d9;
+    background-color: #f8b7b1d9 !important;
 }
 
 .outlined-button:hover {
-    background-color: #f7938a;
+    background-color: #f7938a !important;
 }
