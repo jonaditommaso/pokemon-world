@@ -81,7 +81,7 @@ const EachPoke = ({
                 <hr style={{margin: '0'}} />
 
                 <p className={styles.attackAndDefense}>Weight</p>
-                <span style={{color: '#d98218'}}><Weight fill='#d98218' /> {pokemon.weight}</span>
+                <span style={{color: '#d98218'}}><Weight fill='#d98218' /> {pokemon.weight / 10}</span>
             </div>
 
         </div>
