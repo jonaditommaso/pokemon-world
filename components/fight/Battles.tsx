@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import get from 'lodash/get';
+import Image from 'next/image';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { connect } from 'react-redux';
 
+import styles from './fight.module.css'
 import Register from './Register';
 import { sections } from './sections';
+import pikachuFight from '../../public/assets/img/pikachu-fight.png'
 import { RootState } from '../../redux';
 
 const Battles = ({ battlesData }: any) => {
@@ -30,11 +33,20 @@ const Battles = ({ battlesData }: any) => {
                   style={{display: 'flex', justifyContent: 'center', marginBottom: '50px', alignItems: 'center'}}>
                     {`You don't battle yet`}&nbsp;<RiErrorWarningLine color="red" />
                 </div>
-                )}
-            <div style={{display: 'flex', flexWrap: 'wrap', width: '400px', margin: 'auto'}}>
+            )}
+
+            <div className={styles['battles-data-container']}>
                 {sections.map((section, index) => (
                     <Register key={section.key} dataNumber={get(data, `${section.key}`, '-')} section={section} />
                 ))}
+            </div>
+
+            <div className={styles['pikachu-box-image-container']}>
+                <Image
+                    src={pikachuFight}
+                    width={170}
+                    alt='pikachu box'
+                />
             </div>
         </div>
     )

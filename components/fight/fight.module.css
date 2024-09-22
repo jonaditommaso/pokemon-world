@@ -141,6 +141,21 @@
     color: white;
 }
 
+.battles-data-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    margin: auto;
+}
+
+.pikachu-box-image-container {
+    width: 400px;
+    margin: auto;
+    margin-top: 15%;
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 770px) {
     .showingVideo {
         margin: auto;
