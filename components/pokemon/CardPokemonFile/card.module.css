@@ -101,6 +101,17 @@
     opacity: 0.4;
 }
 
+.image-container {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+
+  .image-loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+
 .fade-in-pikachu {
     animation: fadeIn 1s ease-in-out;
     opacity: 1;
