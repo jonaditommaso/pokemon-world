@@ -4,13 +4,13 @@ import { Divider, FormControl, Select } from '@mui/material';
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
 
 import MenuPokeItem from './MenuPokeItem';
 import styles from './sideDropdown.module.css'
 import { useActions } from '../../hooks/useActions';
 import pokeball from '../../public/assets/img/pokeballOpen.png'
 import { noBattle, musicBattlePause } from '../../redux/action-creators'
+import { abandonBattleMessage } from '../../utils/abandonBattleMessage';
 
 interface SideDropdownProps {
     user: string,
@@ -31,23 +31,11 @@ const SideDropdown = ({user, battle}: SideDropdownProps) => {
     const warning = (go: string) => {
         setOpen(false);
         if(battle.pokemon === true) {
-            Swal.fire({
-                icon: 'warning',
-                text: 'Are you sure you want to abandon the battle?',
-                showConfirmButton: true,
-                confirmButtonText: "Ok",
-                confirmButtonColor: '#2754d5',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                backdrop: true
-            })
-                .then((result: any) => {
-                    if (result.value) {
-                        noBattle(false);
-                        router.push(go);
-                        musicBattlePause();
-                    }
-                });
+            abandonBattleMessage(() => {
+                noBattle(false);
+                router.push(go);
+                musicBattlePause();
+            });
         }
         else {
             router.push(go);
