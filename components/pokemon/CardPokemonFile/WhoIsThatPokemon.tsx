@@ -15,15 +15,22 @@ const audio = typeof window !== 'undefined' && document.getElementById('music') 
 
 const WhoIsThatPokemon = ({ music }: any) => {
     const [discoveredPikachu, setDiscoveredPikachu] = useState(false);
-    const [showImage, setShowImage] = useState(false)
+    const [showImage, setShowImage] = useState(false);
+    const [disabledButton, setDisabledButton] = useState(true)
     const { pauseMusic, playMusic } = useActions();
 
 
     useEffect(() => {
         if (!audio) return;
+
+        const whoIs = document.getElementById('who-is') as HTMLAudioElement;
+        whoIs.addEventListener('ended', () => setDisabledButton(false));
+
+
         const handleAudioEnded = () => {
             audio.play();
             playMusic();
+
         }
 
         if(discoveredPikachu) {
@@ -61,7 +68,7 @@ const WhoIsThatPokemon = ({ music }: any) => {
                 variant='contained'
                 sx={{width: '100%', marginTop: '1rem'}}
                 onClick={handleClick}
-                disabled={showImage}
+                disabled={showImage || (audio && disabledButton)}
             >
                 Discover
             </Button>

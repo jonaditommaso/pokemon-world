@@ -132,6 +132,7 @@ const Navbar = ({thereIsUser, music = {volume: false, other: false, paused: fals
                 ref={audioRef}
                 controls
                 autoPlay
+                id='who-is'
                 style={{display: 'none'}}
             ></audio>
 
