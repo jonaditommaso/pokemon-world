@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Button } from '@mui/material';
 import clsx from 'clsx'
+import { useRouter } from 'next/router';
 import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -25,16 +26,25 @@ const Overlay = () => {
 interface FightProps {
     music: MusicState,
     opponentData: any,
-    startBattle: any
+    startBattle: any,
+    fighter: any
 }
 
-const Fight = ( { music, opponentData, startBattle }: FightProps) => {
+const Fight = ( { music, opponentData, startBattle, fighter }: FightProps) => {
 
     const { musicBattle, musicBattlePause, battleMode } = useActions();
 
     const [showBattle, setShowBattle] = useState(false);
     const [fightTypeSelected, setFightTypeSelected] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!fighter.pokemon) {
+            router.push('/search')
+        }
+    }, [])
+
 
     const showVideo = startBattle && !showBattle;
 
@@ -91,6 +101,8 @@ const Fight = ( { music, opponentData, startBattle }: FightProps) => {
         });
     }
 
+    if (!fighter.pokemon) return null
+
     return (
         <div>
             <div
@@ -135,6 +147,7 @@ const mapStateToProps = (state: any) => {
     return {
         music: state.music,
         startBattle: state.battleMode.mode,
+        fighter: state.fight
     }
 }
 
