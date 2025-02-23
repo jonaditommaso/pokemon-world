@@ -28,6 +28,7 @@
     margin: auto;
     position: fixed;
     width: 99%;
+    z-index: 10;
     background: linear-gradient(to right, rgba(234, 237, 237, 0), rgba(234, 237, 237, 1), rgba(234, 237, 237, 0));
 }
 
