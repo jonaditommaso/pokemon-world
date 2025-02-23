@@ -11,7 +11,7 @@ type AttackCount = {
     [key: number]: number;
 };
 
-function FightsData({ setPunchedClass, lifePoints, player, setDamagePoints, finishedBattle, attack, character }: Fighter) {
+function FightsData({ setPunchedClass, lifePoints, player, setDamagePoints, finishedBattle, attack, character, setMyPrompt, setOpponentPrompt, opponentMoves, opponentName }: Fighter) {
 
     const [buttonsDisabled, setButtonsDisabled] = React.useState<boolean>(false);
     const [attacksAvailable, setAttacksAvailable] = React.useState<AttackCount>({
@@ -41,6 +41,8 @@ function FightsData({ setPunchedClass, lifePoints, player, setDamagePoints, fini
 
         setPunchedClass('opponent'); // set new class to opponent shaking
 
+        setMyPrompt!(`${character.name.toUpperCase()} used ${skills[i].toUpperCase()}!`)
+
         setTimeout(() => { // after 800 ms, set new class to restore opponent state
             setPunchedClass('');
         }, 800);
@@ -51,6 +53,7 @@ function FightsData({ setPunchedClass, lifePoints, player, setDamagePoints, fini
             }
             else {
                 setPunchedClass('me');
+                setOpponentPrompt!(`${opponentName!.toUpperCase()} used ${opponentMoves[Math.floor(Math.random() * 4)].toUpperCase()}!`)
             }
         }, 4000);
 

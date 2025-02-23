@@ -7,7 +7,11 @@ export interface Fighter {
     setDamagePoints?: React.Dispatch<React.SetStateAction<DamagePoints>>,
     character: any,
     setPunchedClass?:any,
-    lifePoints?: any
+    lifePoints?: any,
+    setMyPrompt?: React.Dispatch<React.SetStateAction<string>>
+    setOpponentPrompt?: React.Dispatch<React.SetStateAction<string>>,
+    opponentMoves?: any,
+    opponentName?: string
 }
 
 export interface LifePoints {
